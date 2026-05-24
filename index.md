@@ -409,6 +409,27 @@ body {
   max-width: 100%;
 }
 
+.about-card-summary {
+  margin-bottom: 22px;
+}
+
+.about-items {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-left: 1.3rem;
+}
+
+.about-items li::marker {
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 700;
+}
+
+.about-item-name {
+  color: #fff;
+  font-weight: 700;
+}
+
 .about-detail {
   position: fixed;
   top: 50%;
@@ -453,25 +474,64 @@ body {
   margin-bottom: 0;
 }
 
+.about-cover-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
 .about-detail-media {
+  min-height: 170px;
   display: flex;
-  width: 100%;
-  min-height: 300px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  color: rgba(255, 255, 255, 0.48);
+  align-items: end;
+  justify-content: start;
+  padding: 16px;
+  color: rgba(255, 255, 255, 0.86);
+  font: inherit;
   font-size: 0.82rem;
-  letter-spacing: 0.10em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-align: left;
   border: 1px solid rgba(255, 255, 255, 0.12);
   background:
-    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.16), transparent 26%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(255, 138, 66, 0.30), rgba(46, 204, 143, 0.18)),
+    rgba(255, 255, 255, 0.04);
   cursor: zoom-in;
 }
 
-button.about-detail-media {
-  font: inherit;
+.about-detail-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+.about-detail-list li::marker {
+  color: #fff;
+  font-weight: 800;
+}
+
+.about-detail-list h4 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.about-detail-list p {
+  margin: 0 0 8px;
+}
+
+.about-comment {
+  color: rgba(255, 255, 255, 0.60);
+}
+
+.about-load-error {
+  padding: 28px;
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(9, 10, 12, 0.34);
 }
 
 .about-detail a {
@@ -701,6 +761,14 @@ button.about-detail-media {
     background: transparent;
     box-shadow: none;
     backdrop-filter: none;
+  }
+
+  .about-cover-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-detail-media {
+    min-height: 120px;
   }
 
   .daily-board {
@@ -970,6 +1038,7 @@ button.about-detail-media {
 <script>
 let activeAboutCard = null;
 let detailCloseTimer = null;
+const aboutSectionsPath = "assets/about-sections.json";
 const visitCalendarKey = "greenflower-homepage-visits";
 
 function openAboutDetail(card) {
@@ -991,23 +1060,102 @@ function scheduleCloseAboutDetail() {
   }, 120);
 }
 
-document.querySelectorAll(".about-card").forEach((card) => {
-  const detail = card.querySelector(".about-detail");
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
 
-  card.addEventListener("mouseenter", () => openAboutDetail(card));
-  card.addEventListener("mouseleave", (event) => {
-    if (detail && detail.contains(event.relatedTarget)) return;
-    scheduleCloseAboutDetail();
-  });
+function renderAboutSections(sections) {
+  const grid = document.querySelector(".about-grid");
+  if (!grid) return;
 
-  if (detail) {
-    detail.addEventListener("mouseenter", () => openAboutDetail(card));
-    detail.addEventListener("mouseleave", (event) => {
-      if (card.contains(event.relatedTarget)) return;
+  grid.innerHTML = sections.map((section) => {
+    const items = Array.isArray(section.items) ? section.items.slice(0, 4) : [];
+    const title = `${escapeHtml(section.titleEn)} / ${escapeHtml(section.titleCn)}`;
+    const itemList = items.map((item) => `
+      <li><span class="about-item-name">${escapeHtml(item.name)}</span>：${escapeHtml(item.description)}</li>
+    `).join("");
+    const coverGrid = items.map((item) => `
+      <button class="about-detail-media" type="button" data-lightbox-title="${escapeHtml(item.coverLabel || item.name)}">
+        ${escapeHtml(item.coverLabel || item.name)}
+      </button>
+    `).join("");
+    const detailList = items.map((item) => `
+      <li>
+        <h4>${escapeHtml(item.name)}</h4>
+        <p>${escapeHtml(item.description)}</p>
+        <p class="about-comment">我的评价：${escapeHtml(item.comment)}</p>
+      </li>
+    `).join("");
+
+    return `
+      <article class="about-card" data-section="${escapeHtml(section.id)}">
+        <h3>${title}</h3>
+        <p class="about-card-summary">${escapeHtml(section.summary)}</p>
+        <ol class="about-items">${itemList}</ol>
+        <div class="about-detail">
+          <div class="about-cover-grid">${coverGrid}</div>
+          <strong>${title}</strong>
+          <ol class="about-detail-list">${detailList}</ol>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  bindAboutInteractions();
+  bindLightboxTriggers();
+}
+
+function showAboutLoadError() {
+  const grid = document.querySelector(".about-grid");
+  if (!grid) return;
+  grid.innerHTML = '<p class="about-load-error">About 内容加载失败，稍后再来看看。</p>';
+}
+
+function bindAboutInteractions() {
+  activeAboutCard = null;
+  if (detailCloseTimer) window.clearTimeout(detailCloseTimer);
+
+  document.querySelectorAll(".about-card").forEach((card) => {
+    const detail = card.querySelector(".about-detail");
+
+    card.addEventListener("mouseenter", () => openAboutDetail(card));
+    card.addEventListener("mouseleave", (event) => {
+      if (detail && detail.contains(event.relatedTarget)) return;
       scheduleCloseAboutDetail();
     });
+
+    if (detail) {
+      detail.addEventListener("mouseenter", () => openAboutDetail(card));
+      detail.addEventListener("mouseleave", (event) => {
+        if (card.contains(event.relatedTarget)) return;
+        scheduleCloseAboutDetail();
+      });
+    }
+  });
+}
+
+function loadAboutSections() {
+  const grid = document.querySelector(".about-grid");
+  if (grid) {
+    grid.innerHTML = '<p class="about-load-error">正在加载 About 内容...</p>';
   }
-});
+
+  fetch(aboutSectionsPath)
+    .then((response) => {
+      if (!response.ok) throw new Error("About data request failed");
+      return response.json();
+    })
+    .then((sections) => {
+      if (!Array.isArray(sections)) throw new Error("About data is not an array");
+      renderAboutSections(sections);
+    })
+    .catch(showAboutLoadError);
+}
 
 const lightbox = document.getElementById("detail-lightbox");
 const lightboxPanel = document.getElementById("detail-lightbox-panel");
@@ -1019,14 +1167,16 @@ function closeLightbox() {
   lightbox.setAttribute("aria-hidden", "true");
 }
 
-document.querySelectorAll(".about-detail-media").forEach((button) => {
-  button.addEventListener("click", () => {
-    if (!lightbox || !lightboxPanel) return;
-    lightboxPanel.textContent = button.dataset.lightboxTitle || button.textContent;
-    lightbox.classList.add("is-open");
-    lightbox.setAttribute("aria-hidden", "false");
+function bindLightboxTriggers() {
+  document.querySelectorAll(".about-detail-media").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!lightbox || !lightboxPanel) return;
+      lightboxPanel.textContent = button.dataset.lightboxTitle || button.textContent;
+      lightbox.classList.add("is-open");
+      lightbox.setAttribute("aria-hidden", "false");
+    });
   });
-});
+}
 
 if (lightboxClose) {
   lightboxClose.addEventListener("click", closeLightbox);
@@ -1041,6 +1191,8 @@ if (lightbox) {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeLightbox();
 });
+
+loadAboutSections();
 
 function formatVisitDate(date) {
   const year = date.getFullYear();

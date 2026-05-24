@@ -1,0 +1,194 @@
+[
+  {
+    "id": "study",
+    "titleEn": "Study",
+    "titleCn": "学",
+    "summary": "这里是我最近正在学习的内容，先放一些占位项目，之后可以替换成真实课程、技术和练习。",
+    "items": [
+      {
+        "name": "网页布局基础",
+        "description": "整理 HTML、CSS 和页面结构的基本功。",
+        "comment": "这是装修主页时最容易立刻见效的一块，学一点就能把页面改得顺眼一点。",
+        "coverLabel": "HTML / CSS"
+      },
+      {
+        "name": "JavaScript 交互",
+        "description": "学习如何让页面拥有弹窗、日历、时间显示等交互。",
+        "comment": "目前已经在主页里边学边用，虽然偶尔会被细节拦住，但很有成就感。",
+        "coverLabel": "JavaScript"
+      },
+      {
+        "name": "GitHub Pages",
+        "description": "理解静态站点发布、路径和资源组织。",
+        "comment": "它很适合个人主页，但也会提醒我静态页面和后端能力之间的边界。",
+        "coverLabel": "Pages"
+      },
+      {
+        "name": "Markdown 写作",
+        "description": "用更清晰的结构记录学习和想法。",
+        "comment": "写得清楚比写得很多更重要，希望以后这里真的能沉淀东西。",
+        "coverLabel": "Markdown"
+      }
+    ]
+  },
+  {
+    "id": "read",
+    "titleEn": "Read",
+    "titleCn": "读",
+    "summary": "这里记录最近读到的书、文章和文档，先用占位内容搭好结构。",
+    "items": [
+      {
+        "name": "技术文档",
+        "description": "阅读工具、框架和平台的官方说明。",
+        "comment": "文档有时候像迷宫，但走出来之后就会少踩很多坑。",
+        "coverLabel": "Docs"
+      },
+      {
+        "name": "项目 README",
+        "description": "观察别人如何介绍项目和组织信息。",
+        "comment": "好的 README 会让人立刻知道项目想解决什么问题，这点值得学。",
+        "coverLabel": "README"
+      },
+      {
+        "name": "个人博客",
+        "description": "阅读别人的学习记录和踩坑总结。",
+        "comment": "最喜欢那种不像教程但特别真实的文章，像有人在前面留了路标。",
+        "coverLabel": "Blog"
+      },
+      {
+        "name": "设计参考",
+        "description": "收集一些个人主页、作品集和视觉风格参考。",
+        "comment": "不是为了照抄，而是为了知道页面还能长成什么样。",
+        "coverLabel": "Design"
+      }
+    ]
+  },
+  {
+    "id": "watch",
+    "titleEn": "Watch",
+    "titleCn": "看",
+    "summary": "这里放最近看的视频、课程、作品和一些视觉参考。",
+    "items": [
+      {
+        "name": "前端教程",
+        "description": "看一些页面实现和交互效果的讲解。",
+        "comment": "视频适合快速建立感觉，但最后还是要自己动手写一遍。",
+        "coverLabel": "Frontend"
+      },
+      {
+        "name": "作品集页面",
+        "description": "观察不同个人主页如何安排首屏和内容。",
+        "comment": "看多了会发现，真正舒服的页面往往不是最花的，而是最有秩序的。",
+        "coverLabel": "Portfolio"
+      },
+      {
+        "name": "设计拆解",
+        "description": "学习色彩、排版、层次和动效的处理方式。",
+        "comment": "现在最想避免的是页面变成一堆功能的堆叠，而是要有整体气质。",
+        "coverLabel": "Visual"
+      },
+      {
+        "name": "项目演示",
+        "description": "看别人如何展示项目成果和过程。",
+        "comment": "一个好演示能让项目显得更完整，也能让我反过来整理自己的表达。",
+        "coverLabel": "Demo"
+      }
+    ]
+  },
+  {
+    "id": "listen",
+    "titleEn": "Listen",
+    "titleCn": "听",
+    "summary": "这里记录最近在听的内容，可以是音乐、播客，也可以是背景白噪音。",
+    "items": [
+      {
+        "name": "写代码歌单",
+        "description": "适合边改页面边循环播放的音乐。",
+        "comment": "好的背景音乐像给大脑铺了一条路，坏的会直接把注意力带走。",
+        "coverLabel": "Playlist"
+      },
+      {
+        "name": "播客片段",
+        "description": "听一些关于学习、技术和生活的谈话。",
+        "comment": "不一定每次都有收获，但偶尔一句话会刚好撞到当前的问题。",
+        "coverLabel": "Podcast"
+      },
+      {
+        "name": "白噪音",
+        "description": "用来进入专注状态的环境声。",
+        "comment": "适合整理内容和调样式，尤其适合不想被歌词带跑的时候。",
+        "coverLabel": "Noise"
+      },
+      {
+        "name": "灵感 BGM",
+        "description": "给页面装修时找一点情绪底色。",
+        "comment": "视觉风格有时候是听出来的，不完全是看出来的。",
+        "coverLabel": "Mood"
+      }
+    ]
+  },
+  {
+    "id": "travel",
+    "titleEn": "Travel",
+    "titleCn": "旅行",
+    "summary": "这里先留给之后的出行记录、照片和路线，暂时是未来坑位。",
+    "items": [
+      {
+        "name": "城市散步",
+        "description": "记录一些适合慢慢走的地方。",
+        "comment": "旅行不一定要很远，有时候换一条路走就已经很像刷新地图了。",
+        "coverLabel": "City"
+      },
+      {
+        "name": "照片整理",
+        "description": "把之后拍到的照片归档到相册页。",
+        "comment": "希望未来这里不只是文字，也能放一些真的看过的风景。",
+        "coverLabel": "Photo"
+      },
+      {
+        "name": "路线清单",
+        "description": "收藏一些想去的地方和计划路线。",
+        "comment": "先把坑位挖好，等真正出发的时候就不会忘了记录。",
+        "coverLabel": "Route"
+      },
+      {
+        "name": "旅行碎片",
+        "description": "记录路上的小事、食物和突然冒出来的想法。",
+        "comment": "真正有意思的经常不是景点，而是路上那些没计划的小片段。",
+        "coverLabel": "Memory"
+      }
+    ]
+  },
+  {
+    "id": "building",
+    "titleEn": "Building",
+    "titleCn": "装修中",
+    "summary": "这里记录这个主页本身的施工进度，毕竟它现在确实还在装修。",
+    "items": [
+      {
+        "name": "首页首屏",
+        "description": "整理头像、标题、导航、时间和背景氛围。",
+        "comment": "这部分已经有基本气质了，后面主要是继续调比例和细节。",
+        "coverLabel": "Hero"
+      },
+      {
+        "name": "About 卡片",
+        "description": "把个人介绍改成可扩展的模块化内容。",
+        "comment": "这是主页最核心的内容区，得慢慢从占位变成真实记录。",
+        "coverLabel": "Cards"
+      },
+      {
+        "name": "访问日历",
+        "description": "记录当前浏览器访问主页的日期。",
+        "comment": "它是一个很小但很有仪式感的组件，像在主页上打卡。",
+        "coverLabel": "Calendar"
+      },
+      {
+        "name": "导航页面",
+        "description": "为 Blog、RedBook、Gallery、Thinking 预留独立页面。",
+        "comment": "现在先统一风格，之后再逐个填充内容。",
+        "coverLabel": "Pages"
+      }
+    ]
+  }
+]

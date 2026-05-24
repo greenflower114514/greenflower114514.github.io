@@ -55,32 +55,23 @@ body {
     linear-gradient(180deg, #151617 0%, #202326 44%, #0c0f12 100%);
 }
 
-.profile-status {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  width: min(560px, 94vw);
-  align-items: center;
-  justify-content: flex-end;
-  margin: 0 auto 58px;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-}
-
 .profile-time {
+  position: absolute;
+  top: 18px;
+  right: max(28px, calc((100vw - 1180px) / 2));
+  z-index: 3;
   display: inline-flex;
   min-height: 34px;
   align-items: center;
+  padding: 0 14px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(8, 9, 10, 0.30);
   backdrop-filter: blur(14px);
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
-}
-
-.profile-time {
-  padding: 0 14px;
-  font-variant-numeric: tabular-nums;
 }
 
 .profile-hero {
@@ -113,7 +104,7 @@ body {
   position: relative;
   z-index: 1;
   width: min(680px, 94vw);
-  transform: translateY(-12px);
+  transform: translateY(-2px);
 }
 
 .profile-avatar {
@@ -214,19 +205,11 @@ body {
   font-size: 1.02rem;
 }
 
-.profile-content h2,
-.profile-content h3 {
-  color: #fff;
-}
-
 .profile-content h2 {
   margin-top: 48px;
   padding-bottom: 10px;
+  color: #fff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.profile-content h3 {
-  margin-top: 28px;
 }
 
 .profile-content p,
@@ -238,22 +221,13 @@ body {
   color: #d8e2ff;
 }
 
-.profile-content hr {
-  margin: 48px 0 24px;
-  border: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-}
-
 @media (max-width: 640px) {
-  .profile-status {
-    width: min(520px, 96vw);
-    margin-bottom: 38px;
-    font-size: 0.72rem;
-  }
-
   .profile-time {
+    top: 56px;
+    right: 14px;
     min-height: 30px;
     padding: 0 10px;
+    font-size: 0.68rem;
   }
 
   .profile-hero {
@@ -298,17 +272,15 @@ body {
 
 <div class="profile-page">
   <section class="profile-hero">
-    <div class="profile-hero-inner">
-      <div class="profile-status" aria-label="页面状态">
-        <time class="profile-time" id="profile-time">Loading time...</time>
-      </div>
+    <time class="profile-time" id="profile-time">Loading time...</time>
 
+    <div class="profile-hero-inner">
       <img class="profile-avatar" src="https://avatars.githubusercontent.com/u/93895894?v=4" alt="干煸双鲜的头像">
       <h1 class="profile-title">干煸双鲜</h1>
       <p class="profile-subtitle">·谁能送我只猫啊·</p>
       <div class="profile-divider"></div>
       <nav class="profile-nav" aria-label="个人主页导航">
-        <a href="#blog">
+        <a href="blog.html">
           <span class="profile-nav-icon">✎</span>
           <span class="profile-nav-en">Blog</span>
           <span class="profile-nav-cn">博客</span>
@@ -318,17 +290,17 @@ body {
           <span class="profile-nav-en">About</span>
           <span class="profile-nav-cn">关于</span>
         </a>
-        <a href="#redbook">
+        <a href="redbook.html">
           <span class="profile-nav-icon">◎</span>
           <span class="profile-nav-en">RedBook</span>
           <span class="profile-nav-cn">小红书</span>
         </a>
-        <a href="#gallery">
+        <a href="gallery.html">
           <span class="profile-nav-icon">▣</span>
           <span class="profile-nav-en">Gallery</span>
           <span class="profile-nav-cn">相册</span>
         </a>
-        <a href="#thinking">
+        <a href="thinking.html">
           <span class="profile-nav-icon">☼</span>
           <span class="profile-nav-en">Thinking</span>
           <span class="profile-nav-cn">思考</span>
@@ -352,45 +324,12 @@ body {
       <li>方向 3</li>
     </ul>
 
-    <h2>项目</h2>
-
-    <h3>项目名称 A</h3>
-
-    <p>用 2 到 4 句话介绍这个项目做了什么、你负责了什么、结果如何。</p>
-
-    <h3>项目名称 B</h3>
-
-    <p>继续用相同格式补充。</p>
-
-    <h2><span id="blog">文章或笔记</span></h2>
-
-    <ul>
-      <li><a href="#">文章标题 1</a></li>
-      <li><a href="#">文章标题 2</a></li>
-    </ul>
-
-    <h2><span id="redbook">小红书</span></h2>
-
-    <p>待补充。</p>
-
-    <h2><span id="gallery">相册</span></h2>
-
-    <p>待补充。</p>
-
-    <h2><span id="thinking">思考</span></h2>
-
-    <p>待补充。</p>
-
     <h2>联系方式</h2>
 
     <ul>
       <li>GitHub: <a href="https://github.com/greenflower114514">greenflower114514</a></li>
       <li>Email: your-email@example.com</li>
     </ul>
-
-    <hr>
-
-    <p>这页内容完全用 Markdown 编写。以后你主要修改这个文件就可以了。</p>
   </main>
 </div>
 
@@ -401,6 +340,7 @@ function updateProfileTime() {
 
   const now = new Date();
   const formatted = new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "Asia/Shanghai",
     year: "numeric",
     month: "2-digit",
     day: "2-digit",

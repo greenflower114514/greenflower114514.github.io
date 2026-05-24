@@ -249,6 +249,98 @@ body {
   line-height: 1.65;
 }
 
+.visit-calendar {
+  position: fixed;
+  top: 92px;
+  left: max(22px, calc((100vw - 1700px) / 2 + 20px));
+  z-index: 2;
+  width: 300px;
+  padding: 22px;
+  color: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 138, 66, 0.55), transparent 34%),
+    radial-gradient(circle at 90% 94%, rgba(46, 204, 143, 0.72), transparent 36%),
+    linear-gradient(135deg, rgba(249, 115, 22, 0.72), rgba(17, 24, 39, 0.86) 46%, rgba(15, 23, 42, 0.92));
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(18px);
+}
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.calendar-head button {
+  width: 38px;
+  height: 34px;
+  color: #fff;
+  border: 0;
+  background: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+}
+
+.calendar-title {
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 8px;
+}
+
+.calendar-weekdays span {
+  padding: 6px 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.calendar-day {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  border: 1px solid transparent;
+}
+
+.calendar-day.is-muted {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.calendar-day.is-visited {
+  color: #111827;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.90);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.calendar-day.is-today {
+  border-color: rgba(255, 255, 255, 0.72);
+}
+
+.calendar-note {
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
 .about-kicker {
   margin: 0 0 14px;
   color: rgba(255, 255, 255, 0.56);
@@ -617,6 +709,12 @@ button.about-detail-media {
     margin: 34px auto 0;
   }
 
+  .visit-calendar {
+    position: static;
+    width: min(100% - 28px, 340px);
+    margin: 28px auto 0;
+  }
+
   .timeline-heading {
     display: block;
   }
@@ -668,6 +766,12 @@ button.about-detail-media {
     top: 24px;
     width: min(980px, calc(100% - 64px));
     margin: 0 auto 72px;
+  }
+
+  .visit-calendar {
+    position: static;
+    width: min(360px, calc(100% - 64px));
+    margin: 32px auto 0;
   }
 }
 </style>
@@ -838,6 +942,25 @@ button.about-detail-media {
     </ul>
   </aside>
 
+  <aside class="visit-calendar" aria-label="主页访问日历">
+    <div class="calendar-head">
+      <button class="calendar-prev" type="button" aria-label="上个月">&lt;</button>
+      <div class="calendar-title" id="calendar-title">Month 0000</div>
+      <button class="calendar-next" type="button" aria-label="下个月">&gt;</button>
+    </div>
+    <div class="calendar-weekdays" aria-hidden="true">
+      <span>S</span>
+      <span>M</span>
+      <span>T</span>
+      <span>W</span>
+      <span>T</span>
+      <span>F</span>
+      <span>S</span>
+    </div>
+    <div class="calendar-days" id="calendar-days"></div>
+    <p class="calendar-note">访问过主页的日期会被点亮，记录保存在当前浏览器中。</p>
+  </aside>
+
   <div class="detail-lightbox" id="detail-lightbox" aria-hidden="true">
     <button class="detail-lightbox-close" type="button" aria-label="关闭大图">×</button>
     <div class="detail-lightbox-panel" id="detail-lightbox-panel">IMAGE / NOTE</div>
@@ -847,6 +970,7 @@ button.about-detail-media {
 <script>
 let activeAboutCard = null;
 let detailCloseTimer = null;
+const visitCalendarKey = "greenflower-homepage-visits";
 
 function openAboutDetail(card) {
   if (detailCloseTimer) window.clearTimeout(detailCloseTimer);
@@ -917,6 +1041,88 @@ if (lightbox) {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeLightbox();
 });
+
+function formatVisitDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function readVisitDates() {
+  try {
+    return JSON.parse(localStorage.getItem(visitCalendarKey)) || [];
+  } catch {
+    return [];
+  }
+}
+
+function saveTodayVisit() {
+  const today = formatVisitDate(new Date());
+  const visits = new Set(readVisitDates());
+  visits.add(today);
+  localStorage.setItem(visitCalendarKey, JSON.stringify([...visits].sort()));
+}
+
+let calendarCursor = new Date();
+calendarCursor.setDate(1);
+
+function renderVisitCalendar() {
+  const titleNode = document.getElementById("calendar-title");
+  const daysNode = document.getElementById("calendar-days");
+  if (!titleNode || !daysNode) return;
+
+  const visits = new Set(readVisitDates());
+  const year = calendarCursor.getFullYear();
+  const month = calendarCursor.getMonth();
+  const todayKey = formatVisitDate(new Date());
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const title = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    year: "numeric"
+  }).format(calendarCursor);
+
+  titleNode.textContent = title;
+  daysNode.innerHTML = "";
+
+  for (let i = 0; i < firstDay; i += 1) {
+    const empty = document.createElement("span");
+    empty.className = "calendar-day is-muted";
+    daysNode.appendChild(empty);
+  }
+
+  for (let day = 1; day <= daysInMonth; day += 1) {
+    const date = new Date(year, month, day);
+    const key = formatVisitDate(date);
+    const node = document.createElement("span");
+    node.className = "calendar-day";
+    node.textContent = day;
+    if (visits.has(key)) node.classList.add("is-visited");
+    if (key === todayKey) node.classList.add("is-today");
+    daysNode.appendChild(node);
+  }
+}
+
+const calendarPrev = document.querySelector(".calendar-prev");
+const calendarNext = document.querySelector(".calendar-next");
+
+if (calendarPrev) {
+  calendarPrev.addEventListener("click", () => {
+    calendarCursor.setMonth(calendarCursor.getMonth() - 1);
+    renderVisitCalendar();
+  });
+}
+
+if (calendarNext) {
+  calendarNext.addEventListener("click", () => {
+    calendarCursor.setMonth(calendarCursor.getMonth() + 1);
+    renderVisitCalendar();
+  });
+}
+
+saveTodayVisit();
+renderVisitCalendar();
 
 function updateProfileTime() {
   const timeNode = document.getElementById("profile-time");

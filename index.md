@@ -61,15 +61,13 @@ body {
   display: flex;
   width: min(560px, 94vw);
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: flex-end;
   margin: 0 auto 58px;
   color: rgba(255, 255, 255, 0.78);
   font-size: 0.85rem;
   letter-spacing: 0.08em;
 }
 
-.profile-status-label,
 .profile-time {
   display: inline-flex;
   min-height: 34px;
@@ -78,12 +76,6 @@ body {
   background: rgba(8, 9, 10, 0.30);
   backdrop-filter: blur(14px);
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
-}
-
-.profile-status-label {
-  padding: 0 16px;
-  color: #fff;
-  font-weight: 700;
 }
 
 .profile-time {
@@ -259,7 +251,6 @@ body {
     font-size: 0.72rem;
   }
 
-  .profile-status-label,
   .profile-time {
     min-height: 30px;
     padding: 0 10px;
@@ -309,7 +300,6 @@ body {
   <section class="profile-hero">
     <div class="profile-hero-inner">
       <div class="profile-status" aria-label="页面状态">
-        <span class="profile-status-label">个人主页</span>
         <time class="profile-time" id="profile-time">Loading time...</time>
       </div>
 
@@ -420,7 +410,7 @@ function updateProfileTime() {
     hour12: false
   }).format(now);
 
-  timeNode.textContent = formatted;
+  timeNode.textContent = `北京时间 ${formatted}`;
   timeNode.setAttribute("datetime", now.toISOString());
 }
 

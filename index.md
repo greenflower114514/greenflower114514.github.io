@@ -13,7 +13,8 @@ body {
 }
 
 .site-header,
-.site-footer {
+.site-footer,
+.post-header {
   display: none;
 }
 
@@ -33,6 +34,44 @@ body {
   background:
     radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.06), transparent 24%),
     linear-gradient(180deg, #151617 0%, #202326 44%, #0c0f12 100%);
+}
+
+.profile-status {
+  position: absolute;
+  top: 28px;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  width: min(760px, calc(100% - 40px));
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.profile-status-label,
+.profile-time {
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(8, 9, 10, 0.30);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
+}
+
+.profile-status-label {
+  padding: 0 16px;
+  color: #fff;
+  font-weight: 700;
+}
+
+.profile-time {
+  padding: 0 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .profile-hero {
@@ -64,8 +103,8 @@ body {
 .profile-hero-inner {
   position: relative;
   z-index: 1;
-  width: min(640px, 94vw);
-  transform: translateY(-10px);
+  width: min(680px, 94vw);
+  transform: translateY(-4px);
 }
 
 .profile-avatar {
@@ -105,22 +144,22 @@ body {
 
 .profile-nav {
   display: grid;
-  grid-template-columns: repeat(5, minmax(72px, 1fr));
-  width: min(540px, 92vw);
+  grid-template-columns: repeat(5, minmax(84px, 1fr));
+  width: min(620px, 94vw);
   margin: 0 auto;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(12px);
   background: rgba(12, 13, 14, 0.18);
+  backdrop-filter: blur(12px);
 }
 
 .profile-nav a {
   display: flex;
-  min-height: 78px;
+  min-height: 92px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 7px;
+  gap: 6px;
   color: rgba(255, 255, 255, 0.74);
   text-decoration: none;
   border-left: 1px solid rgba(255, 255, 255, 0.15);
@@ -137,12 +176,20 @@ body {
 }
 
 .profile-nav-icon {
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   line-height: 1;
 }
 
-.profile-nav-label {
+.profile-nav-en {
+  color: #fff;
   font-size: 0.92rem;
+  line-height: 1.1;
+}
+
+.profile-nav-cn {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  line-height: 1.1;
 }
 
 .profile-content {
@@ -189,13 +236,21 @@ body {
 }
 
 @media (max-width: 640px) {
-  .profile-hero {
-    min-height: 560px;
-    padding: 58px 16px 74px;
+  .profile-status {
+    top: 18px;
+    width: calc(100% - 28px);
+    font-size: 0.72rem;
   }
 
-  .profile-hero-inner {
-    transform: translateY(-4px);
+  .profile-status-label,
+  .profile-time {
+    min-height: 30px;
+    padding: 0 10px;
+  }
+
+  .profile-hero {
+    min-height: 590px;
+    padding: 74px 14px 72px;
   }
 
   .profile-title {
@@ -204,14 +259,19 @@ body {
 
   .profile-nav {
     grid-template-columns: repeat(5, 1fr);
+    width: min(560px, 96vw);
   }
 
   .profile-nav a {
-    min-height: 66px;
+    min-height: 76px;
   }
 
-  .profile-nav-label {
+  .profile-nav-en {
     font-size: 0.76rem;
+  }
+
+  .profile-nav-cn {
+    font-size: 0.66rem;
   }
 
   .profile-content {
@@ -222,17 +282,42 @@ body {
 
 <div class="profile-page">
   <section class="profile-hero">
+    <div class="profile-status" aria-label="页面状态">
+      <span class="profile-status-label">首页</span>
+      <time class="profile-time" id="profile-time">Loading time...</time>
+    </div>
+
     <div class="profile-hero-inner">
       <img class="profile-avatar" src="https://avatars.githubusercontent.com/u/93895894?v=4" alt="干煸双鲜的头像">
       <h1 class="profile-title">干煸双鲜</h1>
       <p class="profile-subtitle">·谁能送我只猫啊·</p>
       <div class="profile-divider"></div>
       <nav class="profile-nav" aria-label="个人主页导航">
-        <a href="#blog"><span class="profile-nav-icon">✎</span><span class="profile-nav-label">Blog</span></a>
-        <a href="#about"><span class="profile-nav-icon">⌁</span><span class="profile-nav-label">About</span></a>
-        <a href="#weibo"><span class="profile-nav-icon">◎</span><span class="profile-nav-label">Weibo</span></a>
-        <a href="#gallery"><span class="profile-nav-icon">▣</span><span class="profile-nav-label">Gallery</span></a>
-        <a href="#thinking"><span class="profile-nav-icon">☼</span><span class="profile-nav-label">Thinking</span></a>
+        <a href="#blog">
+          <span class="profile-nav-icon">✎</span>
+          <span class="profile-nav-en">Blog</span>
+          <span class="profile-nav-cn">博客</span>
+        </a>
+        <a href="#about">
+          <span class="profile-nav-icon">⌁</span>
+          <span class="profile-nav-en">About</span>
+          <span class="profile-nav-cn">关于</span>
+        </a>
+        <a href="#redbook">
+          <span class="profile-nav-icon">◎</span>
+          <span class="profile-nav-en">RedBook</span>
+          <span class="profile-nav-cn">小红书</span>
+        </a>
+        <a href="#gallery">
+          <span class="profile-nav-icon">▣</span>
+          <span class="profile-nav-en">Gallery</span>
+          <span class="profile-nav-cn">相册</span>
+        </a>
+        <a href="#thinking">
+          <span class="profile-nav-icon">☼</span>
+          <span class="profile-nav-en">Thinking</span>
+          <span class="profile-nav-cn">思考</span>
+        </a>
       </nav>
     </div>
   </section>
@@ -269,7 +354,7 @@ body {
       <li><a href="#">文章标题 2</a></li>
     </ul>
 
-    <h2><span id="weibo">微博</span></h2>
+    <h2><span id="redbook">小红书</span></h2>
 
     <p>待补充。</p>
 
@@ -293,3 +378,27 @@ body {
     <p>这页内容完全用 Markdown 编写。以后你主要修改这个文件就可以了。</p>
   </main>
 </div>
+
+<script>
+function updateProfileTime() {
+  const timeNode = document.getElementById("profile-time");
+  if (!timeNode) return;
+
+  const now = new Date();
+  const formatted = new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false
+  }).format(now);
+
+  timeNode.textContent = formatted;
+  timeNode.setAttribute("datetime", now.toISOString());
+}
+
+updateProfileTime();
+setInterval(updateProfileTime, 1000);
+</script>

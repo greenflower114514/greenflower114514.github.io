@@ -1,0 +1,9 @@
+title: greenflower114514
+description: Personal homepage
+lang: zh-CN
+theme: minima
+markdown: kramdown
+plugins:
+  - jekyll-feed
+header_pages: []
+show_excerpts: false

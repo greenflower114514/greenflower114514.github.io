@@ -9,9 +9,13 @@ permalink: /blog.html
 <style>
 .blog-main {
   width: min(1180px, calc(100% - 64px));
-  margin: -86px auto 120px;
+  margin: -56px auto 120px;
   position: relative;
   z-index: 3;
+}
+
+.profile-page .profile-hero {
+  min-height: min(650px, 76vh);
 }
 
 .blog-shell {
@@ -217,7 +221,7 @@ permalink: /blog.html
 @media (max-width: 900px) {
   .blog-main {
     width: min(100% - 28px, 760px);
-    margin-top: -48px;
+    margin-top: -34px;
   }
 
   .blog-shell {

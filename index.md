@@ -193,18 +193,18 @@ body {
 }
 
 .profile-content {
-  width: min(800px, calc(100% - 560px));
-  margin: 0 auto 0 max(40px, calc((100vw - 1540px) / 2));
+  width: min(760px, calc(100% - 760px));
+  margin: 0 auto 0 max(72px, calc((100vw - 1700px) / 2 + 96px));
   padding: 46px 0 124px;
 }
 
 .daily-board {
   position: fixed;
-  top: 138px;
-  right: max(40px, calc((100vw - 1540px) / 2));
+  top: 124px;
+  right: max(22px, calc((100vw - 1700px) / 2 + 20px));
   z-index: 2;
-  width: 280px;
-  padding: 22px;
+  width: 300px;
+  padding: 24px;
   color: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.15);
   background:
@@ -320,10 +320,10 @@ body {
 .about-detail {
   position: absolute;
   top: 50%;
-  left: calc(100% + 28px);
-  width: 430px;
-  min-height: 300px;
-  padding: 20px;
+  left: calc(100% + 34px);
+  width: 520px;
+  min-height: 360px;
+  padding: 24px;
   opacity: 0;
   transform: translate(18px, -50%);
   color: rgba(255, 255, 255, 0.74);
@@ -358,7 +358,7 @@ body {
 
 .about-detail-media {
   display: flex;
-  min-height: 108px;
+  min-height: 150px;
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;
@@ -581,7 +581,7 @@ body {
   }
 }
 
-@media (min-width: 641px) and (max-width: 1700px) {
+@media (min-width: 641px) and (max-width: 1450px) {
   .profile-content {
     width: min(980px, calc(100% - 64px));
     margin-right: auto;

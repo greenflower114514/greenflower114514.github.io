@@ -973,7 +973,7 @@ body {
     <section class="about-timeline" aria-label="人生时间线">
       <div class="timeline-heading">
         <h2>Timeline / 人生节点</h2>
-        <span>按时间顺序记录一些重要节点</span>
+        <span>不觉得很神圣吗...其实还好</span>
       </div>
 
       <ol class="timeline-list">
@@ -981,18 +981,18 @@ body {
           <article class="timeline-card">
             <span class="timeline-year">2023</span>
             <div class="timeline-copy">
-              <h3 class="timeline-title">本科入学</h3>
-              <p>正式进入新的学习阶段，开始积累专业基础，也开始给未来的自己挖一些看起来很有前途的坑。</p>
+              <h3 class="timeline-title">研究生入学</h3>
+              <p>只是这样。</p>
             </div>
           </article>
         </li>
 
         <li class="timeline-item">
           <article class="timeline-card">
-            <span class="timeline-year">2026</span>
+            <span class="timeline-year">2026.5.25</span>
             <div class="timeline-copy">
-              <h3 class="timeline-title">研究生入学</h3>
-              <p>计划进入研究生阶段，继续扩展学习和研究方向。这个节点先放在这里，算是给未来提前占个座。</p>
+              <h3 class="timeline-title">创建个人主页</h3>
+              <p>前途一片......啊。</p>
             </div>
           </article>
         </li>
@@ -1006,7 +1006,7 @@ body {
     <ul>
       <li>继续装修 GitHub 个人主页。</li>
       <li>整理 About 区域和人生时间线。</li>
-      <li>给导航页面慢慢补内容。</li>
+      <li>明明是黑板，内容却要在.md文件中修改，看起来真的很诡异，也许应该做一个在线修改的功能。</li>
     </ul>
   </aside>
 

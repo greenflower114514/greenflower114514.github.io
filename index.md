@@ -193,9 +193,9 @@ body {
 }
 
 .profile-content {
-  width: min(860px, calc(100% - 40px));
+  width: min(1180px, calc(100% - 64px));
   margin: 0 auto;
-  padding: 64px 0 112px;
+  padding: 74px 0 124px;
 }
 
 .about-kicker {
@@ -209,22 +209,22 @@ body {
 .about-title {
   margin: 0 0 18px;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.25rem;
   line-height: 1.2;
 }
 
 .about-intro {
-  max-width: 680px;
-  margin: 0 0 34px;
+  max-width: 900px;
+  margin: 0 0 38px;
   color: rgba(255, 255, 255, 0.76);
-  font-size: 1.03rem;
+  font-size: 1.05rem;
   line-height: 1.9;
 }
 
 .about-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
 }
 
 .about-card,
@@ -238,8 +238,8 @@ body {
 }
 
 .about-card {
-  min-height: 160px;
-  padding: 22px;
+  min-height: 210px;
+  padding: 26px;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
@@ -255,14 +255,14 @@ body {
 .timeline-title {
   margin: 0 0 12px;
   color: #fff;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
 }
 
 .about-card p,
 .about-card li,
 .timeline-card p {
   color: rgba(255, 255, 255, 0.72);
-  line-height: 1.75;
+  line-height: 1.85;
 }
 
 .about-card ul {
@@ -275,7 +275,7 @@ body {
 }
 
 .about-timeline {
-  margin-top: 52px;
+  margin-top: 64px;
 }
 
 .timeline-heading {
@@ -303,7 +303,7 @@ body {
 .timeline-list {
   position: relative;
   display: grid;
-  gap: 18px;
+  gap: 20px;
   margin: 0;
   padding: 0 0 0 34px;
   list-style: none;
@@ -337,7 +337,11 @@ body {
 }
 
 .timeline-card {
-  padding: 20px 22px;
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 26px 30px;
 }
 
 .timeline-year {
@@ -350,6 +354,10 @@ body {
   letter-spacing: 0.08em;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.08);
+}
+
+.timeline-copy h3 {
+  margin-top: 0;
 }
 
 @media (max-width: 640px) {
@@ -400,6 +408,11 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .about-card {
+    min-height: auto;
+    padding: 22px;
+  }
+
   .timeline-heading {
     display: block;
   }
@@ -407,6 +420,11 @@ body {
   .timeline-heading span {
     display: block;
     margin-top: 8px;
+  }
+
+  .timeline-card {
+    display: block;
+    padding: 22px;
   }
 
   .post-title,
@@ -513,16 +531,20 @@ body {
         <li class="timeline-item">
           <article class="timeline-card">
             <span class="timeline-year">2023</span>
-            <h3 class="timeline-title">本科入学</h3>
-            <p>正式进入新的学习阶段，开始积累专业基础，也开始给未来的自己挖一些看起来很有前途的坑。</p>
+            <div class="timeline-copy">
+              <h3 class="timeline-title">本科入学</h3>
+              <p>正式进入新的学习阶段，开始积累专业基础，也开始给未来的自己挖一些看起来很有前途的坑。</p>
+            </div>
           </article>
         </li>
 
         <li class="timeline-item">
           <article class="timeline-card">
             <span class="timeline-year">2026</span>
-            <h3 class="timeline-title">研究生入学</h3>
-            <p>计划进入研究生阶段，继续扩展学习和研究方向。这个节点先放在这里，算是给未来提前占个座。</p>
+            <div class="timeline-copy">
+              <h3 class="timeline-title">研究生入学</h3>
+              <p>计划进入研究生阶段，继续扩展学习和研究方向。这个节点先放在这里，算是给未来提前占个座。</p>
+            </div>
           </article>
         </li>
       </ol>

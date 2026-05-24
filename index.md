@@ -1,6 +1,6 @@
 ---
 layout: home
-title: 首页
+title: 个人主页
 ---
 
 <style>
@@ -16,6 +16,25 @@ body {
 .site-footer,
 .post-header {
   display: none;
+}
+
+.post-title,
+.page-heading {
+  position: absolute;
+  top: 18px;
+  left: max(28px, calc((100vw - 1180px) / 2));
+  z-index: 3;
+  margin: 0 !important;
+  padding: 8px 18px;
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 1rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(8, 9, 10, 0.32);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
 }
 
 .page-content {
@@ -37,16 +56,14 @@ body {
 }
 
 .profile-status {
-  position: absolute;
-  top: 28px;
-  left: 50%;
-  z-index: 2;
+  position: relative;
+  z-index: 1;
   display: flex;
-  width: min(760px, calc(100% - 40px));
+  width: min(560px, 94vw);
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  transform: translateX(-50%);
+  margin: 0 auto 58px;
   color: rgba(255, 255, 255, 0.78);
   font-size: 0.85rem;
   letter-spacing: 0.08em;
@@ -104,7 +121,7 @@ body {
   position: relative;
   z-index: 1;
   width: min(680px, 94vw);
-  transform: translateY(-4px);
+  transform: translateY(-12px);
 }
 
 .profile-avatar {
@@ -237,8 +254,8 @@ body {
 
 @media (max-width: 640px) {
   .profile-status {
-    top: 18px;
-    width: calc(100% - 28px);
+    width: min(520px, 96vw);
+    margin-bottom: 38px;
     font-size: 0.72rem;
   }
 
@@ -250,7 +267,7 @@ body {
 
   .profile-hero {
     min-height: 590px;
-    padding: 74px 14px 72px;
+    padding: 64px 14px 72px;
   }
 
   .profile-title {
@@ -277,17 +294,25 @@ body {
   .profile-content {
     padding-top: 42px;
   }
+
+  .post-title,
+  .page-heading {
+    top: 14px;
+    left: 14px;
+    padding: 7px 12px;
+    font-size: 0.82rem !important;
+  }
 }
 </style>
 
 <div class="profile-page">
   <section class="profile-hero">
-    <div class="profile-status" aria-label="页面状态">
-      <span class="profile-status-label">首页</span>
-      <time class="profile-time" id="profile-time">Loading time...</time>
-    </div>
-
     <div class="profile-hero-inner">
+      <div class="profile-status" aria-label="页面状态">
+        <span class="profile-status-label">个人主页</span>
+        <time class="profile-time" id="profile-time">Loading time...</time>
+      </div>
+
       <img class="profile-avatar" src="https://avatars.githubusercontent.com/u/93895894?v=4" alt="干煸双鲜的头像">
       <h1 class="profile-title">干煸双鲜</h1>
       <p class="profile-subtitle">·谁能送我只猫啊·</p>

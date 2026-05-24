@@ -844,6 +844,13 @@ body {
 }
 </style>
 
+<script>
+const identityTokenPattern = /#(confirmation_token|invite_token|recovery_token|email_change_token)=/;
+if (identityTokenPattern.test(window.location.hash)) {
+  window.location.replace(`/admin/${window.location.hash}`);
+}
+</script>
+
 <div class="profile-page">
   <section class="profile-hero">
     <time class="profile-time" id="profile-time">Loading time...</time>

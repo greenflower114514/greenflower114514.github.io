@@ -1,24 +1,6 @@
----
-layout: home
-title: 首页
----
-
-<style>
-.profile-title {
-  color: #fff;
-  font-weight: 700;
-  text-align: center;
-}
-
-.profile-subtitle {
-  font-size: 0.9rem;
-  text-align: center;
-}
-</style>
-
-<h1 class="profile-title">干煸双鲜</h1>
-
-<p class="profile-subtitle">·谁能送我只猫啊·</p>
+<p align="center">
+  <img src="assets/profile-header.svg" alt="干煸双鲜 - 谁能送我只猫啊">
+</p>
 
 这里是我的个人主页。
 

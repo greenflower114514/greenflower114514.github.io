@@ -1,6 +1,8 @@
 backend:
   name: git-gateway
   branch: main
+  identity_url: https://dreamy-wisp-69ba57.netlify.app/.netlify/identity
+  gateway_url: https://dreamy-wisp-69ba57.netlify.app/.netlify/git
 
 site_url: https://dreamy-wisp-69ba57.netlify.app
 display_url: https://dreamy-wisp-69ba57.netlify.app
@@ -9,44 +11,44 @@ public_folder: /assets/uploads
 
 collections:
   - name: blog_data
-    label: 博客日记
+    label: Blog Diary
     files:
       - name: blog_entries
-        label: 日记列表
+        label: Diary Entries
         file: assets/blog-entries.json
         format: json
         fields:
-          - label: 日记
+          - label: Entries
             name: entries
             widget: list
             collapsed: false
-            summary: "{{fields.date}} · {{fields.type}} · {{fields.title}}"
+            summary: "{{fields.date}} - {{fields.type}} - {{fields.title}}"
             fields:
               - label: ID
                 name: id
                 widget: string
-                hint: 建议使用日期加英文短标题，例如 2026-05-25-homepage-building。
-              - label: 类型
+                hint: Use a date plus a short English slug, for example 2026-05-25-homepage-building.
+              - label: Type
                 name: type
                 widget: string
-                hint: 可自由填写，例如 日常、学习、碎碎念、施工记录。
-              - label: 日期
+                hint: Free text, such as daily, study, note, or build-log.
+              - label: Date
                 name: date
                 widget: datetime
                 date_format: YYYY-MM-DD
                 time_format: false
                 format: YYYY-MM-DD
-              - label: 标题
+              - label: Title
                 name: title
                 widget: string
-              - label: 摘要
+              - label: Excerpt
                 name: excerpt
                 widget: text
-              - label: 正文段落
+              - label: Content Paragraphs
                 name: content
                 widget: list
                 collapsed: false
                 field:
-                  label: 段落
+                  label: Paragraph
                   name: paragraph
                   widget: text

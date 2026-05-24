@@ -193,9 +193,60 @@ body {
 }
 
 .profile-content {
-  width: min(1180px, calc(100% - 64px));
-  margin: 0 auto;
+  width: min(800px, calc(100% - 560px));
+  margin: 0 auto 0 max(40px, calc((100vw - 1540px) / 2));
   padding: 46px 0 124px;
+}
+
+.daily-board {
+  position: fixed;
+  top: 138px;
+  right: max(40px, calc((100vw - 1540px) / 2));
+  z-index: 2;
+  width: 280px;
+  padding: 22px;
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(9, 10, 12, 0.76);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(18px);
+}
+
+.daily-board::before {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: 0 auto 18px;
+  content: "";
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.daily-board h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.daily-board time {
+  display: block;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.76rem;
+  letter-spacing: 0.10em;
+}
+
+.daily-board ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 1.05rem;
+}
+
+.daily-board li {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.65;
 }
 
 .about-kicker {
@@ -224,7 +275,7 @@ body {
 .about-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 26px;
+  gap: 30px;
 }
 
 .about-card,
@@ -239,14 +290,15 @@ body {
 
 .about-card {
   position: relative;
-  min-height: 220px;
-  padding: 34px 38px;
+  min-height: 180px;
+  padding: 32px 36px;
   overflow: visible;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .about-card:hover {
-  transform: translateX(6px);
+  z-index: 4;
+  transform: translateX(-4px);
   border-color: rgba(255, 255, 255, 0.24);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.035)),
@@ -262,30 +314,32 @@ body {
 
 .about-card > p,
 .about-card > ul {
-  max-width: 58%;
+  max-width: 100%;
 }
 
 .about-detail {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  bottom: 24px;
-  width: min(420px, 36%);
-  padding: 22px;
+  top: 50%;
+  left: calc(100% + 28px);
+  width: 430px;
+  min-height: 300px;
+  padding: 20px;
   opacity: 0;
-  transform: translateX(18px);
+  transform: translate(18px, -50%);
   color: rgba(255, 255, 255, 0.74);
-  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
-    rgba(255, 255, 255, 0.03);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.035)),
+    rgba(12, 13, 14, 0.92);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(18px);
   pointer-events: none;
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
 .about-card:hover .about-detail {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate(0, -50%);
 }
 
 .about-detail strong {
@@ -295,7 +349,26 @@ body {
 }
 
 .about-detail p {
-  margin: 0;
+  margin: 0 0 12px;
+}
+
+.about-detail p:last-child {
+  margin-bottom: 0;
+}
+
+.about-detail-media {
+  display: flex;
+  min-height: 108px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.82rem;
+  letter-spacing: 0.10em;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.16), transparent 26%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
 }
 
 .about-card p,
@@ -437,6 +510,8 @@ body {
 
   .profile-content {
     width: min(100% - 28px, 860px);
+    margin-right: auto;
+    margin-left: auto;
     padding-top: 36px;
   }
 
@@ -465,6 +540,7 @@ body {
   .about-detail {
     position: static;
     width: auto;
+    min-height: auto;
     margin-top: 18px;
     padding: 16px 0 0;
     opacity: 1;
@@ -472,6 +548,14 @@ body {
     border-left: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .daily-board {
+    position: static;
+    width: min(100% - 28px, 860px);
+    margin: 34px auto 0;
   }
 
   .timeline-heading {
@@ -494,6 +578,36 @@ body {
     left: 14px;
     padding: 7px 12px;
     font-size: 0.82rem !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1700px) {
+  .profile-content {
+    width: min(980px, calc(100% - 64px));
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .about-detail {
+    position: static;
+    width: auto;
+    min-height: auto;
+    margin-top: 22px;
+    padding: 18px;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .about-card:hover .about-detail {
+    transform: none;
+  }
+
+  .daily-board {
+    position: sticky;
+    top: 24px;
+    width: min(980px, calc(100% - 64px));
+    margin: 0 auto 72px;
   }
 }
 </style>
@@ -547,8 +661,10 @@ body {
         <h3>关于我</h3>
         <p>你好，我是干煸双鲜。这里是我的 GitHub 个人主页，也是一个用来展示近况、记录想法、顺便证明我确实在努力的地方。</p>
         <div class="about-detail">
+          <div class="about-detail-media">IMAGE / NOTE</div>
           <strong>更多一点</strong>
           <p>这个主页会慢慢变成一个个人档案馆：有学习痕迹，有奇怪想法，也会有一些阶段性成果。不是一次装修完，而是边走边补。</p>
+          <p>这里以后可以放一张代表自己的图片、阶段截图，或者某个项目的预览图。</p>
         </div>
       </article>
 
@@ -556,8 +672,10 @@ body {
         <h3>当前状态</h3>
         <p>正在把个人主页从“能看”慢慢改造成“有点东西”。学习、项目、表达能力都在施工中，偶尔还会和 CSS 进行友好切磋。</p>
         <div class="about-detail">
+          <div class="about-detail-media">TODAY / BUILDING</div>
           <strong>施工现场</strong>
           <p>当前重点是把页面结构、内容分区和个人表达先搭起来。等地基稳了，再继续补博客、小红书、相册和思考页面。</p>
+          <p>这个模块适合记录近期状态，比如正在学什么、正在做什么、最近卡在哪个坑里。</p>
         </div>
       </article>
 
@@ -569,8 +687,10 @@ body {
           <li>喜欢把普通东西折腾得更像自己一点。</li>
         </ul>
         <div class="about-detail">
+          <div class="about-detail-media">MOOD / LIFE</div>
           <strong>风格偏好</strong>
           <p>偏好暗色、克制、有一点神秘感的视觉风格。内容可以认真，但不要太端着，最好能让访客感觉这里确实住着一个人。</p>
+          <p>未来可以把喜欢的图片、歌单、照片或者小红书内容做成这一块的延伸入口。</p>
         </div>
       </article>
 
@@ -578,8 +698,10 @@ body {
         <h3>技术方向</h3>
         <p>目前关注编程学习、项目实践、GitHub Pages 和个人站点搭建。技能树还在长，枝杈有点随缘，但根应该是认真在扎。</p>
         <div class="about-detail">
+          <div class="about-detail-media">STACK / MAP</div>
           <strong>正在生长</strong>
           <p>这里之后可以继续扩展为技能地图：前端、图形、工具链、项目经验都能放进来，不急着吹满，先让它真实一点。</p>
+          <p>等内容更多时，可以在这里放技能标签、学习路线图，或者项目截图。</p>
         </div>
       </article>
 
@@ -591,8 +713,10 @@ body {
           <li>让项目展示不再像临时占位。</li>
         </ul>
         <div class="about-detail">
+          <div class="about-detail-media">NEXT / PLAN</div>
           <strong>近期目标</strong>
           <p>先把每个导航页面做成可用状态，再逐步补内容。等内容多起来，这里就不只是首页，而是一个真正能回看的个人索引。</p>
+          <p>这个区域可以持续更新成季度目标、学习计划，或者一些完成后会很爽的小清单。</p>
         </div>
       </article>
 
@@ -600,8 +724,10 @@ body {
         <h3>联系入口</h3>
         <p>目前先保留 GitHub 作为公开入口：<a href="https://github.com/greenflower114514">greenflower114514</a>。其他联系方式等我想好怎么优雅出现再说。</p>
         <div class="about-detail">
+          <div class="about-detail-media">LINK / ONLY</div>
           <strong>公开入口</strong>
           <p>先用 GitHub 做唯一公开入口，既够用，也不会把私人信息散得到处都是。需要更多联系方式时，再单独设计一个更漂亮的出现方式。</p>
+          <p>后续可以添加项目仓库、主页链接，或者一个更正式的联系页面。</p>
         </div>
       </article>
     </section>
@@ -635,6 +761,16 @@ body {
       </ol>
     </section>
   </main>
+
+  <aside class="daily-board" aria-label="今日正在做的事">
+    <h2>今日黑板</h2>
+    <time>Today / 正在做</time>
+    <ul>
+      <li>继续装修 GitHub 个人主页。</li>
+      <li>整理 About 区域和人生时间线。</li>
+      <li>给导航页面慢慢补内容。</li>
+    </ul>
+  </aside>
 </div>
 
 <script>

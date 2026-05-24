@@ -340,8 +340,10 @@ body {
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
-.about-card:hover .about-detail {
+.about-card:hover .about-detail,
+.about-card.is-detail-open .about-detail {
   opacity: 1;
+  pointer-events: auto;
   transform: translate(0, -50%);
 }
 
@@ -361,6 +363,7 @@ body {
 
 .about-detail-media {
   display: flex;
+  width: 100%;
   min-height: 300px;
   align-items: center;
   justify-content: center;
@@ -372,6 +375,59 @@ body {
   background:
     radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.16), transparent 26%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  cursor: zoom-in;
+}
+
+button.about-detail-media {
+  font: inherit;
+}
+
+.about-detail a {
+  color: #d8e2ff;
+}
+
+.detail-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(12px);
+}
+
+.detail-lightbox.is-open {
+  display: flex;
+}
+
+.detail-lightbox-panel {
+  width: min(980px, calc(100vw - 64px));
+  min-height: min(620px, calc(100vh - 96px));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.1rem;
+  letter-spacing: 0.12em;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background:
+    radial-gradient(circle at 45% 30%, rgba(255, 255, 255, 0.16), transparent 28%),
+    linear-gradient(135deg, #282b2f, #0b0d0f);
+  box-shadow: 0 28px 110px rgba(0, 0, 0, 0.55);
+}
+
+.detail-lightbox-close {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
 }
 
 .about-card p,
@@ -602,7 +658,8 @@ body {
     pointer-events: auto;
   }
 
-  .about-card:hover .about-detail {
+  .about-card:hover .about-detail,
+  .about-card.is-detail-open .about-detail {
     transform: none;
   }
 
@@ -664,10 +721,11 @@ body {
         <h3>关于我</h3>
         <p>你好，我是干煸双鲜。这里是我的 GitHub 个人主页，也是一个用来展示近况、记录想法、顺便证明我确实在努力的地方。</p>
         <div class="about-detail">
-          <div class="about-detail-media">IMAGE / NOTE</div>
+          <button class="about-detail-media" type="button" data-lightbox-title="IMAGE / NOTE">IMAGE / NOTE</button>
           <strong>更多一点</strong>
           <p>这个主页会慢慢变成一个个人档案馆：有学习痕迹，有奇怪想法，也会有一些阶段性成果。不是一次装修完，而是边走边补。</p>
           <p>这里以后可以放一张代表自己的图片、阶段截图，或者某个项目的预览图。</p>
+          <p><a href="https://github.com/greenflower114514">查看 GitHub 主页</a></p>
         </div>
       </article>
 
@@ -675,10 +733,11 @@ body {
         <h3>当前状态</h3>
         <p>正在把个人主页从“能看”慢慢改造成“有点东西”。学习、项目、表达能力都在施工中，偶尔还会和 CSS 进行友好切磋。</p>
         <div class="about-detail">
-          <div class="about-detail-media">TODAY / BUILDING</div>
+          <button class="about-detail-media" type="button" data-lightbox-title="TODAY / BUILDING">TODAY / BUILDING</button>
           <strong>施工现场</strong>
           <p>当前重点是把页面结构、内容分区和个人表达先搭起来。等地基稳了，再继续补博客、小红书、相册和思考页面。</p>
           <p>这个模块适合记录近期状态，比如正在学什么、正在做什么、最近卡在哪个坑里。</p>
+          <p><a href="blog.html">去 Blog 页面看看</a></p>
         </div>
       </article>
 
@@ -690,10 +749,11 @@ body {
           <li>喜欢把普通东西折腾得更像自己一点。</li>
         </ul>
         <div class="about-detail">
-          <div class="about-detail-media">MOOD / LIFE</div>
+          <button class="about-detail-media" type="button" data-lightbox-title="MOOD / LIFE">MOOD / LIFE</button>
           <strong>风格偏好</strong>
           <p>偏好暗色、克制、有一点神秘感的视觉风格。内容可以认真，但不要太端着，最好能让访客感觉这里确实住着一个人。</p>
           <p>未来可以把喜欢的图片、歌单、照片或者小红书内容做成这一块的延伸入口。</p>
+          <p><a href="redbook.html">去小红书页面看看</a></p>
         </div>
       </article>
 
@@ -701,10 +761,11 @@ body {
         <h3>技术方向</h3>
         <p>目前关注编程学习、项目实践、GitHub Pages 和个人站点搭建。技能树还在长，枝杈有点随缘，但根应该是认真在扎。</p>
         <div class="about-detail">
-          <div class="about-detail-media">STACK / MAP</div>
+          <button class="about-detail-media" type="button" data-lightbox-title="STACK / MAP">STACK / MAP</button>
           <strong>正在生长</strong>
           <p>这里之后可以继续扩展为技能地图：前端、图形、工具链、项目经验都能放进来，不急着吹满，先让它真实一点。</p>
           <p>等内容更多时，可以在这里放技能标签、学习路线图，或者项目截图。</p>
+          <p><a href="thinking.html">去 Thinking 页面看看</a></p>
         </div>
       </article>
 
@@ -716,10 +777,11 @@ body {
           <li>让项目展示不再像临时占位。</li>
         </ul>
         <div class="about-detail">
-          <div class="about-detail-media">NEXT / PLAN</div>
+          <button class="about-detail-media" type="button" data-lightbox-title="NEXT / PLAN">NEXT / PLAN</button>
           <strong>近期目标</strong>
           <p>先把每个导航页面做成可用状态，再逐步补内容。等内容多起来，这里就不只是首页，而是一个真正能回看的个人索引。</p>
           <p>这个区域可以持续更新成季度目标、学习计划，或者一些完成后会很爽的小清单。</p>
+          <p><a href="gallery.html">去 Gallery 页面看看</a></p>
         </div>
       </article>
 
@@ -727,10 +789,11 @@ body {
         <h3>联系入口</h3>
         <p>目前先保留 GitHub 作为公开入口：<a href="https://github.com/greenflower114514">greenflower114514</a>。其他联系方式等我想好怎么优雅出现再说。</p>
         <div class="about-detail">
-          <div class="about-detail-media">LINK / ONLY</div>
+          <button class="about-detail-media" type="button" data-lightbox-title="LINK / ONLY">LINK / ONLY</button>
           <strong>公开入口</strong>
           <p>先用 GitHub 做唯一公开入口，既够用，也不会把私人信息散得到处都是。需要更多联系方式时，再单独设计一个更漂亮的出现方式。</p>
           <p>后续可以添加项目仓库、主页链接，或者一个更正式的联系页面。</p>
+          <p><a href="https://github.com/greenflower114514">打开 GitHub</a></p>
         </div>
       </article>
     </section>
@@ -774,9 +837,87 @@ body {
       <li>给导航页面慢慢补内容。</li>
     </ul>
   </aside>
+
+  <div class="detail-lightbox" id="detail-lightbox" aria-hidden="true">
+    <button class="detail-lightbox-close" type="button" aria-label="关闭大图">×</button>
+    <div class="detail-lightbox-panel" id="detail-lightbox-panel">IMAGE / NOTE</div>
+  </div>
 </div>
 
 <script>
+let activeAboutCard = null;
+let detailCloseTimer = null;
+
+function openAboutDetail(card) {
+  if (detailCloseTimer) window.clearTimeout(detailCloseTimer);
+  if (activeAboutCard && activeAboutCard !== card) {
+    activeAboutCard.classList.remove("is-detail-open");
+  }
+  activeAboutCard = card;
+  card.classList.add("is-detail-open");
+}
+
+function scheduleCloseAboutDetail() {
+  if (detailCloseTimer) window.clearTimeout(detailCloseTimer);
+  detailCloseTimer = window.setTimeout(() => {
+    if (activeAboutCard) {
+      activeAboutCard.classList.remove("is-detail-open");
+      activeAboutCard = null;
+    }
+  }, 120);
+}
+
+document.querySelectorAll(".about-card").forEach((card) => {
+  const detail = card.querySelector(".about-detail");
+
+  card.addEventListener("mouseenter", () => openAboutDetail(card));
+  card.addEventListener("mouseleave", (event) => {
+    if (detail && detail.contains(event.relatedTarget)) return;
+    scheduleCloseAboutDetail();
+  });
+
+  if (detail) {
+    detail.addEventListener("mouseenter", () => openAboutDetail(card));
+    detail.addEventListener("mouseleave", (event) => {
+      if (card.contains(event.relatedTarget)) return;
+      scheduleCloseAboutDetail();
+    });
+  }
+});
+
+const lightbox = document.getElementById("detail-lightbox");
+const lightboxPanel = document.getElementById("detail-lightbox-panel");
+const lightboxClose = document.querySelector(".detail-lightbox-close");
+
+function closeLightbox() {
+  if (!lightbox) return;
+  lightbox.classList.remove("is-open");
+  lightbox.setAttribute("aria-hidden", "true");
+}
+
+document.querySelectorAll(".about-detail-media").forEach((button) => {
+  button.addEventListener("click", () => {
+    if (!lightbox || !lightboxPanel) return;
+    lightboxPanel.textContent = button.dataset.lightboxTitle || button.textContent;
+    lightbox.classList.add("is-open");
+    lightbox.setAttribute("aria-hidden", "false");
+  });
+});
+
+if (lightboxClose) {
+  lightboxClose.addEventListener("click", closeLightbox);
+}
+
+if (lightbox) {
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeLightbox();
+});
+
 function updateProfileTime() {
   const timeNode = document.getElementById("profile-time");
   if (!timeNode) return;

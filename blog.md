@@ -1,10 +1,278 @@
 ---
 layout: home
-title: 个人主页
+title: 电子蜗居
 permalink: /blog.html
 ---
 
 <link rel="stylesheet" href="assets/nav-shell.css">
+
+<style>
+.blog-main {
+  width: min(1180px, calc(100% - 64px));
+  margin: -86px auto 120px;
+  position: relative;
+  z-index: 3;
+}
+
+.blog-shell {
+  display: flex;
+  gap: 22px;
+  align-items: stretch;
+  transition: gap 220ms ease;
+}
+
+.blog-sidebar {
+  width: 300px;
+  flex: 0 0 300px;
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(9, 10, 12, 0.62);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(18px);
+  transition: width 240ms ease, flex-basis 240ms ease;
+}
+
+.blog-sidebar.is-collapsed {
+  width: 52px;
+  flex-basis: 52px;
+}
+
+.blog-sidebar-head {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.blog-sidebar-title {
+  min-width: 0;
+}
+
+.blog-sidebar-title strong {
+  display: block;
+  color: #fff;
+  font-size: 0.98rem;
+}
+
+.blog-sidebar-title span {
+  display: block;
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.blog-toggle {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.blog-toggle:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.blog-sidebar.is-collapsed .blog-sidebar-head {
+  justify-content: center;
+  padding-right: 9px;
+  padding-left: 9px;
+}
+
+.blog-sidebar.is-collapsed .blog-sidebar-title,
+.blog-sidebar.is-collapsed .blog-list {
+  display: none;
+}
+
+.blog-sidebar.is-collapsed .blog-toggle {
+  transform: rotate(180deg);
+}
+
+.blog-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 16px;
+  list-style: none;
+}
+
+.blog-entry-button {
+  width: 100%;
+  padding: 14px;
+  color: rgba(255, 255, 255, 0.72);
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.035);
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.blog-entry-button:hover,
+.blog-entry-button.is-active {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateX(3px);
+}
+
+.blog-entry-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.blog-entry-type {
+  color: #fff;
+  font-weight: 700;
+}
+
+.blog-entry-title {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
+.blog-reader {
+  flex: 1;
+  min-width: 0;
+  min-height: 560px;
+  padding: 42px 48px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background:
+    radial-gradient(circle at 75% 0%, rgba(255, 255, 255, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.026)),
+    rgba(9, 10, 12, 0.48);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(18px);
+  transition: padding 220ms ease;
+}
+
+.blog-reader-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.blog-reader-type {
+  padding: 4px 10px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.blog-reader h2 {
+  margin: 0 0 18px;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: 1.08;
+}
+
+.blog-reader-excerpt {
+  margin: 0 0 34px;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+
+.blog-reader-body {
+  display: grid;
+  gap: 18px;
+  max-width: 760px;
+}
+
+.blog-reader-body p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 1rem;
+  line-height: 2;
+}
+
+.blog-empty {
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .blog-main {
+    width: min(100% - 28px, 760px);
+    margin-top: -48px;
+  }
+
+  .blog-shell {
+    display: grid;
+  }
+
+  .blog-sidebar,
+  .blog-sidebar.is-collapsed {
+    width: 100%;
+    flex-basis: auto;
+    min-height: auto;
+  }
+
+  .blog-sidebar.is-collapsed .blog-list {
+    display: none;
+  }
+
+  .blog-sidebar.is-collapsed .blog-sidebar-title {
+    display: block;
+  }
+
+  .blog-sidebar.is-collapsed .blog-sidebar-head {
+    justify-content: space-between;
+    padding: 18px;
+  }
+
+  .blog-reader {
+    min-height: auto;
+    padding: 28px 22px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1450px) {
+  .blog-main {
+    width: min(820px, calc(100% - 620px));
+  }
+
+  .blog-reader {
+    padding: 36px 34px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .blog-main {
+    width: min(100% - 28px, 760px);
+  }
+
+  .daily-board,
+  .visit-calendar {
+    position: static;
+    width: min(100% - 28px, 340px);
+    margin: 28px auto 0;
+  }
+}
+</style>
 
 <div class="profile-page">
   <section class="profile-hero">
@@ -25,12 +293,31 @@ permalink: /blog.html
     </div>
   </section>
 
+  <main class="blog-main" aria-label="博客日记">
+    <div class="blog-shell">
+      <aside class="blog-sidebar" id="blog-sidebar">
+        <div class="blog-sidebar-head">
+          <div class="blog-sidebar-title">
+            <strong>日记索引</strong>
+            <span>Diary Index</span>
+          </div>
+          <button class="blog-toggle" id="blog-toggle" type="button" aria-label="收起日记边栏" aria-expanded="true">‹</button>
+        </div>
+        <ol class="blog-list" id="blog-list"></ol>
+      </aside>
+
+      <article class="blog-reader" id="blog-reader">
+        <p class="blog-empty">正在加载日记...</p>
+      </article>
+    </div>
+  </main>
+
   <aside class="daily-board" aria-label="今日正在做的事">
     <h2>今日黑板</h2>
     <time>Today / 正在做</time>
     <ul>
       <li>继续装修 GitHub 个人主页。</li>
-      <li>整理 About 区域和人生时间线。</li>
+      <li>整理 Blog 日记页和可收起边栏。</li>
       <li>给导航页面慢慢补内容。</li>
     </ul>
   </aside>
@@ -50,3 +337,103 @@ permalink: /blog.html
 </div>
 
 <script src="assets/nav-shell.js"></script>
+<script>
+const blogEntriesPath = "assets/blog-entries.json";
+const blogSidebar = document.getElementById("blog-sidebar");
+const blogToggle = document.getElementById("blog-toggle");
+const blogList = document.getElementById("blog-list");
+const blogReader = document.getElementById("blog-reader");
+let blogEntries = [];
+let activeEntryId = null;
+
+function escapeBlogHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function formatBlogDate(value) {
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(date);
+}
+
+function renderBlogList() {
+  if (!blogList) return;
+
+  blogList.innerHTML = blogEntries.map((entry) => `
+    <li>
+      <button class="blog-entry-button${entry.id === activeEntryId ? " is-active" : ""}" type="button" data-entry-id="${escapeBlogHtml(entry.id)}">
+        <span class="blog-entry-meta">
+          <span class="blog-entry-type">${escapeBlogHtml(entry.type)}</span>
+          <time>${escapeBlogHtml(formatBlogDate(entry.date))}</time>
+        </span>
+        <span class="blog-entry-title">${escapeBlogHtml(entry.title)}</span>
+      </button>
+    </li>
+  `).join("");
+
+  blogList.querySelectorAll(".blog-entry-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      renderBlogEntry(button.dataset.entryId);
+    });
+  });
+}
+
+function renderBlogEntry(entryId) {
+  const entry = blogEntries.find((item) => item.id === entryId) || blogEntries[0];
+  if (!entry || !blogReader) return;
+
+  activeEntryId = entry.id;
+  blogReader.innerHTML = `
+    <div class="blog-reader-meta">
+      <span class="blog-reader-type">${escapeBlogHtml(entry.type)}</span>
+      <time>${escapeBlogHtml(formatBlogDate(entry.date))}</time>
+    </div>
+    <h2>${escapeBlogHtml(entry.title)}</h2>
+    <p class="blog-reader-excerpt">${escapeBlogHtml(entry.excerpt)}</p>
+    <div class="blog-reader-body">
+      ${(Array.isArray(entry.content) ? entry.content : []).map((paragraph) => `<p>${escapeBlogHtml(paragraph)}</p>`).join("")}
+    </div>
+  `;
+  renderBlogList();
+}
+
+function showBlogError() {
+  if (!blogReader) return;
+  blogReader.innerHTML = '<p class="blog-empty">日记加载失败，稍后再来看看。</p>';
+}
+
+if (blogToggle && blogSidebar) {
+  if (window.matchMedia("(max-width: 900px)").matches) {
+    blogSidebar.classList.add("is-collapsed");
+    blogToggle.setAttribute("aria-expanded", "false");
+    blogToggle.setAttribute("aria-label", "展开日记边栏");
+  }
+
+  blogToggle.addEventListener("click", () => {
+    const collapsed = blogSidebar.classList.toggle("is-collapsed");
+    blogToggle.setAttribute("aria-expanded", String(!collapsed));
+    blogToggle.setAttribute("aria-label", collapsed ? "展开日记边栏" : "收起日记边栏");
+  });
+}
+
+fetch(blogEntriesPath)
+  .then((response) => {
+    if (!response.ok) throw new Error("Blog entries request failed");
+    return response.json();
+  })
+  .then((entries) => {
+    if (!Array.isArray(entries)) throw new Error("Blog entries should be an array");
+    blogEntries = entries.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    renderBlogEntry(blogEntries[0]?.id);
+  })
+  .catch(showBlogError);
+</script>

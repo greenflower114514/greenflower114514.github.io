@@ -1,6 +1,6 @@
 ---
 layout: home
-title: 个人主页
+title: 电子蜗居
 ---
 
 <style>

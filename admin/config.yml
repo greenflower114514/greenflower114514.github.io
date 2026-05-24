@@ -1,14 +1,9 @@
 backend:
-  name: github
-  repo: greenflower114514/greenflower114514.github.io
+  name: git-gateway
   branch: main
-  # GitHub Pages has no built-in OAuth service. Replace these two values
-  # after deploying your OAuth bridge for Decap CMS.
-  base_url: https://YOUR_DECAP_OAUTH_BRIDGE_DOMAIN
-  auth_endpoint: auth
 
-site_url: https://greenflower114514.github.io
-display_url: https://greenflower114514.github.io
+site_url: https://dreamy-wisp-69ba57.netlify.app
+display_url: https://dreamy-wisp-69ba57.netlify.app
 media_folder: assets/uploads
 public_folder: /assets/uploads
 

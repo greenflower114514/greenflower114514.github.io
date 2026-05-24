@@ -885,8 +885,8 @@ body {
 
   <main class="profile-content" id="about">
     <p class="about-kicker">About / 关于</p>
-    <h2 class="about-title">这里暂时收留一些代码、想法和奇怪的自我介绍。</h2>
-    <p class="about-intro">这不是一份正经到会自己打领带的简历，更像是一个慢慢装修中的个人空间。会放一点学习记录，一点项目折腾，一点日常碎片，以及一些“以后一定会填坑”的郑重承诺。</p>
+    <h2 class="about-title">电子蜗居</h2>
+    <p class="about-intro">网络是由信号与电流构筑而成的城市群，而散落的文字、代码与图像，在其中拼凑出我的电子蜗居。</p>
 
     <section class="about-grid" aria-label="关于我的卡片">
       <article class="about-card">

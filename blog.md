@@ -404,7 +404,7 @@ function renderBlogEntry(entryId) {
     <h2>${escapeBlogHtml(entry.title)}</h2>
     <p class="blog-reader-excerpt">${escapeBlogHtml(entry.excerpt)}</p>
     <div class="blog-reader-body">
-      ${(Array.isArray(entry.content) ? entry.content : []).map((paragraph) => `<p>${escapeBlogHtml(paragraph)}</p>`).join("")}
+      ${(Array.isArray(entry.content) ? entry.content : []).map((paragraph) => `<p>${escapeBlogHtml(typeof paragraph === "string" ? paragraph : paragraph.paragraph)}</p>`).join("")}
     </div>
   `;
   renderBlogList();
@@ -434,7 +434,8 @@ fetch(blogEntriesPath)
     if (!response.ok) throw new Error("Blog entries request failed");
     return response.json();
   })
-  .then((entries) => {
+  .then((data) => {
+    const entries = Array.isArray(data) ? data : data.entries;
     if (!Array.isArray(entries)) throw new Error("Blog entries should be an array");
     blogEntries = entries.sort((a, b) => String(b.date).localeCompare(String(a.date)));
     renderBlogEntry(blogEntries[0]?.id);

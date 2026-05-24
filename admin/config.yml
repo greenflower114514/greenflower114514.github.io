@@ -1,0 +1,57 @@
+backend:
+  name: github
+  repo: greenflower114514/greenflower114514.github.io
+  branch: main
+  # GitHub Pages has no built-in OAuth service. Replace these two values
+  # after deploying your OAuth bridge for Decap CMS.
+  base_url: https://YOUR_DECAP_OAUTH_BRIDGE_DOMAIN
+  auth_endpoint: auth
+
+site_url: https://greenflower114514.github.io
+display_url: https://greenflower114514.github.io
+media_folder: assets/uploads
+public_folder: /assets/uploads
+
+collections:
+  - name: blog_data
+    label: 博客日记
+    files:
+      - name: blog_entries
+        label: 日记列表
+        file: assets/blog-entries.json
+        format: json
+        fields:
+          - label: 日记
+            name: entries
+            widget: list
+            collapsed: false
+            summary: "{{fields.date}} · {{fields.type}} · {{fields.title}}"
+            fields:
+              - label: ID
+                name: id
+                widget: string
+                hint: 建议使用日期加英文短标题，例如 2026-05-25-homepage-building。
+              - label: 类型
+                name: type
+                widget: string
+                hint: 可自由填写，例如 日常、学习、碎碎念、施工记录。
+              - label: 日期
+                name: date
+                widget: datetime
+                date_format: YYYY-MM-DD
+                time_format: false
+                format: YYYY-MM-DD
+              - label: 标题
+                name: title
+                widget: string
+              - label: 摘要
+                name: excerpt
+                widget: text
+              - label: 正文段落
+                name: content
+                widget: list
+                collapsed: false
+                field:
+                  label: 段落
+                  name: paragraph
+                  widget: text

@@ -193,8 +193,8 @@ body {
 }
 
 .profile-content {
-  width: min(760px, calc(100% - 760px));
-  margin: 0 auto 0 max(72px, calc((100vw - 1700px) / 2 + 96px));
+  width: min(900px, calc(100% - 64px));
+  margin: 0 auto;
   padding: 46px 0 124px;
 }
 
@@ -318,14 +318,17 @@ body {
 }
 
 .about-detail {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: calc(100% + 34px);
-  width: 520px;
-  min-height: 360px;
-  padding: 24px;
+  right: max(24px, calc((100vw - 1700px) / 2 + 24px));
+  z-index: 12;
+  width: min(1040px, calc(100vw - 720px));
+  min-height: min(720px, calc(100vh - 120px));
+  max-height: calc(100vh - 96px);
+  overflow: auto;
+  padding: 34px;
   opacity: 0;
-  transform: translate(18px, -50%);
+  transform: translate(28px, -50%);
   color: rgba(255, 255, 255, 0.74);
   border: 1px solid rgba(255, 255, 255, 0.16);
   background:
@@ -358,7 +361,7 @@ body {
 
 .about-detail-media {
   display: flex;
-  min-height: 150px;
+  min-height: 300px;
   align-items: center;
   justify-content: center;
   margin-bottom: 18px;

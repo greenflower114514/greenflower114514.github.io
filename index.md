@@ -193,32 +193,163 @@ body {
 }
 
 .profile-content {
-  width: min(760px, calc(100% - 40px));
+  width: min(860px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 58px 0 104px;
+  padding: 64px 0 112px;
 }
 
-.profile-content > p:first-child {
-  margin-top: 0;
-  margin-bottom: 44px;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 1.02rem;
+.about-kicker {
+  margin: 0 0 14px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.profile-content h2 {
-  margin-top: 48px;
-  padding-bottom: 10px;
+.about-title {
+  margin: 0 0 18px;
   color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 2rem;
+  line-height: 1.2;
 }
 
-.profile-content p,
-.profile-content li {
+.about-intro {
+  max-width: 680px;
+  margin: 0 0 34px;
   color: rgba(255, 255, 255, 0.76);
+  font-size: 1.03rem;
+  line-height: 1.9;
 }
 
-.profile-content a {
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.about-card,
+.timeline-card {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(9, 10, 12, 0.34);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(14px);
+}
+
+.about-card {
+  min-height: 160px;
+  padding: 22px;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.about-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.24);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.035)),
+    rgba(9, 10, 12, 0.40);
+}
+
+.about-card h3,
+.timeline-title {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.about-card p,
+.about-card li,
+.timeline-card p {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.75;
+}
+
+.about-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.about-card a {
   color: #d8e2ff;
+}
+
+.about-timeline {
+  margin-top: 52px;
+}
+
+.timeline-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 14px;
+}
+
+.timeline-heading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.45rem;
+}
+
+.timeline-heading span {
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+}
+
+.timeline-list {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0 0 0 34px;
+  list-style: none;
+}
+
+.timeline-list::before {
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 9px;
+  width: 1px;
+  content: "";
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.12));
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item::before {
+  position: absolute;
+  top: 24px;
+  left: -31px;
+  width: 11px;
+  height: 11px;
+  content: "";
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  background: #202326;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.05);
+}
+
+.timeline-card {
+  padding: 20px 22px;
+}
+
+.timeline-year {
+  display: inline-flex;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 @media (max-width: 640px) {
@@ -257,7 +388,25 @@ body {
   }
 
   .profile-content {
-    padding-top: 42px;
+    width: min(100% - 28px, 860px);
+    padding-top: 46px;
+  }
+
+  .about-title {
+    font-size: 1.55rem;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-heading {
+    display: block;
+  }
+
+  .timeline-heading span {
+    display: block;
+    margin-top: 8px;
   }
 
   .post-title,
@@ -309,27 +458,75 @@ body {
     </div>
   </section>
 
-  <main class="profile-content">
-    <p>这里是我的个人主页。</p>
+  <main class="profile-content" id="about">
+    <p class="about-kicker">About / 关于</p>
+    <h2 class="about-title">这里暂时收留一些代码、想法和奇怪的自我介绍。</h2>
+    <p class="about-intro">这不是一份正经到会自己打领带的简历，更像是一个慢慢装修中的个人空间。会放一点学习记录，一点项目折腾，一点日常碎片，以及一些“以后一定会填坑”的郑重承诺。</p>
 
-    <h2><span id="about">关于我</span></h2>
+    <section class="about-grid" aria-label="关于我的卡片">
+      <article class="about-card">
+        <h3>关于我</h3>
+        <p>你好，我是干煸双鲜。这里是我的 GitHub 个人主页，也是一个用来展示近况、记录想法、顺便证明我确实在努力的地方。</p>
+      </article>
 
-    <p>你可以在这里写一段简短的自我介绍。</p>
+      <article class="about-card">
+        <h3>当前状态</h3>
+        <p>正在把个人主页从“能看”慢慢改造成“有点东西”。学习、项目、表达能力都在施工中，偶尔还会和 CSS 进行友好切磋。</p>
+      </article>
 
-    <h2>我在做什么</h2>
+      <article class="about-card">
+        <h3>兴趣偏好</h3>
+        <ul>
+          <li>喜欢有一点个人气味的页面。</li>
+          <li>喜欢猫，但目前处于“谁能送我只猫啊”的阶段。</li>
+          <li>喜欢把普通东西折腾得更像自己一点。</li>
+        </ul>
+      </article>
 
-    <ul>
-      <li>方向 1</li>
-      <li>方向 2</li>
-      <li>方向 3</li>
-    </ul>
+      <article class="about-card">
+        <h3>技术方向</h3>
+        <p>目前关注编程学习、项目实践、GitHub Pages 和个人站点搭建。技能树还在长，枝杈有点随缘，但根应该是认真在扎。</p>
+      </article>
 
-    <h2>联系方式</h2>
+      <article class="about-card">
+        <h3>小目标</h3>
+        <ul>
+          <li>持续完善这个主页。</li>
+          <li>把学习过程整理成能复看的记录。</li>
+          <li>让项目展示不再像临时占位。</li>
+        </ul>
+      </article>
 
-    <ul>
-      <li>GitHub: <a href="https://github.com/greenflower114514">greenflower114514</a></li>
-      <li>Email: your-email@example.com</li>
-    </ul>
+      <article class="about-card">
+        <h3>联系入口</h3>
+        <p>目前先保留 GitHub 作为公开入口：<a href="https://github.com/greenflower114514">greenflower114514</a>。其他联系方式等我想好怎么优雅出现再说。</p>
+      </article>
+    </section>
+
+    <section class="about-timeline" aria-label="人生时间线">
+      <div class="timeline-heading">
+        <h2>Timeline / 人生节点</h2>
+        <span>按时间顺序记录一些重要节点</span>
+      </div>
+
+      <ol class="timeline-list">
+        <li class="timeline-item">
+          <article class="timeline-card">
+            <span class="timeline-year">2023</span>
+            <h3 class="timeline-title">本科入学</h3>
+            <p>正式进入新的学习阶段，开始积累专业基础，也开始给未来的自己挖一些看起来很有前途的坑。</p>
+          </article>
+        </li>
+
+        <li class="timeline-item">
+          <article class="timeline-card">
+            <span class="timeline-year">2026</span>
+            <h3 class="timeline-title">研究生入学</h3>
+            <p>计划进入研究生阶段，继续扩展学习和研究方向。这个节点先放在这里，算是给未来提前占个座。</p>
+          </article>
+        </li>
+      </ol>
+    </section>
   </main>
 </div>
 

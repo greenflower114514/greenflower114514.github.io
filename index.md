@@ -3,7 +3,22 @@ layout: home
 title: 首页
 ---
 
-# 你好，我是 BigJY
+<style>
+.profile-title {
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.profile-subtitle {
+  font-size: 0.9rem;
+  text-align: center;
+}
+</style>
+
+<h1 class="profile-title">干煸双鲜</h1>
+
+<p class="profile-subtitle">·谁能送我只猫啊·</p>
 
 这里是我的个人主页。
 
@@ -39,4 +54,4 @@ title: 首页
 
 ---
 
-这页内容完全由 Markdown 编写。以后你主要修改这个文件就可以了。
+这页内容完全用 Markdown 编写。以后你主要修改这个文件就可以了。

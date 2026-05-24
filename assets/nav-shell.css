@@ -1,0 +1,398 @@
+body {
+  color: rgba(255, 255, 255, 0.82);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.10), transparent 30%),
+    radial-gradient(circle at 14% 48%, rgba(112, 125, 143, 0.14), transparent 32%),
+    linear-gradient(180deg, #101112 0%, #1d2022 46%, #0b0d0f 100%) !important;
+}
+
+.site-header,
+.site-footer,
+.post-header {
+  display: none;
+}
+
+.post-title,
+.page-heading {
+  position: absolute;
+  top: 18px;
+  left: max(28px, calc((100vw - 1180px) / 2));
+  z-index: 3;
+  margin: 0 !important;
+  padding: 8px 18px;
+  color: rgba(255, 255, 255, 0.88) !important;
+  font-size: 1rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(8, 9, 10, 0.32);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+}
+
+.page-content {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.wrapper {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+.profile-page {
+  min-height: 100vh;
+  color: rgba(255, 255, 255, 0.82);
+  background:
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.06), transparent 24%),
+    linear-gradient(180deg, #151617 0%, #202326 44%, #0c0f12 100%);
+}
+
+.profile-time {
+  position: absolute;
+  top: 18px;
+  right: max(28px, calc((100vw - 1180px) / 2));
+  z-index: 3;
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
+  padding: 0 14px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(8, 9, 10, 0.30);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.24);
+}
+
+.profile-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 66px 24px 58px;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgba(8, 9, 10, 0.30), rgba(8, 9, 10, 0.76)),
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.12), transparent 24%),
+    url("hero-background.svg") center / cover no-repeat;
+}
+
+.profile-hero::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 86px;
+  content: "";
+  background: linear-gradient(180deg, transparent, #202326 78%);
+  pointer-events: none;
+}
+
+.profile-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 94vw);
+  transform: translateY(-2px);
+}
+
+.profile-avatar {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  border: 4px solid #f2f2f2;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.38),
+    0 24px 64px rgba(0, 0, 0, 0.46);
+}
+
+.profile-title {
+  margin: 18px 0 8px;
+  color: #fff;
+  font-size: 2.55rem;
+  font-weight: 800;
+  line-height: 1.12;
+  text-align: center;
+}
+
+.profile-subtitle {
+  margin: 0 auto 24px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-align: center;
+}
+
+.profile-divider {
+  width: min(500px, 88vw);
+  height: 1px;
+  margin: 0 auto 34px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.30), transparent);
+}
+
+.profile-nav {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(84px, 1fr));
+  width: min(620px, 94vw);
+  margin: 0 auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(12, 13, 14, 0.18);
+  backdrop-filter: blur(12px);
+}
+
+.profile-nav a {
+  display: flex;
+  min-height: 92px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.74);
+  text-decoration: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.profile-nav a:last-child {
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.profile-nav a:hover,
+.profile-nav a.is-active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.profile-nav-icon {
+  font-size: 1.12rem;
+  line-height: 1;
+}
+
+.profile-nav-en {
+  color: #fff;
+  font-size: 0.92rem;
+  line-height: 1.1;
+}
+
+.profile-nav-cn {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  line-height: 1.1;
+}
+
+.daily-board {
+  position: fixed;
+  top: 124px;
+  right: max(22px, calc((100vw - 1700px) / 2 + 20px));
+  z-index: 2;
+  width: 300px;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.025)),
+    rgba(9, 10, 12, 0.76);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(18px);
+}
+
+.daily-board::before {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin: 0 auto 18px;
+  content: "";
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.daily-board h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.daily-board time {
+  display: block;
+  margin-bottom: 18px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.76rem;
+  letter-spacing: 0.10em;
+}
+
+.daily-board ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 1.05rem;
+}
+
+.daily-board li {
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.65;
+}
+
+.visit-calendar {
+  position: fixed;
+  top: 92px;
+  left: max(22px, calc((100vw - 1700px) / 2 + 20px));
+  z-index: 2;
+  width: 300px;
+  padding: 22px;
+  color: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255, 138, 66, 0.55), transparent 34%),
+    radial-gradient(circle at 90% 94%, rgba(46, 204, 143, 0.72), transparent 36%),
+    linear-gradient(135deg, rgba(249, 115, 22, 0.72), rgba(17, 24, 39, 0.86) 46%, rgba(15, 23, 42, 0.92));
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(18px);
+}
+
+.calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.calendar-head button {
+  width: 38px;
+  height: 34px;
+  color: #fff;
+  border: 0;
+  background: rgba(255, 255, 255, 0.16);
+  cursor: pointer;
+}
+
+.calendar-title {
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 8px;
+}
+
+.calendar-weekdays span {
+  padding: 6px 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.calendar-day {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  border: 1px solid transparent;
+}
+
+.calendar-day.is-muted {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.calendar-day.is-visited {
+  color: #111827;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.90);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.38);
+}
+
+.calendar-day.is-today {
+  border-color: rgba(255, 255, 255, 0.72);
+}
+
+.calendar-note {
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.74rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  .profile-time {
+    top: 56px;
+    right: 14px;
+    min-height: 30px;
+    padding: 0 10px;
+    font-size: 0.68rem;
+  }
+
+  .profile-hero {
+    min-height: 590px;
+    padding: 64px 14px 54px;
+  }
+
+  .profile-title {
+    font-size: 2rem;
+  }
+
+  .profile-nav {
+    grid-template-columns: repeat(5, 1fr);
+    width: min(560px, 96vw);
+  }
+
+  .profile-nav a {
+    min-height: 76px;
+  }
+
+  .profile-nav-en {
+    font-size: 0.76rem;
+  }
+
+  .profile-nav-cn {
+    font-size: 0.66rem;
+  }
+
+  .daily-board,
+  .visit-calendar {
+    position: static;
+    width: min(100% - 28px, 340px);
+    margin: 28px auto 0;
+  }
+
+  .post-title,
+  .page-heading {
+    top: 14px;
+    left: 14px;
+    padding: 7px 12px;
+    font-size: 0.82rem !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1450px) {
+  .daily-board {
+    position: fixed;
+    top: 92px;
+    right: 24px;
+    width: 260px;
+  }
+
+  .visit-calendar {
+    position: fixed;
+    top: 92px;
+    left: 24px;
+    width: 260px;
+  }
+}

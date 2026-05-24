@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="900" viewBox="0 0 1800 900" role="img" aria-label="Dark abstract homepage background">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2b2c2d"/>
+      <stop offset="0.42" stop-color="#17191b"/>
+      <stop offset="1" stop-color="#0a0c0e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="34%" r="44%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.20"/>
+      <stop offset="0.38" stop-color="#9ca3af" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#111827" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+  </defs>
+  <rect width="1800" height="900" fill="url(#bg)"/>
+  <rect width="1800" height="900" fill="url(#glow)"/>
+  <path d="M-80 610 C260 420 510 540 780 390 C1040 246 1320 296 1900 120 L1900 900 L-80 900 Z" fill="#2f3337" opacity="0.28" filter="url(#soft)"/>
+  <path d="M-100 190 C240 260 410 154 690 220 C970 286 1180 174 1900 250" fill="none" stroke="#f8fafc" stroke-opacity="0.08" stroke-width="2"/>
+  <path d="M-120 690 C320 520 640 674 920 520 C1190 372 1440 438 1910 284" fill="none" stroke="#f8fafc" stroke-opacity="0.06" stroke-width="2"/>
+  <g opacity="0.16">
+    <circle cx="220" cy="210" r="1.3" fill="#ffffff"/>
+    <circle cx="410" cy="144" r="1.1" fill="#ffffff"/>
+    <circle cx="1250" cy="210" r="1.2" fill="#ffffff"/>
+    <circle cx="1430" cy="134" r="1" fill="#ffffff"/>
+    <circle cx="1560" cy="360" r="1.2" fill="#ffffff"/>
+  </g>
+</svg>

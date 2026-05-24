@@ -7,9 +7,9 @@ title: 首页
 body {
   color: rgba(255, 255, 255, 0.82);
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.12), transparent 28%),
-    radial-gradient(circle at 12% 42%, rgba(106, 118, 134, 0.16), transparent 30%),
-    linear-gradient(180deg, #111 0%, #1d1f21 48%, #0b0d0f 100%) !important;
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.10), transparent 30%),
+    radial-gradient(circle at 14% 48%, rgba(112, 125, 143, 0.14), transparent 32%),
+    linear-gradient(180deg, #101112 0%, #1d2022 46%, #0b0d0f 100%) !important;
 }
 
 .site-header,
@@ -31,80 +31,109 @@ body {
   min-height: 100vh;
   color: rgba(255, 255, 255, 0.82);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 42%),
-    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.08), transparent 24%),
-    linear-gradient(180deg, #141414 0%, #202224 46%, #0d0f12 100%);
+    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.06), transparent 24%),
+    linear-gradient(180deg, #151617 0%, #202326 44%, #0c0f12 100%);
 }
 
 .profile-hero {
-  padding: 118px 24px 86px;
+  position: relative;
+  min-height: min(680px, 78vh);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 72px 24px 86px;
   text-align: center;
+  background:
+    linear-gradient(180deg, rgba(8, 9, 10, 0.30), rgba(8, 9, 10, 0.76)),
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.12), transparent 24%),
+    url("assets/hero-background.svg") center / cover no-repeat;
+}
+
+.profile-hero::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 120px;
+  content: "";
+  background: linear-gradient(180deg, transparent, #202326 78%);
+  pointer-events: none;
+}
+
+.profile-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(640px, 94vw);
+  transform: translateY(-10px);
 }
 
 .profile-avatar {
-  width: 82px;
-  height: 82px;
+  width: 88px;
+  height: 88px;
   object-fit: cover;
   border: 4px solid #f2f2f2;
   border-radius: 50%;
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.36),
-    0 22px 58px rgba(0, 0, 0, 0.42);
+    0 0 0 1px rgba(255, 255, 255, 0.38),
+    0 24px 64px rgba(0, 0, 0, 0.46);
 }
 
 .profile-title {
   margin: 18px 0 8px;
   color: #fff;
-  font-size: 2.35rem;
+  font-size: 2.55rem;
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.12;
   text-align: center;
 }
 
 .profile-subtitle {
-  margin: 0 auto 20px;
-  color: rgba(255, 255, 255, 0.72);
+  margin: 0 auto 24px;
+  color: rgba(255, 255, 255, 0.76);
   font-size: 0.95rem;
   letter-spacing: 0.18em;
   text-align: center;
 }
 
 .profile-divider {
-  width: min(480px, 88vw);
+  width: min(500px, 88vw);
   height: 1px;
-  margin: 0 auto 38px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.26), transparent);
+  margin: 0 auto 34px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.30), transparent);
 }
 
 .profile-nav {
   display: grid;
   grid-template-columns: repeat(5, minmax(72px, 1fr));
-  width: min(520px, 92vw);
+  width: min(540px, 92vw);
   margin: 0 auto;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  background: rgba(12, 13, 14, 0.18);
 }
 
 .profile-nav a {
   display: flex;
-  min-height: 76px;
+  min-height: 78px;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 7px;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.74);
   text-decoration: none;
-  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
   transition: color 160ms ease, background 160ms ease;
 }
 
 .profile-nav a:last-child {
-  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .profile-nav a:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .profile-nav-icon {
@@ -119,7 +148,14 @@ body {
 .profile-content {
   width: min(760px, calc(100% - 40px));
   margin: 0 auto;
-  padding: 0 0 96px;
+  padding: 58px 0 104px;
+}
+
+.profile-content > p:first-child {
+  margin-top: 0;
+  margin-bottom: 44px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.02rem;
 }
 
 .profile-content h2,
@@ -154,11 +190,16 @@ body {
 
 @media (max-width: 640px) {
   .profile-hero {
-    padding: 78px 16px 60px;
+    min-height: 560px;
+    padding: 58px 16px 74px;
+  }
+
+  .profile-hero-inner {
+    transform: translateY(-4px);
   }
 
   .profile-title {
-    font-size: 1.9rem;
+    font-size: 2rem;
   }
 
   .profile-nav {
@@ -172,22 +213,28 @@ body {
   .profile-nav-label {
     font-size: 0.76rem;
   }
+
+  .profile-content {
+    padding-top: 42px;
+  }
 }
 </style>
 
 <div class="profile-page">
   <section class="profile-hero">
-    <img class="profile-avatar" src="https://avatars.githubusercontent.com/u/93895894?v=4" alt="干煸双鲜的头像">
-    <h1 class="profile-title">干煸双鲜</h1>
-    <p class="profile-subtitle">·谁能送我只猫啊·</p>
-    <div class="profile-divider"></div>
-    <nav class="profile-nav" aria-label="个人主页导航">
-      <a href="#blog"><span class="profile-nav-icon">✎</span><span class="profile-nav-label">Blog</span></a>
-      <a href="#about"><span class="profile-nav-icon">⌁</span><span class="profile-nav-label">About</span></a>
-      <a href="#weibo"><span class="profile-nav-icon">◎</span><span class="profile-nav-label">Weibo</span></a>
-      <a href="#gallery"><span class="profile-nav-icon">▣</span><span class="profile-nav-label">Gallery</span></a>
-      <a href="#thinking"><span class="profile-nav-icon">☼</span><span class="profile-nav-label">Thinking</span></a>
-    </nav>
+    <div class="profile-hero-inner">
+      <img class="profile-avatar" src="https://avatars.githubusercontent.com/u/93895894?v=4" alt="干煸双鲜的头像">
+      <h1 class="profile-title">干煸双鲜</h1>
+      <p class="profile-subtitle">·谁能送我只猫啊·</p>
+      <div class="profile-divider"></div>
+      <nav class="profile-nav" aria-label="个人主页导航">
+        <a href="#blog"><span class="profile-nav-icon">✎</span><span class="profile-nav-label">Blog</span></a>
+        <a href="#about"><span class="profile-nav-icon">⌁</span><span class="profile-nav-label">About</span></a>
+        <a href="#weibo"><span class="profile-nav-icon">◎</span><span class="profile-nav-label">Weibo</span></a>
+        <a href="#gallery"><span class="profile-nav-icon">▣</span><span class="profile-nav-label">Gallery</span></a>
+        <a href="#thinking"><span class="profile-nav-icon">☼</span><span class="profile-nav-label">Thinking</span></a>
+      </nav>
+    </div>
   </section>
 
   <main class="profile-content">

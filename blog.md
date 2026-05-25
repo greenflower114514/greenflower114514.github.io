@@ -152,6 +152,31 @@ permalink: /blog.html
   line-height: 1.45;
 }
 
+.blog-entry-status {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.blog-entry-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  color: rgba(255, 244, 208, 0.92);
+  border: 1px solid rgba(255, 224, 163, 0.24);
+  background: rgba(255, 224, 163, 0.08);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.blog-entry-lock.is-open {
+  color: rgba(204, 255, 232, 0.92);
+  border-color: rgba(122, 241, 192, 0.24);
+  background: rgba(122, 241, 192, 0.08);
+}
+
 .blog-reader {
   flex: 1;
   min-width: 0;
@@ -211,6 +236,110 @@ permalink: /blog.html
   color: rgba(255, 255, 255, 0.76);
   font-size: 1rem;
   line-height: 2;
+}
+
+.blog-gate {
+  max-width: 560px;
+}
+
+.blog-gate-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  color: rgba(255, 244, 208, 0.94);
+  border: 1px solid rgba(255, 224, 163, 0.18);
+  background: rgba(255, 224, 163, 0.08);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.blog-gate-question {
+  margin: 22px 0 12px;
+  color: #fff;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  line-height: 1.22;
+}
+
+.blog-gate-copy,
+.blog-gate-hint,
+.blog-gate-feedback {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: 1.9;
+}
+
+.blog-gate-hint {
+  margin-top: 14px;
+  color: rgba(255, 236, 198, 0.82);
+}
+
+.blog-gate-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.blog-gate-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.blog-gate-input {
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px 16px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.blog-gate-input:focus {
+  outline: none;
+  border-color: rgba(255, 224, 163, 0.68);
+  box-shadow: 0 0 0 3px rgba(255, 224, 163, 0.12);
+}
+
+.blog-gate-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.blog-gate-submit {
+  padding: 12px 18px;
+  color: #151515;
+  border: 0;
+  background: linear-gradient(135deg, #ffe0a3, #ffd27b);
+  font-size: 0.94rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.blog-gate-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(255, 210, 123, 0.24);
+}
+
+.blog-gate-feedback {
+  min-height: 1.9em;
+}
+
+.blog-gate-feedback.is-error {
+  color: #ffb4b4;
+}
+
+.blog-gate-feedback.is-success {
+  color: #bbffdd;
 }
 
 .blog-empty {
@@ -343,6 +472,7 @@ permalink: /blog.html
 <script src="assets/nav-shell.js"></script>
 <script>
 const blogEntriesPath = "assets/blog-entries.json";
+const blogGateStoragePrefix = "blog-gate:";
 const blogSidebar = document.getElementById("blog-sidebar");
 const blogToggle = document.getElementById("blog-toggle");
 const blogList = document.getElementById("blog-list");
@@ -369,6 +499,62 @@ function formatBlogDate(value) {
   }).format(date);
 }
 
+function normalizeGateText(value) {
+  return String(value ?? "").trim();
+}
+
+function normalizeGateAnswer(value) {
+  return normalizeGateText(value).toLocaleLowerCase("zh-CN");
+}
+
+function normalizeBlogEntry(entry) {
+  const gateQuestion = normalizeGateText(entry.gateQuestion);
+  const gateAnswer = normalizeGateAnswer(entry.gateAnswer);
+  const gateVersion = normalizeGateText(entry.gateVersion) || "1";
+
+  return {
+    ...entry,
+    content: Array.isArray(entry.content) ? entry.content : [],
+    gateEnabled: Boolean(entry.gateEnabled && gateQuestion && gateAnswer),
+    gateQuestion,
+    gateAnswer,
+    gateHint: normalizeGateText(entry.gateHint),
+    gateVersion
+  };
+}
+
+function getGateStorageKey(entry) {
+  return `${blogGateStoragePrefix}${entry.id}:${entry.gateVersion}`;
+}
+
+function hasGateAccess(entry) {
+  if (!entry.gateEnabled) return true;
+
+  try {
+    return window.localStorage.getItem(getGateStorageKey(entry)) === "passed";
+  } catch (error) {
+    return false;
+  }
+}
+
+function grantGateAccess(entry) {
+  try {
+    window.localStorage.setItem(getGateStorageKey(entry), "passed");
+  } catch (error) {
+    // Ignore storage failures so the gate can still work in-session.
+  }
+}
+
+function updateBlogHash(entryId) {
+  if (!entryId) return;
+  const nextUrl = `${window.location.pathname}${window.location.search}#${encodeURIComponent(entryId)}`;
+  window.history.replaceState(null, "", nextUrl);
+}
+
+function getEntryIdFromHash() {
+  return decodeURIComponent(window.location.hash.replace(/^#/, ""));
+}
+
 function renderBlogList() {
   if (!blogList) return;
 
@@ -380,6 +566,11 @@ function renderBlogList() {
           <time>${escapeBlogHtml(formatBlogDate(entry.date))}</time>
         </span>
         <span class="blog-entry-title">${escapeBlogHtml(entry.title)}</span>
+        ${entry.gateEnabled ? `
+          <span class="blog-entry-status">
+            <span class="blog-entry-lock${hasGateAccess(entry) ? " is-open" : ""}">${hasGateAccess(entry) ? "Unlocked" : "Question Gate"}</span>
+          </span>
+        ` : ""}
       </button>
     </li>
   `).join("");
@@ -391,11 +582,7 @@ function renderBlogList() {
   });
 }
 
-function renderBlogEntry(entryId) {
-  const entry = blogEntries.find((item) => item.id === entryId) || blogEntries[0];
-  if (!entry || !blogReader) return;
-
-  activeEntryId = entry.id;
+function renderBlogContent(entry) {
   blogReader.innerHTML = `
     <div class="blog-reader-meta">
       <span class="blog-reader-type">${escapeBlogHtml(entry.type)}</span>
@@ -404,9 +591,91 @@ function renderBlogEntry(entryId) {
     <h2>${escapeBlogHtml(entry.title)}</h2>
     <p class="blog-reader-excerpt">${escapeBlogHtml(entry.excerpt)}</p>
     <div class="blog-reader-body">
-      ${(Array.isArray(entry.content) ? entry.content : []).map((paragraph) => `<p>${escapeBlogHtml(typeof paragraph === "string" ? paragraph : paragraph.paragraph)}</p>`).join("")}
+      ${entry.content.map((paragraph) => {
+        const text = typeof paragraph === "string" ? paragraph : paragraph?.paragraph;
+        return `<p>${escapeBlogHtml(text)}</p>`;
+      }).join("")}
     </div>
   `;
+}
+
+function renderBlogGate(entry, feedback = {}) {
+  const hintMarkup = entry.gateHint
+    ? `<p class="blog-gate-hint">Hint: ${escapeBlogHtml(entry.gateHint)}</p>`
+    : "";
+  const feedbackClass = feedback.type ? ` is-${escapeBlogHtml(feedback.type)}` : "";
+
+  blogReader.innerHTML = `
+    <div class="blog-reader-meta">
+      <span class="blog-reader-type">${escapeBlogHtml(entry.type)}</span>
+      <time>${escapeBlogHtml(formatBlogDate(entry.date))}</time>
+    </div>
+    <section class="blog-gate" aria-labelledby="blog-gate-title">
+      <span class="blog-gate-kicker">Question Gate</span>
+      <h2 class="blog-gate-question" id="blog-gate-title">${escapeBlogHtml(entry.gateQuestion)}</h2>
+      <p class="blog-gate-copy">Answer the question below to read this entry.</p>
+      ${hintMarkup}
+      <form class="blog-gate-form" id="blog-gate-form">
+        <label class="blog-gate-label" for="blog-gate-answer">
+          Your answer
+          <input class="blog-gate-input" id="blog-gate-answer" name="answer" type="text" autocomplete="off" spellcheck="false" required>
+        </label>
+        <div class="blog-gate-actions">
+          <button class="blog-gate-submit" type="submit">Open Entry</button>
+          <p class="blog-gate-feedback${feedbackClass}" id="blog-gate-feedback">${escapeBlogHtml(feedback.message ?? "")}</p>
+        </div>
+      </form>
+    </section>
+  `;
+
+  const gateForm = document.getElementById("blog-gate-form");
+  const gateInput = document.getElementById("blog-gate-answer");
+  const gateFeedback = document.getElementById("blog-gate-feedback");
+
+  if (!gateForm || !gateInput || !gateFeedback) return;
+
+  gateForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const submittedAnswer = normalizeGateAnswer(gateInput.value);
+    if (!submittedAnswer) {
+      gateFeedback.textContent = "Write an answer first.";
+      gateFeedback.className = "blog-gate-feedback is-error";
+      gateInput.focus();
+      return;
+    }
+
+    if (submittedAnswer !== entry.gateAnswer) {
+      gateFeedback.textContent = "That answer does not open this entry yet.";
+      gateFeedback.className = "blog-gate-feedback is-error";
+      gateInput.select();
+      return;
+    }
+
+    grantGateAccess(entry);
+    renderBlogEntry(entry.id, { updateHash: false });
+  });
+
+  gateInput.addEventListener("input", () => {
+    gateFeedback.textContent = "";
+    gateFeedback.className = "blog-gate-feedback";
+  });
+}
+
+function renderBlogEntry(entryId, options = {}) {
+  const entry = blogEntries.find((item) => item.id === entryId) || blogEntries[0];
+  if (!entry || !blogReader) return;
+
+  activeEntryId = entry.id;
+  if (options.updateHash !== false) updateBlogHash(entry.id);
+
+  if (entry.gateEnabled && !hasGateAccess(entry)) {
+    renderBlogGate(entry, options.feedback);
+    renderBlogList();
+    return;
+  }
+
+  renderBlogContent(entry);
   renderBlogList();
 }
 
@@ -437,8 +706,18 @@ fetch(blogEntriesPath)
   .then((data) => {
     const entries = Array.isArray(data) ? data : data.entries;
     if (!Array.isArray(entries)) throw new Error("Blog entries should be an array");
-    blogEntries = entries.sort((a, b) => String(b.date).localeCompare(String(a.date)));
-    renderBlogEntry(blogEntries[0]?.id);
+    blogEntries = entries
+      .map(normalizeBlogEntry)
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+    const initialEntryId = getEntryIdFromHash();
+    renderBlogEntry(initialEntryId || blogEntries[0]?.id);
   })
   .catch(showBlogError);
+
+window.addEventListener("hashchange", () => {
+  const entryId = getEntryIdFromHash();
+  if (!entryId || entryId === activeEntryId) return;
+  renderBlogEntry(entryId, { updateHash: false });
+});
 </script>

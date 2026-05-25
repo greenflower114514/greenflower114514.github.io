@@ -44,6 +44,30 @@ collections:
               - label: Excerpt
                 name: excerpt
                 widget: text
+              - label: Enable Question Gate
+                name: gateEnabled
+                widget: boolean
+                required: false
+                default: false
+              - label: Gate Question
+                name: gateQuestion
+                widget: text
+                required: false
+              - label: Gate Answer
+                name: gateAnswer
+                widget: string
+                required: false
+                hint: Answer matching ignores case and leading or trailing spaces.
+              - label: Gate Hint
+                name: gateHint
+                widget: text
+                required: false
+              - label: Gate Version
+                name: gateVersion
+                widget: number
+                required: false
+                default: 1
+                value_type: int
               - label: Content Paragraphs
                 name: content
                 widget: list

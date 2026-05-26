@@ -96,7 +96,8 @@ permalink: /blog.html
 }
 
 .blog-sidebar.is-collapsed .blog-sidebar-title,
-.blog-sidebar.is-collapsed .blog-list {
+.blog-sidebar.is-collapsed .blog-list,
+.blog-sidebar.is-collapsed .blog-category-bar {
   display: none;
 }
 
@@ -110,6 +111,33 @@ permalink: /blog.html
   margin: 0;
   padding: 16px;
   list-style: none;
+}
+
+.blog-category-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 16px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.blog-category-button {
+  padding: 7px 10px;
+  color: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.blog-category-button:hover,
+.blog-category-button.is-active {
+  color: #fff;
+  border-color: rgba(255, 224, 163, 0.34);
+  background: rgba(255, 224, 163, 0.10);
 }
 
 .blog-entry-button {
@@ -515,6 +543,7 @@ permalink: /blog.html
           </div>
           <button class="blog-toggle" id="blog-toggle" type="button" aria-label="收起日记边栏" aria-expanded="true">‹</button>
         </div>
+        <div class="blog-category-bar" id="blog-category-bar"></div>
         <ol class="blog-list" id="blog-list"></ol>
       </aside>
 
@@ -572,9 +601,12 @@ const blogEntries = [
 ];
 const blogSidebar = document.getElementById("blog-sidebar");
 const blogToggle = document.getElementById("blog-toggle");
+const blogCategoryBar = document.getElementById("blog-category-bar");
 const blogList = document.getElementById("blog-list");
 const blogReader = document.getElementById("blog-reader");
+const allCategoryName = "全部";
 let activeEntryId = null;
+let activeCategory = allCategoryName;
 
 function escapeBlogHtml(value) {
   return String(value ?? "")
@@ -651,10 +683,38 @@ function getEntryIdFromHash() {
   return decodeURIComponent(window.location.hash.replace(/^#/, ""));
 }
 
+function getCategories() {
+  const types = [...new Set(blogEntries.map((entry) => normalizeGateText(entry.type)).filter(Boolean))];
+  return [allCategoryName, ...types];
+}
+
+function getFilteredEntries() {
+  if (activeCategory === allCategoryName) return blogEntries;
+  return blogEntries.filter((entry) => normalizeGateText(entry.type) === activeCategory);
+}
+
+function renderCategoryBar() {
+  if (!blogCategoryBar) return;
+
+  blogCategoryBar.innerHTML = getCategories().map((category) => `
+    <button class="blog-category-button${category === activeCategory ? " is-active" : ""}" type="button" data-category-name="${escapeBlogHtml(category)}">
+      ${escapeBlogHtml(category)}
+    </button>
+  `).join("");
+
+  blogCategoryBar.querySelectorAll(".blog-category-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      setActiveCategory(button.dataset.categoryName || allCategoryName);
+    });
+  });
+}
+
 function renderBlogList() {
   if (!blogList) return;
 
-  blogList.innerHTML = blogEntries.map((entry) => `
+  const visibleEntries = getFilteredEntries();
+
+  blogList.innerHTML = visibleEntries.map((entry) => `
     <li>
       <button class="blog-entry-button${entry.id === activeEntryId ? " is-active" : ""}" type="button" data-entry-id="${escapeBlogHtml(entry.id)}">
         <span class="blog-entry-meta">
@@ -676,6 +736,29 @@ function renderBlogList() {
       renderBlogEntry(button.dataset.entryId);
     });
   });
+}
+
+function setActiveCategory(categoryName) {
+  activeCategory = categoryName || allCategoryName;
+  const filteredEntries = getFilteredEntries();
+  const activeEntryInCategory = filteredEntries.find((entry) => entry.id === activeEntryId);
+
+  renderCategoryBar();
+
+  if (!filteredEntries.length) {
+    if (blogReader) {
+      blogReader.innerHTML = '<p class="blog-empty">这个分类下还没有日记。</p>';
+    }
+    renderBlogList();
+    return;
+  }
+
+  if (activeEntryInCategory) {
+    renderBlogEntry(activeEntryInCategory.id, { updateHash: false });
+    return;
+  }
+
+  renderBlogEntry(filteredEntries[0].id);
 }
 
 function renderBlogContent(entry) {
@@ -769,11 +852,13 @@ function renderBlogEntry(entryId, options = {}) {
 
   if (entry.gateEnabled && !hasGateAccess(entry)) {
     renderBlogGate(entry, options.feedback);
+    renderCategoryBar();
     renderBlogList();
     return;
   }
 
   renderBlogContent(entry);
+  renderCategoryBar();
   renderBlogList();
 }
 
@@ -809,7 +894,13 @@ try {
   }
 
   const initialEntryId = getEntryIdFromHash();
-  renderBlogEntry(initialEntryId || blogEntries[0]?.id);
+  const initialEntry = blogEntries.find((entry) => entry.id === initialEntryId);
+  if (initialEntry) {
+    activeCategory = normalizeGateText(initialEntry.type) || allCategoryName;
+    renderBlogEntry(initialEntry.id);
+  } else {
+    renderBlogEntry(blogEntries[0]?.id);
+  }
 } catch (error) {
   showBlogError();
 }
@@ -817,6 +908,10 @@ try {
 window.addEventListener("hashchange", () => {
   const entryId = getEntryIdFromHash();
   if (!entryId || entryId === activeEntryId) return;
+  const entry = blogEntries.find((item) => item.id === entryId);
+  if (entry) {
+    activeCategory = normalizeGateText(entry.type) || allCategoryName;
+  }
   renderBlogEntry(entryId, { updateHash: false });
 });
 </script>

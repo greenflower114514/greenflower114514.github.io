@@ -553,7 +553,9 @@ permalink: /blog.html
     </div>
   </main>
 
-  <aside class="daily-board" aria-label="今日正在做的事">
+</div>
+
+<aside class="daily-board" aria-label="今日正在做的事">
     <h2>今日黑板</h2>
     <time>Today / 正在做</time>
     <ul>
@@ -575,7 +577,6 @@ permalink: /blog.html
     <div class="calendar-days" id="calendar-days"></div>
     <p class="calendar-note">访问过主页的日期会被点亮，记录保存在当前浏览器中。</p>
   </aside>
-</div>
 
 <script src="assets/nav-shell.js"></script>
 <script>

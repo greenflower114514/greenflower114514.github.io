@@ -1007,7 +1007,9 @@ body {
     </section>
   </main>
 
-  <aside class="daily-board" aria-label="今日正在做的事">
+</div>
+
+<aside class="daily-board" aria-label="今日正在做的事">
     <h2>今日黑板</h2>
     <time>Today / 正在做</time>
     <ul>
@@ -1036,11 +1038,10 @@ body {
     <p class="calendar-note">访问过主页的日期会被点亮，记录保存在当前浏览器中。</p>
   </aside>
 
-  <div class="detail-lightbox" id="detail-lightbox" aria-hidden="true">
+<div class="detail-lightbox" id="detail-lightbox" aria-hidden="true">
     <button class="detail-lightbox-close" type="button" aria-label="关闭大图">×</button>
     <div class="detail-lightbox-panel" id="detail-lightbox-panel">IMAGE / NOTE</div>
   </div>
-</div>
 
 <script>
 let activeAboutCard = null;

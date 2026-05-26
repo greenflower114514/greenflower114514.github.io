@@ -189,7 +189,7 @@ body {
 
 .daily-board {
   position: fixed;
-  top: 124px;
+  top: 92px;
   right: max(22px, calc((100vw - 1700px) / 2 + 20px));
   z-index: 2;
   width: 300px;
@@ -367,9 +367,19 @@ body {
 
   .daily-board,
   .visit-calendar {
-    position: static;
-    width: min(100% - 28px, 340px);
-    margin: 28px auto 0;
+    position: fixed;
+    top: 92px;
+    width: 220px;
+    margin: 0;
+    z-index: 2;
+  }
+
+  .daily-board {
+    right: 14px;
+  }
+
+  .visit-calendar {
+    left: 14px;
   }
 
   .post-title,

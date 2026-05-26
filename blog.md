@@ -469,9 +469,19 @@ permalink: /blog.html
 
   .daily-board,
   .visit-calendar {
-    position: static;
-    width: min(100% - 28px, 340px);
-    margin: 28px auto 0;
+    position: fixed;
+    top: 92px;
+    width: 220px;
+    margin: 0;
+    z-index: 2;
+  }
+
+  .daily-board {
+    right: 14px;
+  }
+
+  .visit-calendar {
+    left: 14px;
   }
 }
 </style>

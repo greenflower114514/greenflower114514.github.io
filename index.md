@@ -200,7 +200,7 @@ body {
 
 .daily-board {
   position: fixed;
-  top: 124px;
+  top: 92px;
   right: max(22px, calc((100vw - 1700px) / 2 + 20px));
   z-index: 2;
   width: 300px;
@@ -772,15 +772,19 @@ body {
   }
 
   .daily-board {
-    position: static;
-    width: min(100% - 28px, 860px);
-    margin: 34px auto 0;
+    position: fixed;
+    top: 92px;
+    right: 14px;
+    width: 220px;
+    margin: 0;
   }
 
   .visit-calendar {
-    position: static;
-    width: min(100% - 28px, 340px);
-    margin: 28px auto 0;
+    position: fixed;
+    top: 92px;
+    left: 14px;
+    width: 220px;
+    margin: 0;
   }
 
   .timeline-heading {
@@ -830,16 +834,19 @@ body {
   }
 
   .daily-board {
-    position: sticky;
-    top: 24px;
-    width: min(980px, calc(100% - 64px));
-    margin: 0 auto 72px;
+    position: fixed;
+    top: 92px;
+    right: 24px;
+    width: 260px;
+    margin: 0;
   }
 
   .visit-calendar {
-    position: static;
-    width: min(360px, calc(100% - 64px));
-    margin: 32px auto 0;
+    position: fixed;
+    top: 92px;
+    left: 24px;
+    width: 260px;
+    margin: 0;
   }
 }
 </style>

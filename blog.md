@@ -545,7 +545,7 @@ const blogEntries = [
 {% assign blog_documents = site.blog | sort: "date" | reverse %}
 {% for post in blog_documents %}
   {
-    id: {{ post.basename | jsonify }},
+    id: {{ post.path | split: "/" | last | replace: ".md", "" | replace: ".markdown", "" | jsonify }},
     title: {{ post.title | jsonify }},
     date: {{ post.date | date: "%Y-%m-%d" | jsonify }},
     type: {{ post.type | default: "Note" | jsonify }},

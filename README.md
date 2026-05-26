@@ -1,19 +1,26 @@
 # greenflower114514.github.io
 
-这是一个基于 GitHub Pages 和 Jekyll 的 Markdown 个人主页。
+Personal homepage built with GitHub Pages and Jekyll.
 
-## 如何修改主页
+## Local preview
 
-主要编辑 `index.md`。
+1. Install Ruby and Bundler if they are not available yet.
+2. Run `bundle install`.
+3. Run `bundle exec jekyll serve`.
+4. Open `http://127.0.0.1:4000/`.
 
-- 页面标题在文件开头的 `title` 字段里
-- 正文内容直接用 Markdown 编写
-- 想增加新页面时，可以新建例如 `about.md`、`projects.md`
+## Writing blog posts
 
-## 仓库结构
+- Blog posts live in `_blog/`.
+- Create one Markdown file per entry, for example `2026-05-27-my-entry.md`.
+- Put metadata in front matter: `title`, `date`, `type`, `excerpt`, and optional gate fields.
+- Write the body in Markdown so images and layout are easy to preview locally.
+- Store blog images under `assets/blog/` and reference them with root-relative paths such as `/assets/blog/2026-05-27-my-entry/photo-01.jpg`.
 
-- `_config.yml`: 站点配置
-- `index.md`: 首页内容
-- `README.md`: 维护说明
+## Main files
 
-主页地址：<https://greenflower114514.github.io/>
+- `_config.yml`: Jekyll site config and collections
+- `index.md`: homepage
+- `blog.md`: blog reader page
+- `_blog/`: Markdown source entries for the blog
+- `assets/blog/`: blog images

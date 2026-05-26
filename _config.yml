@@ -5,5 +5,8 @@ theme: minima
 markdown: kramdown
 plugins:
   - jekyll-feed
+collections:
+  blog:
+    output: false
 header_pages: []
 show_excerpts: false

@@ -231,11 +231,80 @@ permalink: /blog.html
   max-width: 760px;
 }
 
+.blog-reader-body > :first-child {
+  margin-top: 0;
+}
+
 .blog-reader-body p {
   margin: 0;
   color: rgba(255, 255, 255, 0.76);
   font-size: 1rem;
   line-height: 2;
+}
+
+.blog-reader-body h3,
+.blog-reader-body h4 {
+  margin: 18px 0 0;
+  color: #fff;
+  line-height: 1.35;
+}
+
+.blog-reader-body ul,
+.blog-reader-body ol {
+  margin: 0;
+  padding-left: 1.4rem;
+  color: rgba(255, 255, 255, 0.76);
+  line-height: 1.9;
+}
+
+.blog-reader-body li + li {
+  margin-top: 8px;
+}
+
+.blog-reader-body a {
+  color: #ffe0a3;
+}
+
+.blog-reader-body strong {
+  color: #fff;
+}
+
+.blog-reader-body blockquote {
+  margin: 0;
+  padding: 16px 18px;
+  color: rgba(255, 255, 255, 0.68);
+  border-left: 3px solid rgba(255, 224, 163, 0.58);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.blog-reader-body img {
+  display: block;
+  width: min(100%, 720px);
+  height: auto;
+  margin: 10px 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.blog-reader-body code {
+  padding: 0.15em 0.4em;
+  color: #fff3d0;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.94em;
+}
+
+.blog-reader-body pre {
+  overflow: auto;
+  margin: 0;
+  padding: 18px;
+  color: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.blog-reader-body pre code {
+  padding: 0;
+  background: transparent;
 }
 
 .blog-gate {
@@ -471,13 +540,30 @@ permalink: /blog.html
 
 <script src="assets/nav-shell.js"></script>
 <script>
-const blogEntriesPath = "assets/blog-entries.json";
 const blogGateStoragePrefix = "blog-gate:";
+const blogEntries = [
+{% assign blog_documents = site.blog | sort: "date" | reverse %}
+{% for post in blog_documents %}
+  {
+    id: {{ post.basename | jsonify }},
+    title: {{ post.title | jsonify }},
+    date: {{ post.date | date: "%Y-%m-%d" | jsonify }},
+    type: {{ post.type | default: "Note" | jsonify }},
+    excerpt: {{ post.excerpt | default: post.content | strip_html | strip_newlines | truncate: 140 | jsonify }},
+    cover: {{ post.cover | default: "" | jsonify }},
+    gateEnabled: {{ post.gateEnabled | default: false | jsonify }},
+    gateQuestion: {{ post.gateQuestion | default: "" | jsonify }},
+    gateAnswer: {{ post.gateAnswer | default: "" | jsonify }},
+    gateHint: {{ post.gateHint | default: "" | jsonify }},
+    gateVersion: {{ post.gateVersion | default: 1 | jsonify }},
+    contentHtml: {{ post.content | markdownify | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+];
 const blogSidebar = document.getElementById("blog-sidebar");
 const blogToggle = document.getElementById("blog-toggle");
 const blogList = document.getElementById("blog-list");
 const blogReader = document.getElementById("blog-reader");
-let blogEntries = [];
 let activeEntryId = null;
 
 function escapeBlogHtml(value) {
@@ -514,7 +600,7 @@ function normalizeBlogEntry(entry) {
 
   return {
     ...entry,
-    content: Array.isArray(entry.content) ? entry.content : [],
+    contentHtml: String(entry.contentHtml ?? ""),
     gateEnabled: Boolean(entry.gateEnabled && gateQuestion && gateAnswer),
     gateQuestion,
     gateAnswer,
@@ -583,6 +669,10 @@ function renderBlogList() {
 }
 
 function renderBlogContent(entry) {
+  const coverMarkup = entry.cover
+    ? `<img class="blog-reader-cover" src="${escapeBlogHtml(entry.cover)}" alt="${escapeBlogHtml(entry.title)}">`
+    : "";
+
   blogReader.innerHTML = `
     <div class="blog-reader-meta">
       <span class="blog-reader-type">${escapeBlogHtml(entry.type)}</span>
@@ -591,10 +681,8 @@ function renderBlogContent(entry) {
     <h2>${escapeBlogHtml(entry.title)}</h2>
     <p class="blog-reader-excerpt">${escapeBlogHtml(entry.excerpt)}</p>
     <div class="blog-reader-body">
-      ${entry.content.map((paragraph) => {
-        const text = typeof paragraph === "string" ? paragraph : paragraph?.paragraph;
-        return `<p>${escapeBlogHtml(text)}</p>`;
-      }).join("")}
+      ${coverMarkup}
+      ${entry.contentHtml}
     </div>
   `;
 }
@@ -698,22 +786,23 @@ if (blogToggle && blogSidebar) {
   });
 }
 
-fetch(blogEntriesPath)
-  .then((response) => {
-    if (!response.ok) throw new Error("Blog entries request failed");
-    return response.json();
-  })
-  .then((data) => {
-    const entries = Array.isArray(data) ? data : data.entries;
-    if (!Array.isArray(entries)) throw new Error("Blog entries should be an array");
-    blogEntries = entries
-      .map(normalizeBlogEntry)
-      .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+try {
+  const normalizedEntries = Array.isArray(blogEntries)
+    ? blogEntries.map(normalizeBlogEntry).sort((a, b) => String(b.date).localeCompare(String(a.date)))
+    : [];
 
-    const initialEntryId = getEntryIdFromHash();
-    renderBlogEntry(initialEntryId || blogEntries[0]?.id);
-  })
-  .catch(showBlogError);
+  blogEntries.length = 0;
+  blogEntries.push(...normalizedEntries);
+
+  if (!blogEntries.length) {
+    throw new Error("No blog entries found");
+  }
+
+  const initialEntryId = getEntryIdFromHash();
+  renderBlogEntry(initialEntryId || blogEntries[0]?.id);
+} catch (error) {
+  showBlogError();
+}
 
 window.addEventListener("hashchange", () => {
   const entryId = getEntryIdFromHash();

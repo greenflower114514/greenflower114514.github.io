@@ -1,4 +1,14 @@
 const visitCalendarKey = "greenflower-homepage-visits";
+const dailyBoardPath = "assets/daily-board.json";
+
+function escapeShellHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
 
 function formatVisitDate(date) {
   const year = date.getFullYear();
@@ -99,7 +109,42 @@ function updateProfileTime() {
   timeNode.setAttribute("datetime", now.toISOString());
 }
 
+function renderDailyBoard(boardData) {
+  const boardNode = document.querySelector(".daily-board");
+  if (!boardNode || !boardData || typeof boardData !== "object") return;
+
+  const items = Array.isArray(boardData.items)
+    ? boardData.items.map((item) => String(item ?? "").trim()).filter(Boolean)
+    : [];
+
+  const timeNode = boardNode.querySelector("time");
+  const listNode = boardNode.querySelector("ul");
+
+  if (timeNode && boardData.label) {
+    timeNode.textContent = String(boardData.label);
+  }
+
+  if (listNode && items.length) {
+    listNode.innerHTML = items.map((item) => `<li>${escapeShellHtml(item)}</li>`).join("");
+  }
+}
+
+function loadDailyBoard() {
+  fetch(dailyBoardPath)
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to load daily board");
+      return response.json();
+    })
+    .then((data) => {
+      renderDailyBoard(data);
+    })
+    .catch(() => {
+      // Keep inline markup as a fallback if the JSON cannot be loaded.
+    });
+}
+
 saveTodayVisit();
 renderVisitCalendar();
+loadDailyBoard();
 updateProfileTime();
 setInterval(updateProfileTime, 1000);

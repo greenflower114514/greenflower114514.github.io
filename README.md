@@ -42,3 +42,23 @@ gateVersion: 1
 - `blog.md`: blog reader page
 - `_blog/`: Markdown source entries for the blog
 - `assets/blog/`: blog images
+- `assets/daily-board.json`: shared content for the daily board on every page
+
+## Shared daily board
+
+- Edit `assets/daily-board.json` when you want to update the "今日黑板" content everywhere.
+- `label` controls the small line under the title.
+- `items` is the shared bullet list shown on `index.html`, `blog.html`, `gallery.html`, `redbook.html`, and `thinking.html`.
+
+Example:
+
+```json
+{
+  "label": "Today / 正在做",
+  "items": [
+    "整理新的 blog 分类。",
+    "补一篇带图片的日记。",
+    "检查 GitHub Pages 展示效果。"
+  ]
+}
+```

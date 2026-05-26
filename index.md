@@ -527,6 +527,11 @@ body {
     radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.18), transparent 28%),
     linear-gradient(135deg, rgba(255, 138, 66, 0.30), rgba(46, 204, 143, 0.18)),
     rgba(255, 255, 255, 0.04);
+  cursor: default;
+}
+
+.about-detail-media:disabled {
+  opacity: 0.88;
 }
 
 .about-detail-list {
@@ -553,6 +558,20 @@ body {
 
 .about-comment {
   color: rgba(255, 255, 255, 0.60);
+}
+
+.about-blog-link {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 4px;
+  color: #ffe0a3;
+  font-size: 0.92rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.about-blog-link:hover {
+  color: #fff1ca;
 }
 
 .about-load-error {
@@ -1193,7 +1212,8 @@ function normalizeAboutBlogEntry(entry) {
     description,
     comment: normalizeAboutText(entry.aboutComment),
     cover: normalizeAboutText(entry.cover),
-    coverLabel: title
+    coverLabel: title,
+    blogUrl: normalizeAboutText(entry.id) ? `blog.html#${encodeURIComponent(normalizeAboutText(entry.id))}` : ""
   };
 }
 
@@ -1209,16 +1229,29 @@ function createEmptyAboutItems() {
       description: emptyAboutDescription,
       comment: emptyAboutComment,
       cover: "",
-      coverLabel: emptyAboutCoverLabel
+      coverLabel: emptyAboutCoverLabel,
+      blogUrl: ""
     })),
     detailItems: [{
       name: emptyAboutTitle,
       description: emptyAboutDescription,
       comment: emptyAboutComment,
       cover: "",
-      coverLabel: emptyAboutCoverLabel
+      coverLabel: emptyAboutCoverLabel,
+      blogUrl: ""
     }]
   };
+}
+
+function createPlaceholderPreviewItems(count) {
+  return Array.from({ length: count }, () => ({
+    name: emptyAboutTitle,
+    description: emptyAboutDescription,
+    comment: emptyAboutComment,
+    cover: "",
+    coverLabel: emptyAboutCoverLabel,
+    blogUrl: ""
+  }));
 }
 
 function getAboutItemsForSection(sectionId) {
@@ -1227,8 +1260,9 @@ function getAboutItemsForSection(sectionId) {
     .slice(0, 4);
 
   if (dynamicItems.length) {
+    const placeholderCount = Math.max(0, 4 - dynamicItems.length);
     return {
-      previewItems: dynamicItems,
+      previewItems: dynamicItems.concat(createPlaceholderPreviewItems(placeholderCount)),
       detailItems: dynamicItems
     };
   }
@@ -1238,6 +1272,7 @@ function getAboutItemsForSection(sectionId) {
 
 function buildAboutCoverButton(item) {
   const hasCover = Boolean(normalizeAboutText(item.cover));
+  const hasBlogUrl = Boolean(normalizeAboutText(item.blogUrl));
   const label = escapeHtml(item.coverLabel || item.name || emptyAboutCoverLabel);
   const lightboxTitle = escapeHtml(item.name || emptyAboutTitle);
   const lightboxImage = hasCover ? ` data-lightbox-image="${escapeHtml(item.cover)}"` : "";
@@ -1245,9 +1280,10 @@ function buildAboutCoverButton(item) {
   const style = hasCover
     ? ` style="background-image: linear-gradient(180deg, transparent 18%, rgba(9, 10, 12, 0.72)), url('${escapeHtml(item.cover)}');"`
     : "";
+  const disabledMarkup = hasBlogUrl || hasCover ? "" : " disabled aria-disabled=\"true\"";
 
   return `
-    <button class="${className}" type="button" data-lightbox-title="${lightboxTitle}"${lightboxImage}${style}>
+    <button class="${className}" type="button" data-lightbox-title="${lightboxTitle}"${lightboxImage}${style}${disabledMarkup}>
       <span>${label}</span>
     </button>
   `;
@@ -1269,6 +1305,7 @@ function renderBlogLinkedAboutSections(sections) {
         <h4>${escapeHtml(item.name)}</h4>
         <p>${escapeHtml(item.description)}</p>
         <p class="about-comment">我的评价：${escapeHtml(item.comment || emptyAboutComment)}</p>
+        ${item.blogUrl ? `<a class="about-blog-link" href="${escapeHtml(item.blogUrl)}">前往这篇 Blog</a>` : ""}
       </li>
     `).join("");
 

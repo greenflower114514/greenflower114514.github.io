@@ -14,7 +14,9 @@ Personal homepage built with GitHub Pages and Jekyll.
 - Blog posts live in `_blog/`.
 - Create one Markdown file per entry, for example `2026-05-27-my-entry.md`.
 - Put metadata in front matter: `title`, `date`, `type`, `excerpt`, and optional gate fields.
+- Optional homepage-link fields are available too: `aboutSection`, `aboutTitle`, `aboutDescription`, and `aboutComment`.
 - `type` is the category name used by the left sidebar filter in `blog.html`.
+- `aboutSection` links a post to a homepage About card such as `study` or `building`.
 - Write the body in Markdown so images and layout are easy to preview locally.
 - Store blog images under `assets/blog/` and reference them with root-relative paths such as `/assets/blog/2026-05-27-my-entry/photo-01.png`.
 - Blog body images can use `png`, `jpg/jpeg`, `webp`, `gif`, or `svg`.

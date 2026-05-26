@@ -3,6 +3,10 @@ title: 先留一个位置
 date: 2026-05-23
 type: 碎碎念
 excerpt: 很多页面都是从一个空位置开始的，先占住，再慢慢把它变成真的。
+aboutSection: study
+aboutTitle: Markdown 写作练习
+aboutDescription: 用 blog 记录学习和搭建主页时的过程，比起先前的 JSON 方式更直观。
+aboutComment: 先留一个位置，再慢慢把它变成真正有内容的记录。
 ---
 
 博客页现在还没有真正的长期内容，所以先留几篇占位日记。占位不是偷懒，是给未来的内容画出落脚点。

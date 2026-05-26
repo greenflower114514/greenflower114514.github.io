@@ -4,9 +4,13 @@ date: 2026-05-27
 type: 图片测试
 excerpt: 这是一篇专门用来预览图片展示效果的示例文章，包含封面图和正文内插图。
 cover: /assets/blog/2026-05-27-photo-demo/window-note.svg
+aboutSection: study
+aboutTitle: 图文写作预览
+aboutDescription: 现在文章正文、封面图和摘要都能直接在 Markdown 里一起维护，写起来更顺手。
+aboutComment: 把图片和正文放回同一个文件之后，预览效果终于直观很多了。
 ---
 
-这篇文章是专门放进站点里给你看效果的。现在 blog 已经从 `JSON` 迁到了 `Markdown`，所以以后写文章的时候，正文、标题、摘要和图片都可以放在一篇独立的文章文件里处理。
+这篇文章是专门放进站点里给你看效果的。现在 blog 已经从 `JSON` 迁到 `Markdown`，所以以后写文章的时候，正文、标题、摘要和图片都可以放在一篇独立的文章文件里处理。
 
 ## 现在插图会怎么显示
 

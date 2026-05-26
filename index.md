@@ -482,11 +482,13 @@ body {
 }
 
 .about-detail-media {
+  position: relative;
   min-height: 170px;
   display: flex;
   align-items: end;
   justify-content: start;
   padding: 16px;
+  overflow: hidden;
   color: rgba(255, 255, 255, 0.86);
   font: inherit;
   font-size: 0.82rem;
@@ -498,7 +500,33 @@ body {
     radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.18), transparent 28%),
     linear-gradient(135deg, rgba(255, 138, 66, 0.30), rgba(46, 204, 143, 0.18)),
     rgba(255, 255, 255, 0.04);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   cursor: zoom-in;
+}
+
+.about-detail-media::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(180deg, transparent 42%, rgba(9, 10, 12, 0.76)),
+    linear-gradient(135deg, rgba(9, 10, 12, 0.10), rgba(9, 10, 12, 0.42));
+  pointer-events: none;
+}
+
+.about-detail-media > span {
+  position: relative;
+  z-index: 1;
+}
+
+.about-detail-media.is-placeholder {
+  border-style: dashed;
+  background:
+    radial-gradient(circle at 36% 28%, rgba(255, 255, 255, 0.18), transparent 28%),
+    linear-gradient(135deg, rgba(255, 138, 66, 0.30), rgba(46, 204, 143, 0.18)),
+    rgba(255, 255, 255, 0.04);
 }
 
 .about-detail-list {
@@ -560,6 +588,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   color: rgba(255, 255, 255, 0.78);
   font-size: 1.1rem;
   letter-spacing: 0.12em;
@@ -568,6 +597,13 @@ body {
     radial-gradient(circle at 45% 30%, rgba(255, 255, 255, 0.16), transparent 28%),
     linear-gradient(135deg, #282b2f, #0b0d0f);
   box-shadow: 0 28px 110px rgba(0, 0, 0, 0.55);
+}
+
+.detail-lightbox-panel img {
+  display: block;
+  width: 100%;
+  max-height: calc(100vh - 96px);
+  object-fit: contain;
 }
 
 .detail-lightbox-close {
@@ -1048,6 +1084,26 @@ let activeAboutCard = null;
 let detailCloseTimer = null;
 const aboutSectionsPath = "assets/about-sections.json";
 const visitCalendarKey = "greenflower-homepage-visits";
+const emptyAboutTitle = "内容还需要继续丰富";
+const emptyAboutDescription = "这里以后会自动展示对应分类的 blog 内容。";
+const emptyAboutComment = "等我再写几篇再来看看。";
+const emptyAboutCoverLabel = "待补充";
+const aboutBlogEntries = [
+{% assign homepage_about_posts = site.blog | sort: "date" | reverse %}
+{% for post in homepage_about_posts %}
+  {
+    id: {{ post.path | split: "/" | last | replace: ".md", "" | replace: ".markdown", "" | jsonify }},
+    date: {{ post.date | date: "%Y-%m-%d" | jsonify }},
+    aboutSection: {{ post.aboutSection | default: "" | jsonify }},
+    title: {{ post.title | default: "" | jsonify }},
+    excerpt: {{ post.excerpt | default: post.content | strip_html | strip_newlines | truncate: 140 | jsonify }},
+    aboutTitle: {{ post.aboutTitle | default: "" | jsonify }},
+    aboutDescription: {{ post.aboutDescription | default: "" | jsonify }},
+    aboutComment: {{ post.aboutComment | default: "" | jsonify }},
+    cover: {{ post.cover | default: "" | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+];
 
 function openAboutDetail(card) {
   if (detailCloseTimer) window.clearTimeout(detailCloseTimer);
@@ -1118,6 +1174,122 @@ function renderAboutSections(sections) {
   bindLightboxTriggers();
 }
 
+function normalizeAboutText(value) {
+  return String(value ?? "").trim();
+}
+
+function normalizeAboutBlogEntry(entry) {
+  const aboutSection = normalizeAboutText(entry.aboutSection);
+  if (!aboutSection) return null;
+
+  const title = normalizeAboutText(entry.aboutTitle) || normalizeAboutText(entry.title) || emptyAboutTitle;
+  const description = normalizeAboutText(entry.aboutDescription) || normalizeAboutText(entry.excerpt) || emptyAboutDescription;
+
+  return {
+    id: normalizeAboutText(entry.id),
+    date: normalizeAboutText(entry.date),
+    aboutSection,
+    name: title,
+    description,
+    comment: normalizeAboutText(entry.aboutComment),
+    cover: normalizeAboutText(entry.cover),
+    coverLabel: title
+  };
+}
+
+const normalizedAboutBlogEntries = aboutBlogEntries
+  .map(normalizeAboutBlogEntry)
+  .filter(Boolean)
+  .sort((left, right) => String(right.date).localeCompare(String(left.date)));
+
+function createEmptyAboutItems() {
+  return {
+    previewItems: Array.from({ length: 4 }, () => ({
+      name: emptyAboutTitle,
+      description: emptyAboutDescription,
+      comment: emptyAboutComment,
+      cover: "",
+      coverLabel: emptyAboutCoverLabel
+    })),
+    detailItems: [{
+      name: emptyAboutTitle,
+      description: emptyAboutDescription,
+      comment: emptyAboutComment,
+      cover: "",
+      coverLabel: emptyAboutCoverLabel
+    }]
+  };
+}
+
+function getAboutItemsForSection(sectionId) {
+  const dynamicItems = normalizedAboutBlogEntries
+    .filter((entry) => entry.aboutSection === sectionId)
+    .slice(0, 4);
+
+  if (dynamicItems.length) {
+    return {
+      previewItems: dynamicItems,
+      detailItems: dynamicItems
+    };
+  }
+
+  return createEmptyAboutItems();
+}
+
+function buildAboutCoverButton(item) {
+  const hasCover = Boolean(normalizeAboutText(item.cover));
+  const label = escapeHtml(item.coverLabel || item.name || emptyAboutCoverLabel);
+  const lightboxTitle = escapeHtml(item.name || emptyAboutTitle);
+  const lightboxImage = hasCover ? ` data-lightbox-image="${escapeHtml(item.cover)}"` : "";
+  const className = hasCover ? "about-detail-media has-cover" : "about-detail-media is-placeholder";
+  const style = hasCover
+    ? ` style="background-image: linear-gradient(180deg, transparent 18%, rgba(9, 10, 12, 0.72)), url('${escapeHtml(item.cover)}');"`
+    : "";
+
+  return `
+    <button class="${className}" type="button" data-lightbox-title="${lightboxTitle}"${lightboxImage}${style}>
+      <span>${label}</span>
+    </button>
+  `;
+}
+
+function renderBlogLinkedAboutSections(sections) {
+  const grid = document.querySelector(".about-grid");
+  if (!grid) return;
+
+  grid.innerHTML = sections.map((section) => {
+    const { previewItems, detailItems } = getAboutItemsForSection(section.id);
+    const title = `${escapeHtml(section.titleEn)} / ${escapeHtml(section.titleCn)}`;
+    const itemList = detailItems.map((item) => `
+      <li><span class="about-item-name">${escapeHtml(item.name)}</span>：${escapeHtml(item.description)}</li>
+    `).join("");
+    const coverGrid = previewItems.map(buildAboutCoverButton).join("");
+    const detailList = detailItems.map((item) => `
+      <li>
+        <h4>${escapeHtml(item.name)}</h4>
+        <p>${escapeHtml(item.description)}</p>
+        <p class="about-comment">我的评价：${escapeHtml(item.comment || emptyAboutComment)}</p>
+      </li>
+    `).join("");
+
+    return `
+      <article class="about-card" data-section="${escapeHtml(section.id)}">
+        <h3>${title}</h3>
+        <p class="about-card-summary">${escapeHtml(section.summary)}</p>
+        <ol class="about-items">${itemList}</ol>
+        <div class="about-detail">
+          <div class="about-cover-grid">${coverGrid}</div>
+          <strong>${title}</strong>
+          <ol class="about-detail-list">${detailList}</ol>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  bindAboutInteractions();
+  bindLightboxTriggers();
+}
+
 function showAboutLoadError() {
   const grid = document.querySelector(".about-grid");
   if (!grid) return;
@@ -1160,7 +1332,7 @@ function loadAboutSections() {
     })
     .then((sections) => {
       if (!Array.isArray(sections)) throw new Error("About data is not an array");
-      renderAboutSections(sections);
+      renderBlogLinkedAboutSections(sections);
     })
     .catch(showAboutLoadError);
 }
@@ -1179,7 +1351,13 @@ function bindLightboxTriggers() {
   document.querySelectorAll(".about-detail-media").forEach((button) => {
     button.addEventListener("click", () => {
       if (!lightbox || !lightboxPanel) return;
-      lightboxPanel.textContent = button.dataset.lightboxTitle || button.textContent;
+      const imageSrc = button.dataset.lightboxImage;
+      const imageAlt = button.dataset.lightboxTitle || button.textContent;
+      if (imageSrc) {
+        lightboxPanel.innerHTML = `<img src="${escapeHtml(imageSrc)}" alt="${escapeHtml(imageAlt)}">`;
+      } else {
+        lightboxPanel.textContent = imageAlt;
+      }
       lightbox.classList.add("is-open");
       lightbox.setAttribute("aria-hidden", "false");
     });

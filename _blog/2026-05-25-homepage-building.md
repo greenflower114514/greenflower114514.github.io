@@ -2,12 +2,16 @@
 title: 电子蜗居继续装修
 date: 2026-05-25
 type: 施工记录
-excerpt: 测试（进行了修改）
+excerpt: 页面结构已经搭起来了，接下来要慢慢把真正的内容填进去。
 gateEnabled: true
 gateQuestion: 副标题里提到，谁能送我一只什么？
 gateAnswer: 猫
-gateHint: 答案就在 blog 页头里。
+gateHint: 答案就在 blog 页顶部。
 gateVersion: 1
+aboutSection: building
+aboutTitle: 主页继续施工
+aboutDescription: 左侧索引、答题门和阅读区都已经接起来了，接下来开始把站点慢慢填满。
+aboutComment: 先把能用的骨架搭稳，再一点点把内容和风格补到位。
 ---
 
 这个页面会慢慢变成一个适合记录日常、学习、想法和碎碎念的角落。它不需要一开始就很完整，先能写、能看、能慢慢长大就够了。

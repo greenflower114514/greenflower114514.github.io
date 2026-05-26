@@ -531,7 +531,7 @@ function hasGateAccess(entry) {
   if (!entry.gateEnabled) return true;
 
   try {
-    return window.localStorage.getItem(getGateStorageKey(entry)) === "passed";
+    return window.sessionStorage.getItem(getGateStorageKey(entry)) === "passed";
   } catch (error) {
     return false;
   }
@@ -539,7 +539,7 @@ function hasGateAccess(entry) {
 
 function grantGateAccess(entry) {
   try {
-    window.localStorage.setItem(getGateStorageKey(entry), "passed");
+    window.sessionStorage.setItem(getGateStorageKey(entry), "passed");
   } catch (error) {
     // Ignore storage failures so the gate can still work in-session.
   }

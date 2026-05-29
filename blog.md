@@ -5,6 +5,7 @@ permalink: /blog.html
 ---
 
 <link rel="stylesheet" href="assets/nav-shell.css">
+<link rel="stylesheet" href="assets/pet-cat.css">
 
 <style>
 .blog-main {
@@ -916,3 +917,4 @@ window.addEventListener("hashchange", () => {
   renderBlogEntry(entryId, { updateHash: false });
 });
 </script>
+<script src="assets/pet-cat.js"></script>

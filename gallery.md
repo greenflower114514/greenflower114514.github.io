@@ -5,6 +5,7 @@ permalink: /gallery.html
 ---
 
 <link rel="stylesheet" href="assets/nav-shell.css">
+<link rel="stylesheet" href="assets/pet-cat.css">
 
 <div class="profile-page">
   <section class="profile-hero">
@@ -50,3 +51,4 @@ permalink: /gallery.html
 </div>
 
 <script src="assets/nav-shell.js"></script>
+<script src="assets/pet-cat.js"></script>

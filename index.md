@@ -3,6 +3,8 @@ layout: home
 title: 电子蜗居
 ---
 
+<link rel="stylesheet" href="assets/pet-cat.css">
+
 <style>
 body {
   color: rgba(255, 255, 255, 0.82);
@@ -1522,3 +1524,4 @@ function updateProfileTime() {
 updateProfileTime();
 setInterval(updateProfileTime, 1000);
 </script>
+<script src="assets/pet-cat.js"></script>

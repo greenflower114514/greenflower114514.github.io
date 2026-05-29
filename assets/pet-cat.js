@@ -20,31 +20,38 @@
       <svg viewBox="0 0 200 218" role="img" aria-label="A rounded line-drawn cat resting at the corner of the page.">
         <ellipse class="pet-cat-shadow" cx="100" cy="206" rx="57" ry="10"></ellipse>
         <g class="pet-cat-character">
-          <path class="pet-cat-lines pet-cat-tail" d="M58 182c-16-4-34-22-34-48c0-21 9-37 23-37c12 0 18 14 18 36c0 25 2 41 14 52c6 6 13 9 20 9"></path>
+          <path class="pet-cat-lines pet-cat-tail" d="M60 183c-18 0-33-6-43-18c-9-10-14-24-14-39c0-19 8-34 22-34c12 0 19 13 19 34c0 25 0 43 9 56c7 11 18 18 34 19"></path>
           <g class="pet-cat-body" data-state="idle">
-            <g class="pet-cat-head">
-              <path class="pet-cat-lines" d="M48 176c-9-12-15-29-15-50c0-18 4-34 12-49c4-7 9-14 15-20c1-18 5-37 11-50c6-12 15-15 24-5l21 29c11-3 23-3 34 0l21-29c9-10 18-7 24 5c6 13 10 32 11 50c6 6 11 13 15 20c8 15 12 31 12 49c0 21-6 38-15 50"></path>
+            <path class="pet-cat-lines" d="M45 194c-7-11-12-29-12-50c0-18 4-36 11-53c5-10 12-19 20-28c0-18 4-43 12-58c6-10 14-13 22-4l18 27c13-3 28-3 41 0l18-27c8-9 16-6 22 4c8 15 12 40 12 58c8 9 15 18 20 28c7 17 11 35 11 53c0 21-5 39-12 50"></path>
+            <path class="pet-cat-lines" d="M45 194c12 11 28 17 55 17"></path>
+            <path class="pet-cat-lines" d="M155 194c-12 11-28 17-55 17"></path>
+            <path class="pet-cat-lines" d="M64 63l18-45c5-10 12-12 19-3l18 26"></path>
+            <path class="pet-cat-lines" d="M136 41l18-26c7-9 14-7 19 3l18 45"></path>
+            <path class="pet-cat-lines" d="M68 77c-16 12-25 44-25 81c0 28 6 49 18 65"></path>
+            <path class="pet-cat-lines" d="M132 77c16 12 25 44 25 81c0 28-6 49-18 65"></path>
 
+            <g class="pet-cat-head">
               <g class="pet-cat-eyes">
-                <circle class="pet-cat-eye pet-cat-eye-dot" cx="86" cy="89" r="4.4"></circle>
-                <circle class="pet-cat-eye pet-cat-eye-dot" cx="114" cy="89" r="4.4"></circle>
+                <circle class="pet-cat-eye pet-cat-eye-dot" cx="84" cy="86" r="4.5"></circle>
+                <circle class="pet-cat-eye pet-cat-eye-dot" cx="116" cy="86" r="4.5"></circle>
               </g>
 
-              <path class="pet-cat-lines" d="M94 100c3 0 6 2 6 4c0 3-2 5-6 7c-4-2-6-4-6-7c0-2 3-4 6-4z"></path>
-              <path class="pet-cat-lines" d="M88 107c0 9-5 14-12 14c-7 0-12-5-12-14"></path>
-              <path class="pet-cat-lines" d="M100 107c0 9 5 14 12 14c7 0 12-5 12-14"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M39 94h27"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M43 108l24-5"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M122 94h27"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M121 103l24 5"></path>
+              <path class="pet-cat-lines" d="M95 97c3 0 6 2 6 5c0 2-2 4-6 7c-4-3-6-5-6-7c0-3 3-5 6-5z"></path>
+              <path class="pet-cat-lines" d="M95 104v6"></path>
+              <path class="pet-cat-lines" d="M95 110c0 8-5 12-11 12c-6 0-11-4-11-12"></path>
+              <path class="pet-cat-lines" d="M95 110c0 8 5 12 11 12c6 0 11-4 11-12"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M37 92h30"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M41 106l28-4"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M123 92h30"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M121 102l28 4"></path>
             </g>
 
-            <path class="pet-cat-lines" d="M79 153c1 16 4 34 8 46"></path>
-            <path class="pet-cat-lines" d="M121 153c-1 16-4 34-8 46"></path>
-            <path class="pet-cat-lines" d="M96 156l2 43l2-43"></path>
-            <path class="pet-cat-lines" d="M82 198c0 6 2 9 7 9"></path>
-            <path class="pet-cat-lines" d="M111 207c5 0 7-3 7-9"></path>
-            <path class="pet-cat-lines" d="M97 207c3 0 4-2 4-5"></path>
+            <path class="pet-cat-lines" d="M82 151c1 17 4 37 8 50"></path>
+            <path class="pet-cat-lines" d="M118 151c-1 17-4 37-8 50"></path>
+            <path class="pet-cat-lines" d="M98 154l2 47l2-47"></path>
+            <path class="pet-cat-lines" d="M84 201c0 6 2 9 7 9"></path>
+            <path class="pet-cat-lines" d="M109 210c5 0 7-3 7-9"></path>
+            <path class="pet-cat-lines" d="M98 210c3 0 4-2 4-5"></path>
           </g>
         </g>
       </svg>
@@ -80,11 +87,9 @@
     const normalY = clamp(offsetY / Math.max(window.innerHeight * 0.46, 1), -1, 1);
     const eyeX = normalX * 2.4;
     const eyeY = normalY * 1.8;
-    const headRotate = normalX * 2.2;
-
     state.node.style.setProperty("--pet-cat-eye-offset-x", `${eyeX.toFixed(2)}px`);
     state.node.style.setProperty("--pet-cat-eye-offset-y", `${eyeY.toFixed(2)}px`);
-    state.node.style.setProperty("--pet-cat-head-rotate", `${headRotate.toFixed(2)}deg`);
+    state.node.style.setProperty("--pet-cat-head-rotate", "0deg");
     setRoleMode("look");
   }
 

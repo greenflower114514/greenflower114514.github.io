@@ -60,9 +60,7 @@
 }
 
 #site-pet-cat .pet-cat-head {
-  transform-origin: 100px 78px;
-  transform: rotate(var(--pet-cat-head-rotate));
-  transition: transform 160ms ease-out;
+  transform: none;
 }
 
 #site-pet-cat .pet-cat-eye {

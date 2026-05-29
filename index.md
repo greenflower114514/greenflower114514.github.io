@@ -4,6 +4,7 @@ title: 电子蜗居
 ---
 
 <link rel="stylesheet" href="assets/pet-cat.css">
+<link rel="stylesheet" href="assets/music-player.css">
 
 <style>
 body {
@@ -1210,6 +1211,8 @@ body {
 
 </div>
 
+<div id="music-player" aria-label="首页音乐播放器"></div>
+
 <div class="detail-lightbox" id="detail-lightbox" aria-hidden="true">
     <button class="detail-lightbox-close" type="button" aria-label="关闭大图">×</button>
     <div class="detail-lightbox-panel" id="detail-lightbox-panel">IMAGE / NOTE</div>
@@ -1724,4 +1727,5 @@ initHeroPanel("calendar", ".hero-panel--left");
 initHeroPanel("board", ".hero-panel--right");
 setInterval(updateProfileTime, 1000);
 </script>
+<script src="assets/music-player.js"></script>
 <script src="assets/pet-cat.js"></script>

@@ -1220,6 +1220,8 @@ let activeAboutCard = null;
 let detailCloseTimer = null;
 const aboutSectionsPath = "assets/about-sections.json";
 const visitCalendarKey = "greenflower-homepage-visits";
+const dailyBoardPath = "assets/daily-board.json";
+const panelStateKeyPrefix = "hero-panel:";
 const emptyAboutTitle = "内容还需要继续丰富";
 const emptyAboutDescription = "这里以后会自动展示对应分类的 blog 内容。";
 const emptyAboutComment = "等我再写几篇再来看看。";
@@ -1596,6 +1598,86 @@ function renderVisitCalendar() {
   }
 }
 
+function renderDailyBoard(boardData) {
+  const boardNode = document.querySelector(".daily-board");
+  if (!boardNode || !boardData || typeof boardData !== "object") return;
+
+  const items = Array.isArray(boardData.items)
+    ? boardData.items.map((item) => String(item ?? "").trim()).filter(Boolean)
+    : [];
+
+  const timeNode = boardNode.querySelector("time");
+  const listNode = boardNode.querySelector("ul");
+
+  if (timeNode && boardData.label) {
+    timeNode.textContent = String(boardData.label);
+  }
+
+  if (listNode && items.length) {
+    listNode.innerHTML = items.map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  }
+}
+
+function loadDailyBoard() {
+  fetch(dailyBoardPath)
+    .then((response) => {
+      if (!response.ok) throw new Error("Failed to load daily board");
+      return response.json();
+    })
+    .then((data) => {
+      renderDailyBoard(data);
+    })
+    .catch(() => {
+      // Keep inline markup as a fallback if the JSON cannot be loaded.
+    });
+}
+
+function restorePanelState(panelName, fallbackExpanded = true) {
+  try {
+    const value = localStorage.getItem(`${panelStateKeyPrefix}${panelName}`);
+    if (value === "collapsed") return false;
+    if (value === "expanded") return true;
+  } catch {}
+  return fallbackExpanded;
+}
+
+function savePanelState(panelName, expanded) {
+  try {
+    localStorage.setItem(`${panelStateKeyPrefix}${panelName}`, expanded ? "expanded" : "collapsed");
+  } catch {}
+}
+
+function syncPanelState(panel, expanded) {
+  if (!panel) return;
+  panel.classList.toggle("is-collapsed", !expanded);
+  const toggle = panel.querySelector(".panel-toggle");
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", String(expanded));
+    const expandedLabel = toggle.dataset.expandedLabel || "收起面板";
+    const hiddenLabel = toggle.dataset.hiddenLabel || "展开面板";
+    const activeLabel = expanded ? expandedLabel : hiddenLabel;
+    toggle.setAttribute("aria-label", activeLabel);
+    toggle.setAttribute("title", activeLabel);
+  }
+}
+
+function initHeroPanel(panelName, selector) {
+  const panel = document.querySelector(selector);
+  if (!panel) return;
+
+  let expanded = restorePanelState(panelName, true);
+  syncPanelState(panel, expanded);
+
+  const toggle = panel.querySelector(".panel-toggle");
+  if (!toggle) return;
+
+  toggle.addEventListener("click", () => {
+    expanded = !expanded;
+    syncPanelState(panel, expanded);
+    savePanelState(panelName, expanded);
+  });
+}
+
 const calendarPrev = document.querySelector(".calendar-prev");
 const calendarNext = document.querySelector(".calendar-next");
 
@@ -1615,6 +1697,7 @@ if (calendarNext) {
 
 saveTodayVisit();
 renderVisitCalendar();
+loadDailyBoard();
 
 function updateProfileTime() {
   const timeNode = document.getElementById("profile-time");
@@ -1637,6 +1720,8 @@ function updateProfileTime() {
 }
 
 updateProfileTime();
+initHeroPanel("calendar", ".hero-panel--left");
+initHeroPanel("board", ".hero-panel--right");
 setInterval(updateProfileTime, 1000);
 </script>
 <script src="assets/pet-cat.js"></script>

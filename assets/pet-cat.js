@@ -40,12 +40,12 @@
               <path class="pet-cat-lines pet-cat-whisker" d="M130 102l26 4"></path>
             </g>
 
-            <path class="pet-cat-lines" d="M82 152c1 16 3 34 6 48"></path>
-            <path class="pet-cat-lines" d="M118 152c-1 16-3 34-6 48"></path>
-            <path class="pet-cat-lines" d="M97 154l3 46l3-46"></path>
-            <path class="pet-cat-lines" d="M84 200c0 6 2 9 7 9"></path>
-            <path class="pet-cat-lines" d="M109 209c5 0 7-3 7-9"></path>
-            <path class="pet-cat-lines" d="M99 209c2 0 4-2 4-5"></path>
+            <path class="pet-cat-lines" d="M89 152c1 16 3 34 6 48"></path>
+            <path class="pet-cat-lines" d="M129 152c-1 16-3 34-6 48"></path>
+            <path class="pet-cat-lines" d="M101 154l4 46l4-46"></path>
+            <path class="pet-cat-lines" d="M91 200c0 6 2 9 7 9"></path>
+            <path class="pet-cat-lines" d="M120 209c5 0 7-3 7-9"></path>
+            <path class="pet-cat-lines" d="M105 209c2 0 4-2 4-5"></path>
           </g>
         </g>
       </svg>

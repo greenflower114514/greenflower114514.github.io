@@ -60,7 +60,7 @@
 }
 
 #site-pet-cat .pet-cat-head {
-  transform: translateX(10px);
+  transform: translateX(16px);
 }
 
 #site-pet-cat .pet-cat-eye {
@@ -145,7 +145,7 @@
 
   #site-pet-cat .pet-cat-head {
     transition: none;
-    transform: translateX(10px);
+    transform: translateX(16px);
   }
 
   #site-pet-cat .pet-cat-eye {

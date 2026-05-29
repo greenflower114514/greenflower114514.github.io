@@ -310,10 +310,21 @@ body {
   width: 34px;
   height: 34px;
   flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   color: rgba(255, 255, 255, 0.86);
   border: 1px solid rgba(255, 255, 255, 0.16);
   background: rgba(255, 255, 255, 0.08);
   cursor: pointer;
+  font-size: 0;
+  line-height: 1;
+}
+
+.panel-toggle::before {
+  content: "−";
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 .panel-body {
@@ -341,9 +352,16 @@ body {
 .hero-panel.is-collapsed .panel-toggle {
   width: 38px;
   height: 116px;
+  padding: 10px 0;
+}
+
+.hero-panel.is-collapsed .panel-toggle::before {
+  content: attr(data-collapsed-label);
+  font-size: 0.74rem;
+  font-weight: 600;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
 }
 
 .calendar-head {
@@ -995,7 +1013,7 @@ body {
             <strong>访问日历</strong>
             <span>Calendar / Visits</span>
           </div>
-          <button class="panel-toggle" type="button" aria-label="收起访问日历" aria-expanded="true">Calendar</button>
+          <button class="panel-toggle" type="button" aria-label="收起访问日历" aria-expanded="true" data-collapsed-label="日历" data-expanded-label="收起访问日历" data-hidden-label="展开访问日历"></button>
         </div>
         <div class="panel-body">
           <div class="calendar-head">
@@ -1059,7 +1077,7 @@ body {
             <h2>今日黑板</h2>
             <span>Today / 正在做</span>
           </div>
-          <button class="panel-toggle" type="button" aria-label="收起今日黑板" aria-expanded="true">Today</button>
+          <button class="panel-toggle" type="button" aria-label="收起今日黑板" aria-expanded="true" data-collapsed-label="黑板" data-expanded-label="收起今日黑板" data-hidden-label="展开今日黑板"></button>
         </div>
         <div class="panel-body">
           <time>Today / 正在做</time>

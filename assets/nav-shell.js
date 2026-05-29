@@ -165,6 +165,11 @@ function syncPanelState(panel, expanded) {
   const toggle = panel.querySelector(".panel-toggle");
   if (toggle) {
     toggle.setAttribute("aria-expanded", String(expanded));
+    const expandedLabel = toggle.dataset.expandedLabel || "收起面板";
+    const hiddenLabel = toggle.dataset.hiddenLabel || "展开面板";
+    const activeLabel = expanded ? expandedLabel : hiddenLabel;
+    toggle.setAttribute("aria-label", activeLabel);
+    toggle.setAttribute("title", activeLabel);
   }
 }
 

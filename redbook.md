@@ -18,7 +18,7 @@ permalink: /redbook.html
             <strong>访问日历</strong>
             <span>Calendar / Visits</span>
           </div>
-          <button class="panel-toggle" type="button" aria-label="收起访问日历" aria-expanded="true">Calendar</button>
+          <button class="panel-toggle" type="button" aria-label="收起访问日历" aria-expanded="true" data-collapsed-label="日历" data-expanded-label="收起访问日历" data-hidden-label="展开访问日历"></button>
         </div>
         <div class="panel-body">
           <div class="calendar-head">
@@ -56,7 +56,7 @@ permalink: /redbook.html
             <h2>今日黑板</h2>
             <span>Today / 正在做</span>
           </div>
-          <button class="panel-toggle" type="button" aria-label="收起今日黑板" aria-expanded="true">Today</button>
+          <button class="panel-toggle" type="button" aria-label="收起今日黑板" aria-expanded="true" data-collapsed-label="黑板" data-expanded-label="收起今日黑板" data-hidden-label="展开今日黑板"></button>
         </div>
         <div class="panel-body">
           <time>Today / 正在做</time>

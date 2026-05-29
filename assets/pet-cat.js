@@ -1,10 +1,15 @@
 (function () {
   const petId = "site-pet-cat";
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let trackedPointer = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.6 };
-  let latestPointer = trackedPointer;
-  let rafId = 0;
-  let petNode = null;
+  const state = {
+    mode: "idle",
+    pointer: {
+      x: window.innerWidth * 0.5,
+      y: window.innerHeight * 0.55
+    },
+    frameId: 0,
+    node: null
+  };
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -12,114 +17,155 @@
 
   function createPetMarkup() {
     return `
-      <svg viewBox="0 0 192 214" role="img" aria-label="A rounded line-drawn cat resting at the corner of the page.">
-        <ellipse class="pet-cat-shadow" cx="96" cy="202" rx="54" ry="11"></ellipse>
-        <g class="pet-cat-float">
-          <path class="pet-cat-lines pet-cat-tail" d="M48 176c-17-6-29-24-29-44c0-17 7-30 18-30c10 0 16 12 16 31c0 17-2 31 6 40c4 5 10 8 16 8"></path>
-          <g class="pet-cat-body-bob">
-            <path class="pet-cat-lines pet-cat-fill-soft" d="M38 110c0-18 8-35 19-48c0-24 7-57 18-72c7-10 16-8 23 2l20 28c11-2 24-2 36 0l20-28c7-10 16-12 23-2c11 15 18 48 18 72c11 13 19 30 19 48c0 26-14 74-52 83c-12 3-28 5-48 5s-36-2-48-5c-38-9-52-57-52-83z"></path>
-            <g class="pet-cat-head-track">
-              <path class="pet-cat-lines" d="M57 62l20-42c7-10 16-8 23 2l20 28"></path>
-              <path class="pet-cat-lines" d="M135 50l20-28c7-10 16-12 23-2l20 42"></path>
-              <ellipse class="pet-cat-lines pet-cat-fill-soft" cx="76" cy="84" rx="5" ry="7"></ellipse>
-              <ellipse class="pet-cat-lines pet-cat-fill-soft" cx="116" cy="84" rx="5" ry="7"></ellipse>
-              <path class="pet-cat-lines" d="M92 104c0 8-6 14-14 14c-8 0-14-6-14-14"></path>
-              <path class="pet-cat-lines" d="M100 104c0 8 6 14 14 14c8 0 14-6 14-14"></path>
-              <path class="pet-cat-lines pet-cat-fill-soft" d="M88 94c0-4 3-6 8-6s8 2 8 6c0 3-3 6-8 9c-5-3-8-6-8-9z"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M44 88h28"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M38 101l30-5"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M148 88h28"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M154 101l-30-5"></path>
+      <svg viewBox="0 0 200 218" role="img" aria-label="A rounded line-drawn cat resting at the corner of the page.">
+        <ellipse class="pet-cat-shadow" cx="100" cy="206" rx="57" ry="10"></ellipse>
+        <g class="pet-cat-character">
+          <path class="pet-cat-lines pet-cat-tail" d="M48 178c-15-5-31-23-31-46c0-20 8-34 21-34c11 0 17 13 17 34c0 21 0 37 10 48c6 7 13 10 22 10"></path>
+          <g class="pet-cat-body" data-state="idle">
+            <g class="pet-cat-head">
+              <path class="pet-cat-lines" d="M67 74c4-17 10-42 20-54c8-10 17-9 24 2l18 28"></path>
+              <path class="pet-cat-lines" d="M133 50l18-28c7-11 16-12 24-2c10 12 16 37 20 54"></path>
+              <path class="pet-cat-lines" d="M57 114c1-17 3-28 10-40"></path>
+              <path class="pet-cat-lines" d="M143 34c-12-2-28-2-42 0"></path>
+              <path class="pet-cat-lines" d="M143 74c7 12 9 23 10 40"></path>
+
+              <g class="pet-cat-eyes">
+                <circle class="pet-cat-eye" cx="84" cy="88" r="4.6"></circle>
+                <circle class="pet-cat-eye" cx="116" cy="88" r="4.6"></circle>
+              </g>
+
+              <path class="pet-cat-lines" d="M96 97c4 0 7 2 7 5c0 3-3 6-7 9c-4-3-7-6-7-9c0-3 3-5 7-5z"></path>
+              <path class="pet-cat-lines" d="M88 108c0 8-5 13-12 13c-7 0-12-5-12-13"></path>
+              <path class="pet-cat-lines" d="M104 108c0 8 5 13 12 13c7 0 12-5 12-13"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M45 92h27"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M50 106l23-4"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M128 92h27"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M127 102l23 4"></path>
             </g>
-            <path class="pet-cat-lines" d="M76 150c1 16 4 35 9 48"></path>
-            <path class="pet-cat-lines" d="M116 150c-1 16-4 35-9 48"></path>
-            <path class="pet-cat-lines" d="M92 152l4 44l4-44"></path>
-            <path class="pet-cat-lines" d="M80 196c0 6 2 9 7 9"></path>
-            <path class="pet-cat-lines" d="M104 205c5 0 7-3 7-9"></path>
-            <path class="pet-cat-lines" d="M94 205c3 0 4-2 4-6"></path>
-            <path class="pet-cat-lines" d="M165 109c11 13 19 30 19 48c0 26-14 74-52 83"></path>
-            <path class="pet-cat-lines" d="M27 157c0 26 14 64 52 73"></path>
+
+            <path class="pet-cat-lines" d="M57 114c-12 16-18 35-18 57c0 26 9 70 61 78"></path>
+            <path class="pet-cat-lines" d="M143 114c12 16 18 35 18 57c0 26-9 70-61 78"></path>
+            <path class="pet-cat-lines" d="M70 121c-6 15-9 31-9 48c0 43 17 70 39 80"></path>
+            <path class="pet-cat-lines" d="M130 121c6 15 9 31 9 48c0 43-17 70-39 80"></path>
+            <path class="pet-cat-lines" d="M85 153c1 16 4 35 9 48"></path>
+            <path class="pet-cat-lines" d="M115 153c-1 16-4 35-9 48"></path>
+            <path class="pet-cat-lines" d="M98 155l2 46l2-46"></path>
+            <path class="pet-cat-lines" d="M88 202c0 6 2 9 7 9"></path>
+            <path class="pet-cat-lines" d="M105 211c5 0 7-3 7-9"></path>
+            <path class="pet-cat-lines" d="M97 211c2 0 3-2 3-5"></path>
           </g>
         </g>
       </svg>
     `;
   }
 
-  function applyHeadTracking() {
-    rafId = 0;
-    if (!petNode || reducedMotion.matches) return;
-
-    const bounds = petNode.getBoundingClientRect();
-    const centerX = bounds.left + bounds.width * 0.5;
-    const centerY = bounds.top + bounds.height * 0.38;
-    const offsetX = latestPointer.x - centerX;
-    const offsetY = latestPointer.y - centerY;
-    const normalizedX = clamp(offsetX / Math.max(window.innerWidth * 0.45, 1), -1, 1);
-    const normalizedY = clamp(offsetY / Math.max(window.innerHeight * 0.45, 1), -1, 1);
-    const rotate = normalizedX * 10;
-    const shiftX = normalizedX * 4.5;
-    const shiftY = normalizedY * 2.4;
-
-    petNode.style.setProperty("--pet-cat-head-rotate", `${rotate.toFixed(2)}deg`);
-    petNode.style.setProperty("--pet-cat-head-shift-x", `${shiftX.toFixed(2)}px`);
-    petNode.style.setProperty("--pet-cat-head-shift-y", `${shiftY.toFixed(2)}px`);
+  function setRoleMode(mode) {
+    state.mode = mode;
+    if (state.node) {
+      state.node.dataset.mode = mode;
+    }
   }
 
-  function queueHeadTracking() {
-    if (rafId || reducedMotion.matches) return;
-    rafId = window.requestAnimationFrame(applyHeadTracking);
+  function readCharacterCenter() {
+    if (!state.node) return null;
+    const bounds = state.node.getBoundingClientRect();
+    return {
+      x: bounds.left + bounds.width * 0.5,
+      y: bounds.top + bounds.height * 0.34
+    };
+  }
+
+  function applyLookState() {
+    state.frameId = 0;
+    if (!state.node || reducedMotion.matches) return;
+
+    const center = readCharacterCenter();
+    if (!center) return;
+
+    const offsetX = state.pointer.x - center.x;
+    const offsetY = state.pointer.y - center.y;
+    const normalX = clamp(offsetX / Math.max(window.innerWidth * 0.46, 1), -1, 1);
+    const normalY = clamp(offsetY / Math.max(window.innerHeight * 0.46, 1), -1, 1);
+    const eyeX = normalX * 2.4;
+    const eyeY = normalY * 1.8;
+    const headRotate = normalX * 2.2;
+
+    state.node.style.setProperty("--pet-cat-eye-offset-x", `${eyeX.toFixed(2)}px`);
+    state.node.style.setProperty("--pet-cat-eye-offset-y", `${eyeY.toFixed(2)}px`);
+    state.node.style.setProperty("--pet-cat-head-rotate", `${headRotate.toFixed(2)}deg`);
+    setRoleMode("look");
+  }
+
+  function queueLookState() {
+    if (state.frameId || reducedMotion.matches) return;
+    state.frameId = window.requestAnimationFrame(applyLookState);
+  }
+
+  function resetLookState() {
+    if (!state.node) return;
+    state.pointer = {
+      x: window.innerWidth * 0.5,
+      y: window.innerHeight * 0.55
+    };
+    state.node.style.setProperty("--pet-cat-eye-offset-x", "0px");
+    state.node.style.setProperty("--pet-cat-eye-offset-y", "0px");
+    state.node.style.setProperty("--pet-cat-head-rotate", "0deg");
+    setRoleMode("idle");
   }
 
   function handlePointerMove(event) {
-    latestPointer = { x: event.clientX, y: event.clientY };
-    queueHeadTracking();
+    state.pointer = { x: event.clientX, y: event.clientY };
+    queueLookState();
   }
 
-  function resetHeadTracking() {
-    if (!petNode) return;
-    latestPointer = trackedPointer;
-    petNode.style.setProperty("--pet-cat-head-rotate", "0deg");
-    petNode.style.setProperty("--pet-cat-head-shift-x", "0px");
-    petNode.style.setProperty("--pet-cat-head-shift-y", "0px");
+  function handlePointerLeave() {
+    resetLookState();
   }
 
   function handleResize() {
-    trackedPointer = { x: window.innerWidth * 0.5, y: window.innerHeight * 0.6 };
-    if (latestPointer.x > window.innerWidth || latestPointer.y > window.innerHeight) {
-      latestPointer = trackedPointer;
+    if (state.pointer.x > window.innerWidth || state.pointer.y > window.innerHeight) {
+      resetLookState();
+      return;
     }
-    queueHeadTracking();
+    queueLookState();
   }
 
-  function bindHeadTracking() {
-    if (window.__petCatTrackingBound) return;
-    window.__petCatTrackingBound = true;
+  function bindPointerInput() {
+    if (window.__petCatInputBound) return;
+    window.__petCatInputBound = true;
 
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerleave", handlePointerLeave);
     window.addEventListener("resize", handleResize, { passive: true });
-    window.addEventListener("pointerleave", resetHeadTracking);
+
     if (typeof reducedMotion.addEventListener === "function") {
       reducedMotion.addEventListener("change", () => {
         if (reducedMotion.matches) {
-          resetHeadTracking();
-          return;
+          resetLookState();
+        } else {
+          queueLookState();
         }
-        queueHeadTracking();
       });
     }
+  }
+
+  function initRoleState() {
+    setRoleMode("idle");
+    resetLookState();
   }
 
   function initPetCat() {
     if (!document.body || document.getElementById(petId)) return;
 
-    petNode = document.createElement("div");
-    petNode.id = petId;
-    petNode.setAttribute("aria-hidden", "true");
-    petNode.innerHTML = createPetMarkup();
-    document.body.appendChild(petNode);
+    state.node = document.createElement("div");
+    state.node.id = petId;
+    state.node.setAttribute("aria-hidden", "true");
+    state.node.innerHTML = createPetMarkup();
+    document.body.appendChild(state.node);
 
-    bindHeadTracking();
-    queueHeadTracking();
+    bindPointerInput();
+    initRoleState();
+    queueLookState();
   }
 
   if (document.readyState === "loading") {

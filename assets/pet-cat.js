@@ -20,9 +20,10 @@
       <svg viewBox="0 0 200 218" role="img" aria-label="A rounded line-drawn cat resting at the corner of the page.">
         <ellipse class="pet-cat-shadow" cx="100" cy="206" rx="57" ry="10"></ellipse>
         <g class="pet-cat-character">
-          <path class="pet-cat-lines pet-cat-tail" d="M48 181c-17-2-31-10-40-23c-7-10-11-22-11-35c0-15 6-27 17-27c10 0 15 11 15 27c0 26 2 44 10 57c6 10 14 16 26 19"></path>
+          <path class="pet-cat-lines pet-cat-tail" d="M48 181c-17-2-31-10-40-23c-7-10-11-22-11-35c0-15 6-27 17-27c10 0 15 11 15 27c0 24 2 41 10 54c6 10 14 16 26 19"></path>
           <g class="pet-cat-body" data-state="idle">
-            <path class="pet-cat-lines" d="M50 192c-9-12-14-30-14-52c0-17 4-33 11-47c5-10 11-18 17-25c0-18 4-42 11-56c5-10 12-13 19-5l18 26c12-2 24-2 36 0l18-26c7-8 14-5 19 5c7 14 11 38 11 56c6 7 12 15 17 25c7 14 11 30 11 47c0 22-5 40-14 52c-10 14-26 21-50 21s-40-7-50-21"></path>
+            <path class="pet-cat-lines" d="M50 192c-9-12-14-30-14-52c0-17 4-33 11-47c5-10 11-18 17-25c0-18 4-42 11-56c5-10 12-13 19-5l18 26c12-2 24-2 36 0l18-26c7-8 14-5 19 5c7 14 11 38 11 56c6 7 12 15 17 25c7 14 11 30 11 47c0 22-5 40-14 52c-8 11-19 18-34 21"></path>
+            <path class="pet-cat-lines" d="M77 213c-12-3-21-10-27-21"></path>
 
             <g class="pet-cat-head">
               <g class="pet-cat-eyes">
@@ -40,12 +41,10 @@
               <path class="pet-cat-lines pet-cat-whisker" d="M130 102l26 4"></path>
             </g>
 
-            <path class="pet-cat-lines" d="M89 152c1 16 3 34 6 48"></path>
-            <path class="pet-cat-lines" d="M129 152c-1 16-3 34-6 48"></path>
-            <path class="pet-cat-lines" d="M101 154l4 46l4-46"></path>
-            <path class="pet-cat-lines" d="M91 200c0 6 2 9 7 9"></path>
-            <path class="pet-cat-lines" d="M120 209c5 0 7-3 7-9"></path>
-            <path class="pet-cat-lines" d="M105 209c2 0 4-2 4-5"></path>
+            <path class="pet-cat-lines" d="M78 152c1 16 3 34 6 48"></path>
+            <path class="pet-cat-lines" d="M122 152c-1 16-3 34-6 48"></path>
+            <path class="pet-cat-lines" d="M80 200c0 6 2 9 7 9"></path>
+            <path class="pet-cat-lines" d="M116 209c5 0 7-3 7-9"></path>
           </g>
         </g>
       </svg>

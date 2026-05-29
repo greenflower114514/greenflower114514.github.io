@@ -1,0 +1,26 @@
+[
+  {
+    "id": "aurora-loop",
+    "title": "Aurora Loop",
+    "artist": "Homepage Demo",
+    "coverSrc": "assets/music/cover.svg",
+    "audioSrc": "assets/music/track.wav",
+    "duration": "0:04"
+  },
+  {
+    "id": "aurora-loop-echo",
+    "title": "Aurora Loop II",
+    "artist": "Homepage Demo",
+    "coverSrc": "assets/music/cover.svg",
+    "audioSrc": "assets/music/track.wav",
+    "duration": "0:04"
+  },
+  {
+    "id": "aurora-loop-night",
+    "title": "Aurora Loop Night",
+    "artist": "Homepage Demo",
+    "coverSrc": "assets/music/cover.svg",
+    "audioSrc": "assets/music/track.wav",
+    "duration": "0:04"
+  }
+]

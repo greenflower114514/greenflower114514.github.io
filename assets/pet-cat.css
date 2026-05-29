@@ -51,7 +51,7 @@
 }
 
 #site-pet-cat .pet-cat-tail {
-  transform-origin: 45px 166px;
+  transform-origin: 38px 166px;
   animation: pet-cat-tail 3s ease-in-out infinite;
 }
 

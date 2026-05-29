@@ -22,29 +22,30 @@
         <g class="pet-cat-character">
           <path class="pet-cat-lines pet-cat-tail" d="M48 181c-17-2-31-10-40-23c-7-10-11-22-11-35c0-15 6-27 17-27c10 0 15 11 15 27c0 24 2 41 10 54c6 10 14 16 26 19"></path>
           <g class="pet-cat-body" data-state="idle">
-            <path class="pet-cat-lines" d="M50 192c-9-12-14-30-14-52c0-17 4-33 11-47c5-10 11-18 17-25c0-18 4-42 11-56c5-10 12-13 19-5l18 26c12-2 24-2 36 0l18-26c7-8 14-5 19 5c7 14 11 38 11 56c6 7 12 15 17 25c7 14 11 30 11 47c0 22-5 40-14 52c-8 11-19 18-34 21"></path>
-            <path class="pet-cat-lines" d="M77 213c-12-3-21-10-27-21"></path>
+            <path class="pet-cat-lines" d="M52 191c-8-12-13-29-13-48c0-17 4-33 11-47c5-10 10-18 18-26c0-18 4-41 11-55c5-10 12-13 19-4l18 25c11-2 22-2 33 0l18-25c7-9 14-6 19 4c7 14 11 37 11 55c8 8 13 16 18 26c7 14 11 30 11 47c0 19-5 36-13 48c-10 14-26 21-52 21c-25 0-41-7-51-21z"></path>
 
             <g class="pet-cat-head">
               <g class="pet-cat-eyes">
-                <circle class="pet-cat-eye pet-cat-eye-dot" cx="94" cy="86" r="4.5"></circle>
-                <circle class="pet-cat-eye pet-cat-eye-dot" cx="118" cy="86" r="4.5"></circle>
+                <circle class="pet-cat-eye pet-cat-eye-dot" cx="92" cy="86" r="4.4"></circle>
+                <circle class="pet-cat-eye pet-cat-eye-dot" cx="122" cy="86" r="4.4"></circle>
               </g>
 
-              <path class="pet-cat-lines" d="M106 98c3 0 6 2 6 4c0 3-3 5-6 7c-3-2-6-4-6-7c0-2 3-4 6-4z"></path>
-              <path class="pet-cat-lines" d="M106 104v6"></path>
-              <path class="pet-cat-lines" d="M106 110c0 8-5 12-11 12c-6 0-11-4-11-12"></path>
-              <path class="pet-cat-lines" d="M106 110c0 8 5 12 11 12c6 0 11-4 11-12"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M53 93h27"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M56 106l26-4"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M132 93h27"></path>
-              <path class="pet-cat-lines pet-cat-whisker" d="M130 102l26 4"></path>
+              <path class="pet-cat-lines" d="M108 99c3 0 5 1 5 3c0 2-2 4-5 6c-3-2-5-4-5-6c0-2 2-3 5-3z"></path>
+              <path class="pet-cat-lines" d="M108 104v4"></path>
+              <path class="pet-cat-lines" d="M108 109c0 7-4 10-10 10c-5 0-10-3-10-10"></path>
+              <path class="pet-cat-lines" d="M108 109c0 7 4 10 10 10c5 0 10-3 10-10"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M46 92h30"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M48 106l30-4"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M136 92h30"></path>
+              <path class="pet-cat-lines pet-cat-whisker" d="M136 102l30 4"></path>
             </g>
 
-            <path class="pet-cat-lines" d="M78 152c1 16 3 34 6 48"></path>
-            <path class="pet-cat-lines" d="M122 152c-1 16-3 34-6 48"></path>
-            <path class="pet-cat-lines" d="M80 200c0 6 2 9 7 9"></path>
-            <path class="pet-cat-lines" d="M116 209c5 0 7-3 7-9"></path>
+            <path class="pet-cat-lines" d="M86 160c1 13 2 25 4 37"></path>
+            <path class="pet-cat-lines" d="M120 160c-1 13-2 25-4 37"></path>
+            <path class="pet-cat-lines" d="M87 197c0 5 2 8 6 8"></path>
+            <path class="pet-cat-lines" d="M112 205c4 0 6-3 6-8"></path>
+            <path class="pet-cat-lines" d="M96 203c0 4 1 6 3 6"></path>
+            <path class="pet-cat-lines" d="M106 209c2 0 3-2 3-6"></path>
           </g>
         </g>
       </svg>

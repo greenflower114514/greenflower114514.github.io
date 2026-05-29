@@ -51,7 +51,7 @@
 }
 
 #site-pet-cat .pet-cat-tail {
-  transform-origin: 56px 166px;
+  transform-origin: 45px 166px;
   animation: pet-cat-tail 3s ease-in-out infinite;
 }
 
@@ -110,11 +110,11 @@
 @keyframes pet-cat-tail {
   0%,
   100% {
-    transform: rotate(8deg);
+    transform: rotate(5deg);
   }
 
   50% {
-    transform: rotate(-5deg);
+    transform: rotate(-3deg);
   }
 }
 

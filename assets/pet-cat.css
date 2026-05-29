@@ -1,6 +1,6 @@
 :root {
   --pet-cat-size: clamp(138px, 12.5vw, 162px);
-  --pet-cat-right: clamp(18px, 2.2vw, 28px);
+  --pet-cat-right: clamp(26px, 3vw, 40px);
   --pet-cat-bottom: clamp(16px, 2.2vw, 26px);
   --pet-cat-stroke: rgba(255, 255, 255, 0.96);
   --pet-cat-shadow: rgba(255, 255, 255, 0.12);
@@ -46,8 +46,12 @@
   stroke-linejoin: round;
 }
 
+#site-pet-cat .pet-cat-eye-dot {
+  fill: var(--pet-cat-stroke);
+}
+
 #site-pet-cat .pet-cat-tail {
-  transform-origin: 47px 150px;
+  transform-origin: 56px 166px;
   animation: pet-cat-tail 3s ease-in-out infinite;
 }
 
@@ -119,7 +123,7 @@
 @media (max-width: 960px) {
   :root {
     --pet-cat-size: clamp(118px, 20vw, 140px);
-    --pet-cat-right: 18px;
+    --pet-cat-right: 22px;
     --pet-cat-bottom: 20px;
   }
 }
@@ -127,7 +131,7 @@
 @media (max-width: 640px) {
   :root {
     --pet-cat-size: clamp(100px, 24vw, 120px);
-    --pet-cat-right: 14px;
+    --pet-cat-right: 18px;
     --pet-cat-bottom: 24px;
   }
 }

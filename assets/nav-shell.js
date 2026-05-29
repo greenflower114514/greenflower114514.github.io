@@ -1,5 +1,6 @@
 const visitCalendarKey = "greenflower-homepage-visits";
 const dailyBoardPath = "assets/daily-board.json";
+const panelStateKeyPrefix = "hero-panel:";
 
 function escapeShellHtml(value) {
   return String(value ?? "")
@@ -143,8 +144,51 @@ function loadDailyBoard() {
     });
 }
 
+function restorePanelState(panelName, fallbackExpanded = true) {
+  try {
+    const value = localStorage.getItem(`${panelStateKeyPrefix}${panelName}`);
+    if (value === "collapsed") return false;
+    if (value === "expanded") return true;
+  } catch {}
+  return fallbackExpanded;
+}
+
+function savePanelState(panelName, expanded) {
+  try {
+    localStorage.setItem(`${panelStateKeyPrefix}${panelName}`, expanded ? "expanded" : "collapsed");
+  } catch {}
+}
+
+function syncPanelState(panel, expanded) {
+  if (!panel) return;
+  panel.classList.toggle("is-collapsed", !expanded);
+  const toggle = panel.querySelector(".panel-toggle");
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", String(expanded));
+  }
+}
+
+function initHeroPanel(panelName, selector) {
+  const panel = document.querySelector(selector);
+  if (!panel) return;
+
+  let expanded = restorePanelState(panelName, true);
+  syncPanelState(panel, expanded);
+
+  const toggle = panel.querySelector(".panel-toggle");
+  if (!toggle) return;
+
+  toggle.addEventListener("click", () => {
+    expanded = !expanded;
+    syncPanelState(panel, expanded);
+    savePanelState(panelName, expanded);
+  });
+}
+
 saveTodayVisit();
 renderVisitCalendar();
 loadDailyBoard();
 updateProfileTime();
+initHeroPanel("calendar", ".hero-panel--left");
+initHeroPanel("board", ".hero-panel--right");
 setInterval(updateProfileTime, 1000);

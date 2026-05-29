@@ -91,6 +91,22 @@ body {
     url("assets/hero-background.svg") center / cover no-repeat;
 }
 
+.hero-panel {
+  position: absolute;
+  top: 92px;
+  z-index: 2;
+  width: 300px;
+  transition: width 220ms ease, transform 220ms ease, opacity 180ms ease;
+}
+
+.hero-panel--left {
+  left: max(22px, calc((100vw - 1700px) / 2 + 20px));
+}
+
+.hero-panel--right {
+  right: max(22px, calc((100vw - 1700px) / 2 + 20px));
+}
+
 .profile-hero::after {
   position: absolute;
   right: 0;
@@ -201,11 +217,7 @@ body {
 }
 
 .daily-board {
-  position: fixed;
-  top: 92px;
-  right: max(22px, calc((100vw - 1700px) / 2 + 20px));
-  z-index: 2;
-  width: 300px;
+  width: 100%;
   padding: 24px;
   color: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -252,11 +264,7 @@ body {
 }
 
 .visit-calendar {
-  position: fixed;
-  top: 92px;
-  left: max(22px, calc((100vw - 1700px) / 2 + 20px));
-  z-index: 2;
-  width: 300px;
+  width: 100%;
   padding: 22px;
   color: rgba(255, 255, 255, 0.84);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -266,6 +274,76 @@ body {
     linear-gradient(135deg, rgba(249, 115, 22, 0.72), rgba(17, 24, 39, 0.86) 46%, rgba(15, 23, 42, 0.92));
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.36);
   backdrop-filter: blur(18px);
+}
+
+.panel-shell {
+  overflow: hidden;
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel-title {
+  min-width: 0;
+}
+
+.panel-title h2,
+.panel-title strong {
+  margin: 0;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.panel-title span {
+  display: block;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.76rem;
+  letter-spacing: 0.10em;
+}
+
+.panel-toggle {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.panel-body {
+  margin-top: 18px;
+}
+
+.hero-panel.is-collapsed {
+  width: 58px;
+}
+
+.hero-panel.is-collapsed .panel-shell {
+  padding: 16px 10px;
+}
+
+.hero-panel.is-collapsed .panel-title,
+.hero-panel.is-collapsed .panel-body,
+.hero-panel.is-collapsed .daily-board::before {
+  display: none;
+}
+
+.hero-panel.is-collapsed .panel-head {
+  justify-content: center;
+}
+
+.hero-panel.is-collapsed .panel-toggle {
+  width: 38px;
+  height: 116px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 0.16em;
 }
 
 .calendar-head {
@@ -828,20 +906,19 @@ body {
     min-height: 120px;
   }
 
-  .daily-board {
-    position: fixed;
+  .hero-panel {
     top: 92px;
-    right: 14px;
     width: 220px;
-    margin: 0;
   }
 
-  .visit-calendar {
-    position: fixed;
-    top: 92px;
+  .hero-panel--right {
+    right: 14px;
+    left: auto;
+  }
+
+  .hero-panel--left {
     left: 14px;
-    width: 220px;
-    margin: 0;
+    right: auto;
   }
 
   .timeline-heading {
@@ -890,20 +967,19 @@ body {
     transform: none;
   }
 
-  .daily-board {
-    position: fixed;
+  .hero-panel {
     top: 92px;
-    right: 24px;
     width: 260px;
-    margin: 0;
   }
 
-  .visit-calendar {
-    position: fixed;
-    top: 92px;
+  .hero-panel--right {
+    right: 24px;
+    left: auto;
+  }
+
+  .hero-panel--left {
     left: 24px;
-    width: 260px;
-    margin: 0;
+    right: auto;
   }
 }
 </style>
@@ -911,6 +987,36 @@ body {
 <div class="profile-page">
   <section class="profile-hero">
     <time class="profile-time" id="profile-time">Loading time...</time>
+
+    <aside class="hero-panel hero-panel--left">
+      <div class="visit-calendar panel-shell" aria-label="主页访问日历">
+        <div class="panel-head">
+          <div class="panel-title">
+            <strong>访问日历</strong>
+            <span>Calendar / Visits</span>
+          </div>
+          <button class="panel-toggle" type="button" aria-label="收起访问日历" aria-expanded="true">Calendar</button>
+        </div>
+        <div class="panel-body">
+          <div class="calendar-head">
+            <button class="calendar-prev" type="button" aria-label="上个月">&lt;</button>
+            <div class="calendar-title" id="calendar-title">Month 0000</div>
+            <button class="calendar-next" type="button" aria-label="下个月">&gt;</button>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>S</span>
+            <span>M</span>
+            <span>T</span>
+            <span>W</span>
+            <span>T</span>
+            <span>F</span>
+            <span>S</span>
+          </div>
+          <div class="calendar-days" id="calendar-days"></div>
+          <p class="calendar-note">访问过主页的日期会被点亮，记录保存在当前浏览器中。</p>
+        </div>
+      </div>
+    </aside>
 
     <div class="profile-hero-inner">
       <img class="profile-avatar" src="https://avatars.githubusercontent.com/u/93895894?v=4" alt="干煸双鲜的头像">
@@ -945,6 +1051,26 @@ body {
         </a>
       </nav>
     </div>
+
+    <aside class="hero-panel hero-panel--right">
+      <div class="daily-board panel-shell" aria-label="今日正在做的事">
+        <div class="panel-head">
+          <div class="panel-title">
+            <h2>今日黑板</h2>
+            <span>Today / 正在做</span>
+          </div>
+          <button class="panel-toggle" type="button" aria-label="收起今日黑板" aria-expanded="true">Today</button>
+        </div>
+        <div class="panel-body">
+          <time>Today / 正在做</time>
+          <ul>
+            <li>继续装修 GitHub 个人主页。</li>
+            <li>整理 About 区域和人生时间线。</li>
+            <li>明明是黑板，内容却要在.md文件中修改，看起来真的很诡异，也许应该做一个在线修改的功能。</li>
+          </ul>
+        </div>
+      </div>
+    </aside>
   </section>
 
   <main class="profile-content" id="about">
@@ -1065,35 +1191,6 @@ body {
   </main>
 
 </div>
-
-<aside class="daily-board" aria-label="今日正在做的事">
-    <h2>今日黑板</h2>
-    <time>Today / 正在做</time>
-    <ul>
-      <li>继续装修 GitHub 个人主页。</li>
-      <li>整理 About 区域和人生时间线。</li>
-      <li>明明是黑板，内容却要在.md文件中修改，看起来真的很诡异，也许应该做一个在线修改的功能。</li>
-    </ul>
-  </aside>
-
-  <aside class="visit-calendar" aria-label="主页访问日历">
-    <div class="calendar-head">
-      <button class="calendar-prev" type="button" aria-label="上个月">&lt;</button>
-      <div class="calendar-title" id="calendar-title">Month 0000</div>
-      <button class="calendar-next" type="button" aria-label="下个月">&gt;</button>
-    </div>
-    <div class="calendar-weekdays" aria-hidden="true">
-      <span>S</span>
-      <span>M</span>
-      <span>T</span>
-      <span>W</span>
-      <span>T</span>
-      <span>F</span>
-      <span>S</span>
-    </div>
-    <div class="calendar-days" id="calendar-days"></div>
-    <p class="calendar-note">访问过主页的日期会被点亮，记录保存在当前浏览器中。</p>
-  </aside>
 
 <div class="detail-lightbox" id="detail-lightbox" aria-hidden="true">
     <button class="detail-lightbox-close" type="button" aria-label="关闭大图">×</button>

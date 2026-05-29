@@ -22,13 +22,7 @@
         <g class="pet-cat-character">
           <path class="pet-cat-lines pet-cat-tail" d="M60 183c-18 0-33-6-43-18c-9-10-14-24-14-39c0-19 8-34 22-34c12 0 19 13 19 34c0 25 0 43 9 56c7 11 18 18 34 19"></path>
           <g class="pet-cat-body" data-state="idle">
-            <path class="pet-cat-lines" d="M45 194c-7-11-12-29-12-50c0-18 4-36 11-53c5-10 12-19 20-28c0-18 4-43 12-58c6-10 14-13 22-4l18 27c13-3 28-3 41 0l18-27c8-9 16-6 22 4c8 15 12 40 12 58c8 9 15 18 20 28c7 17 11 35 11 53c0 21-5 39-12 50"></path>
-            <path class="pet-cat-lines" d="M45 194c12 11 28 17 55 17"></path>
-            <path class="pet-cat-lines" d="M155 194c-12 11-28 17-55 17"></path>
-            <path class="pet-cat-lines" d="M64 63l18-45c5-10 12-12 19-3l18 26"></path>
-            <path class="pet-cat-lines" d="M136 41l18-26c7-9 14-7 19 3l18 45"></path>
-            <path class="pet-cat-lines" d="M68 77c-16 12-25 44-25 81c0 28 6 49 18 65"></path>
-            <path class="pet-cat-lines" d="M132 77c16 12 25 44 25 81c0 28-6 49-18 65"></path>
+            <path class="pet-cat-lines" d="M45 193c-8-11-13-28-13-49c0-17 4-34 11-49c5-10 11-19 18-27c0-17 4-42 12-58c6-12 15-15 23-5l19 27c11-3 23-3 34 0l19-27c8-10 17-7 23 5c8 16 12 41 12 58c7 8 13 17 18 27c7 15 11 32 11 49c0 21-5 38-13 49c-11 15-29 22-55 22s-44-7-55-22"></path>
 
             <g class="pet-cat-head">
               <g class="pet-cat-eyes">

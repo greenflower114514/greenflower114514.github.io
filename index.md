@@ -1224,6 +1224,7 @@ let detailCloseTimer = null;
 const aboutSectionsPath = "assets/about-sections.json";
 const visitCalendarKey = "greenflower-homepage-visits";
 const dailyBoardPath = "assets/daily-board.json";
+const playlistPath = "assets/playlist.json";
 const panelStateKeyPrefix = "hero-panel:";
 const emptyAboutTitle = "内容还需要继续丰富";
 const emptyAboutDescription = "这里以后会自动展示对应分类的 blog 内容。";
@@ -1344,6 +1345,25 @@ const normalizedAboutBlogEntries = aboutBlogEntries
   .filter(Boolean)
   .sort((left, right) => String(right.date).localeCompare(String(left.date)));
 
+let normalizedPlaylistEntries = [];
+
+function normalizePlaylistEntry(entry) {
+  const id = normalizeAboutText(entry.id);
+  const title = normalizeAboutText(entry.title);
+  if (!id || !title) return null;
+
+  return {
+    id,
+    aboutSection: "listen",
+    name: title,
+    description: [normalizeAboutText(entry.artist), normalizeAboutText(entry.duration)].filter(Boolean).join(" / "),
+    comment: "和首页左下角播放器共用同一份歌单数据。",
+    cover: normalizeAboutText(entry.coverSrc),
+    coverLabel: title,
+    blogUrl: ""
+  };
+}
+
 function createEmptyAboutItems() {
   return {
     previewItems: Array.from({ length: 4 }, () => ({
@@ -1377,7 +1397,11 @@ function createPlaceholderPreviewItems(count) {
 }
 
 function getAboutItemsForSection(sectionId) {
-  const dynamicItems = normalizedAboutBlogEntries
+  const sourceEntries = sectionId === "listen"
+    ? normalizedPlaylistEntries
+    : normalizedAboutBlogEntries;
+
+  const dynamicItems = sourceEntries
     .filter((entry) => entry.aboutSection === sectionId)
     .slice(0, 4);
 
@@ -1484,13 +1508,21 @@ function loadAboutSections() {
     grid.innerHTML = '<p class="about-load-error">正在加载 About 内容...</p>';
   }
 
-  fetch(aboutSectionsPath)
-    .then((response) => {
+  Promise.all([
+    fetch(aboutSectionsPath).then((response) => {
       if (!response.ok) throw new Error("About data request failed");
       return response.json();
-    })
-    .then((sections) => {
+    }),
+    fetch(playlistPath).then((response) => {
+      if (!response.ok) throw new Error("Playlist data request failed");
+      return response.json();
+    }).catch(() => [])
+  ])
+    .then(([sections, playlist]) => {
       if (!Array.isArray(sections)) throw new Error("About data is not an array");
+      normalizedPlaylistEntries = Array.isArray(playlist)
+        ? playlist.map(normalizePlaylistEntry).filter(Boolean)
+        : [];
       renderBlogLinkedAboutSections(sections);
     })
     .catch(showAboutLoadError);

@@ -3,9 +3,11 @@
   if (!root) return;
 
   const playlistPath = "assets/playlist.json";
+  const playerStateKey = "homepage-music-player-collapsed";
   let playlist = [];
   let currentIndex = 0;
   let hasMetadata = false;
+  let isCollapsed = false;
 
   function escapeHtml(value) {
     return String(value ?? "")
@@ -47,6 +49,7 @@
               <button class="music-player__button music-player__button--prev" type="button" aria-label="Previous track">&lt;</button>
               <button class="music-player__button music-player__button--play" type="button" aria-label="Play track">&gt;</button>
               <button class="music-player__button music-player__button--next" type="button" aria-label="Next track">&gt;&gt;</button>
+              <button class="music-player__button music-player__button--collapse" type="button" aria-label="Collapse player">_</button>
             </div>
           </div>
           <div class="music-player__meta">
@@ -77,9 +80,37 @@
   const playButton = root.querySelector(".music-player__button--play");
   const prevButton = root.querySelector(".music-player__button--prev");
   const nextButton = root.querySelector(".music-player__button--next");
+  const collapseButton = root.querySelector(".music-player__button--collapse");
+  const vinyl = root.querySelector(".music-player__vinyl");
 
-  if (!player || !cover || !title || !artist || !current || !duration || !progress || !audio || !playButton || !prevButton || !nextButton) {
+  if (!player || !cover || !title || !artist || !current || !duration || !progress || !audio || !playButton || !prevButton || !nextButton || !collapseButton || !vinyl) {
     return;
+  }
+
+  function readCollapsedState() {
+    try {
+      return localStorage.getItem(playerStateKey) === "collapsed";
+    } catch {
+      return false;
+    }
+  }
+
+  function writeCollapsedState(collapsed) {
+    try {
+      localStorage.setItem(playerStateKey, collapsed ? "collapsed" : "expanded");
+    } catch {}
+  }
+
+  function syncCollapsedState() {
+    player.classList.toggle("is-collapsed", isCollapsed);
+    collapseButton.setAttribute("aria-label", isCollapsed ? "Expand player" : "Collapse player");
+    vinyl.setAttribute("role", isCollapsed ? "button" : "img");
+    vinyl.setAttribute("aria-label", isCollapsed ? "Expand music player" : "Album cover");
+    if (!isCollapsed) {
+      vinyl.removeAttribute("tabindex");
+    } else {
+      vinyl.setAttribute("tabindex", "0");
+    }
   }
 
   function setPlayingState(isPlaying) {
@@ -150,6 +181,28 @@
     changeTrack(1);
   });
 
+  collapseButton.addEventListener("click", () => {
+    isCollapsed = !isCollapsed;
+    syncCollapsedState();
+    writeCollapsedState(isCollapsed);
+  });
+
+  vinyl.addEventListener("click", () => {
+    if (!isCollapsed) return;
+    isCollapsed = false;
+    syncCollapsedState();
+    writeCollapsedState(false);
+  });
+
+  vinyl.addEventListener("keydown", (event) => {
+    if (!isCollapsed) return;
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    isCollapsed = false;
+    syncCollapsedState();
+    writeCollapsedState(false);
+  });
+
   progress.addEventListener("input", () => {
     progress.style.setProperty("--music-player-progress", `${progress.value}%`);
   });
@@ -198,5 +251,7 @@
     });
 
   progress.style.setProperty("--music-player-progress", "0%");
+  isCollapsed = readCollapsedState();
+  syncCollapsedState();
   setPlayingState(false);
 })();

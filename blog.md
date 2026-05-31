@@ -6,6 +6,7 @@ permalink: /blog.html
 
 <link rel="stylesheet" href="assets/nav-shell.css">
 <link rel="stylesheet" href="assets/pet-cat.css">
+<link rel="stylesheet" href="assets/music-player.css">
 
 <style>
 .blog-main {
@@ -921,4 +922,6 @@ window.addEventListener("hashchange", () => {
   renderBlogEntry(entryId, { updateHash: false });
 });
 </script>
+<div id="music-player" aria-label="首页音乐播放器"></div>
+<script src="assets/music-player.js"></script>
 <script src="assets/pet-cat.js"></script>

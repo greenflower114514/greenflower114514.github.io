@@ -6,7 +6,8 @@
     "artist": "Homepage Demo",
     "coverSrc": "assets/music/cover.svg",
     "audioSrc": "assets/music/track.wav",
-    "duration": "0:04"
+    "duration": "0:04",
+    "blogEntryId": ""
   },
   {
     "order": 3,
@@ -15,7 +16,8 @@
     "artist": "Homepage Demo",
     "coverSrc": "assets/music/cover.svg",
     "audioSrc": "assets/music/track.wav",
-    "duration": "0:04"
+    "duration": "0:04",
+    "blogEntryId": ""
   },
   {
     "order": 4,
@@ -24,7 +26,8 @@
     "artist": "Homepage Demo",
     "coverSrc": "assets/music/cover.svg",
     "audioSrc": "assets/music/track.wav",
-    "duration": "0:04"
+    "duration": "0:04",
+    "blogEntryId": ""
   },
   {
     "order": 1,
@@ -33,6 +36,7 @@
     "artist": "こはならむ",
     "coverSrc": "assets/music/君の神様になりたい.png",
     "audioSrc": "assets/music/こはならむ - 君の神様になりたい。.mp3",
-    "duration": "4:09"
+    "duration": "4:09",
+    "blogEntryId": ""
   }
 ]

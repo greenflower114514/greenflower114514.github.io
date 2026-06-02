@@ -1351,6 +1351,7 @@ function normalizePlaylistEntry(entry) {
   const id = normalizeAboutText(entry.id);
   const title = normalizeAboutText(entry.title);
   if (!id || !title) return null;
+  const blogEntryId = normalizeAboutText(entry.blogEntryId);
 
   return {
     id,
@@ -1361,7 +1362,7 @@ function normalizePlaylistEntry(entry) {
     comment: "和首页左下角播放器共用同一份歌单数据。",
     cover: normalizeAboutText(entry.coverSrc),
     coverLabel: title,
-    blogUrl: ""
+    blogUrl: blogEntryId ? `blog.html#${encodeURIComponent(blogEntryId)}` : ""
   };
 }
 

@@ -1053,7 +1053,7 @@ body {
           <span class="profile-nav-en">About</span>
           <span class="profile-nav-cn">关于</span>
         </a>
-        <a href="redbook.html">
+        <a href="https://www.xiaohongshu.com/user/profile/62e6a1d1000000001f016185">
           <span class="profile-nav-icon">◎</span>
           <span class="profile-nav-en">RedBook</span>
           <span class="profile-nav-cn">小红书</span>
@@ -1134,7 +1134,7 @@ body {
           <strong>风格偏好</strong>
           <p>偏好暗色、克制、有一点神秘感的视觉风格。内容可以认真，但不要太端着，最好能让访客感觉这里确实住着一个人。</p>
           <p>未来可以把喜欢的图片、歌单、照片或者小红书内容做成这一块的延伸入口。</p>
-          <p><a href="redbook.html">去小红书页面看看</a></p>
+          <p><a href="https://www.xiaohongshu.com/user/profile/62e6a1d1000000001f016185">去小红书主页看看</a></p>
         </div>
       </article>
 

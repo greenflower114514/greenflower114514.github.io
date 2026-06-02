@@ -1354,6 +1354,7 @@ function normalizePlaylistEntry(entry) {
 
   return {
     id,
+    order: Number(entry.order),
     aboutSection: "listen",
     name: title,
     description: [normalizeAboutText(entry.artist), normalizeAboutText(entry.duration)].filter(Boolean).join(" / "),
@@ -1522,6 +1523,11 @@ function loadAboutSections() {
       if (!Array.isArray(sections)) throw new Error("About data is not an array");
       normalizedPlaylistEntries = Array.isArray(playlist)
         ? playlist.map(normalizePlaylistEntry).filter(Boolean)
+            .sort((left, right) => {
+              const leftOrder = Number.isFinite(left.order) ? left.order : Number.MAX_SAFE_INTEGER;
+              const rightOrder = Number.isFinite(right.order) ? right.order : Number.MAX_SAFE_INTEGER;
+              return leftOrder - rightOrder;
+            })
         : [];
       renderBlogLinkedAboutSections(sections);
     })

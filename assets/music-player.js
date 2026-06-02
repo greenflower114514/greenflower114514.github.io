@@ -25,6 +25,11 @@
     return `${mins}:${String(secs).padStart(2, "0")}`;
   }
 
+  function normalizeTrackOrder(track) {
+    const value = Number(track?.order);
+    return Number.isFinite(value) ? value : Number.MAX_SAFE_INTEGER;
+  }
+
   function getCurrentTrack() {
     return playlist[currentIndex] || null;
   }
@@ -238,7 +243,9 @@
     })
     .then((data) => {
       if (!Array.isArray(data) || !data.length) throw new Error("Playlist is empty");
-      playlist = data;
+      playlist = data
+        .slice()
+        .sort((left, right) => normalizeTrackOrder(left) - normalizeTrackOrder(right));
       currentIndex = 0;
       applyTrack(getCurrentTrack(), false);
     })

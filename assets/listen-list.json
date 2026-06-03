@@ -1,0 +1,54 @@
+[
+  {
+    "order": 1,
+    "id": "kimi-no-kamisama",
+    "title": "君の神様になりたい。",
+    "artist": "こはならむ",
+    "description": "こはならむ / 4:09",
+    "comment": "",
+    "coverSrc": "assets/music/君の神様になりたい.png",
+    "audioSrc": "assets/music/こはならむ - 君の神様になりたい。.mp3",
+    "duration": "4:09",
+    "blogEntryId": "",
+    "addedDate": "2026-06-02"
+  },
+  {
+    "order": 2,
+    "id": "Daisy",
+    "title": "Daisy",
+    "artist": "Aimer",
+    "description": "Aimer / 4:22",
+    "comment": "",
+    "coverSrc": "assets/music/Aimer - Daisy.png",
+    "audioSrc": "assets/music/Aimer - Daisy.mp3",
+    "duration": "4:22",
+    "blogEntryId": "",
+    "addedDate": "2026-06-02"
+  },
+  {
+    "order": 3,
+    "id": "aurora-loop-echo",
+    "title": "Aurora Loop II",
+    "artist": "Homepage Demo",
+    "description": "Homepage Demo / 0:04",
+    "comment": "",
+    "coverSrc": "assets/music/cover.svg",
+    "audioSrc": "assets/music/track.wav",
+    "duration": "0:04",
+    "blogEntryId": "",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "order": 4,
+    "id": "aurora-loop-night",
+    "title": "Aurora Loop Night",
+    "artist": "Homepage Demo",
+    "description": "Homepage Demo / 0:04",
+    "comment": "",
+    "coverSrc": "assets/music/cover.svg",
+    "audioSrc": "assets/music/track.wav",
+    "duration": "0:04",
+    "blogEntryId": "",
+    "addedDate": "2026-05-27"
+  }
+]

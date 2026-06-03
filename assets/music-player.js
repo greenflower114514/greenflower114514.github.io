@@ -2,7 +2,7 @@
   const root = document.getElementById("music-player");
   if (!root) return;
 
-  const playlistPath = "assets/playlist.json";
+  const playlistPath = "assets/listen-list.json";
   const playerStateKey = "homepage-music-player-collapsed";
   let playlist = [];
   let currentIndex = 0;
@@ -251,7 +251,7 @@
     })
     .catch(() => {
       title.textContent = "Playlist unavailable";
-      artist.textContent = "Check assets/playlist.json";
+      artist.textContent = "Check assets/listen-list.json";
       playButton.disabled = true;
       prevButton.disabled = true;
       nextButton.disabled = true;

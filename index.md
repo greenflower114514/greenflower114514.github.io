@@ -756,6 +756,16 @@ body {
 .update-board__cell.is-active {
   background: #ff4d5c;
   box-shadow: 0 0 0 1px rgba(255, 77, 92, 0.16);
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+}
+
+.update-board__cell.is-active:hover,
+.update-board__cell.is-active:focus-visible {
+  background: #ff6673;
+  box-shadow: 0 0 0 1px rgba(255, 102, 115, 0.22);
+  transform: translateY(-1px);
+  outline: none;
 }
 
 .update-board__legend {
@@ -805,12 +815,57 @@ body {
   gap: 14px;
 }
 
+.update-board__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.update-board__page-button {
+  min-width: 92px;
+  height: 38px;
+  padding: 0 14px;
+  color: rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.update-board__page-button:hover:not(:disabled) {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.update-board__page-button:disabled {
+  color: rgba(255, 255, 255, 0.32);
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.update-board__page-indicator {
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.84rem;
+  letter-spacing: 0.08em;
+}
+
 .update-board__entry {
   display: grid;
   gap: 6px;
   padding: 16px 18px;
   border: 1px solid rgba(255, 255, 255, 0.10);
   background: rgba(255, 255, 255, 0.035);
+}
+
+.update-board__entry.is-highlighted {
+  border-color: rgba(255, 128, 138, 0.42);
+  background:
+    linear-gradient(180deg, rgba(255, 92, 107, 0.12), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 0 1px rgba(255, 92, 107, 0.14);
 }
 
 .update-board__entry time {
@@ -1044,6 +1099,16 @@ body {
 
   .update-board__meta {
     margin-left: 0;
+  }
+
+  .update-board__pagination {
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .update-board__page-button {
+    min-width: 0;
+    flex: 1 1 0;
   }
 
   .about-grid {
@@ -1363,6 +1428,7 @@ body {
       </div>
       <div class="update-board__details" id="update-board-details">
         <div class="update-board__list" id="update-board-list"></div>
+        <div class="update-board__pagination" id="update-board-pagination"></div>
       </div>
     </section>
 
@@ -1628,48 +1694,99 @@ function renderUpdateBoard(playlist) {
   const board = document.getElementById("update-board");
   const grid = document.getElementById("update-board-grid");
   const list = document.getElementById("update-board-list");
+  const pagination = document.getElementById("update-board-pagination");
   const meta = document.getElementById("update-board-meta");
   const toggle = document.getElementById("update-board-toggle");
   const toggleIcon = board?.querySelector(".update-board__toggle");
-  if (!board || !grid || !list || !meta || !toggle || !toggleIcon) return;
+  if (!board || !grid || !list || !pagination || !meta || !toggle || !toggleIcon) return;
 
   const updates = createHomepageUpdateMap(playlist);
   const updateDateSet = new Set(updates.map((entry) => entry.date));
+  const pageSize = 5;
+  let currentUpdatePage = 1;
+  let highlightedUpdateDate = "";
+  const totalPages = Math.max(1, Math.ceil(updates.length / pageSize));
+  const pageByDate = new Map(
+    updates.map((entry, index) => [entry.date, Math.floor(index / pageSize) + 1])
+  );
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const start = new Date(today);
   start.setDate(start.getDate() - 364);
+
+  function setExpanded(expanded) {
+    board.classList.toggle("is-open", expanded);
+    toggle.setAttribute("aria-expanded", String(expanded));
+    toggleIcon.textContent = expanded ? "−" : "+";
+  }
+
+  function renderCurrentPage() {
+    const safePage = Math.min(Math.max(currentUpdatePage, 1), totalPages);
+    currentUpdatePage = safePage;
+    const startIndex = (safePage - 1) * pageSize;
+    const pageItems = updates.slice(startIndex, startIndex + pageSize);
+
+    list.innerHTML = pageItems.length
+      ? pageItems.map((entry) => `
+          <article class="update-board__entry${entry.date === highlightedUpdateDate ? " is-highlighted" : ""}" data-update-date="${escapeHtml(entry.date)}">
+            <time datetime="${escapeHtml(entry.date)}">${escapeHtml(formatUpdateDateLabel(entry.date))}</time>
+            <p>${escapeHtml(entry.summary)}</p>
+          </article>
+        `).join("")
+      : '<article class="update-board__entry"><p>最近还没有可显示的更新记录。</p></article>';
+
+    if (updates.length <= pageSize) {
+      pagination.innerHTML = "";
+      return;
+    }
+
+    pagination.innerHTML = `
+      <button class="update-board__page-button" type="button" data-page-action="prev" ${safePage === 1 ? "disabled" : ""}>上一页</button>
+      <span class="update-board__page-indicator">第 ${safePage} / ${totalPages} 页</span>
+      <button class="update-board__page-button" type="button" data-page-action="next" ${safePage === totalPages ? "disabled" : ""}>下一页</button>
+    `;
+
+    pagination.querySelectorAll("[data-page-action]").forEach((button) => {
+      button.addEventListener("click", () => {
+        highlightedUpdateDate = "";
+        currentUpdatePage += button.dataset.pageAction === "prev" ? -1 : 1;
+        renderCurrentPage();
+      });
+    });
+  }
 
   grid.innerHTML = "";
   for (let offset = 0; offset < 365; offset += 1) {
     const date = new Date(start);
     date.setDate(start.getDate() + offset);
     const key = formatVisitDate(date);
-    const cell = document.createElement("span");
+    const isActive = updateDateSet.has(key);
+    const cell = document.createElement(isActive ? "button" : "span");
     cell.className = "update-board__cell";
-    if (updateDateSet.has(key)) {
+    if (isActive) {
       cell.classList.add("is-active");
+      cell.type = "button";
+      cell.dataset.date = key;
+      cell.dataset.page = String(pageByDate.get(key) || 1);
+      cell.setAttribute("aria-label", `${key} 有更新`);
+      cell.addEventListener("click", () => {
+        highlightedUpdateDate = key;
+        currentUpdatePage = pageByDate.get(key) || 1;
+        setExpanded(true);
+        renderCurrentPage();
+      });
     }
     cell.setAttribute("title", key);
     grid.appendChild(cell);
   }
 
   meta.textContent = `${updates.length} 天有更新`;
-  list.innerHTML = updates.length
-    ? updates.map((entry) => `
-        <article class="update-board__entry">
-          <time datetime="${escapeHtml(entry.date)}">${escapeHtml(formatUpdateDateLabel(entry.date))}</time>
-          <p>${escapeHtml(entry.summary)}</p>
-        </article>
-      `).join("")
-    : '<article class="update-board__entry"><p>最近还没有可显示的更新记录。</p></article>';
+  renderCurrentPage();
 
   if (!toggle.dataset.bound) {
     const handleToggle = () => {
       const expanded = toggle.getAttribute("aria-expanded") === "true";
-      board.classList.toggle("is-open", !expanded);
-      toggle.setAttribute("aria-expanded", String(!expanded));
-      toggleIcon.textContent = expanded ? "+" : "−";
+      setExpanded(!expanded);
     };
 
     toggle.addEventListener("click", handleToggle);

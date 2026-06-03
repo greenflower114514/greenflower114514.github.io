@@ -1,15 +1,25 @@
 [
   {
     "order": 1,
-    "id": "study-seat-1",
-    "title": "学习位出租(1)",
-    "description": "联系电话(1)：xxxxxxxxxxx。",
-    "comment": "这里用来做什么...发表获奖感言的位置吗？",
-    "coverLabel": "待",
+    "id": "photo-writing-preview",
+    "title": "图文写作预览",
+    "description": "现在文章正文、封面图和摘要都能直接在 Markdown 里一起维护，写起来更顺手。",
+    "comment": "把图片和正文放回同一个文件之后，预览效果终于直观很多了。",
+    "coverSrc": "/assets/blog/2026-05-27-photo-demo/window-note.svg",
+    "coverLabel": "图文",
     "blogEntryId": "2026-05-27-photo-demo"
   },
   {
     "order": 2,
+    "id": "markdown-writing-practice",
+    "title": "Markdown 写作练习",
+    "description": "用 blog 记录学习和搭建主页时的过程，比起先前的 JSON 方式更直观。",
+    "comment": "先留一个位置，再慢慢把它变成真正有内容的记录。",
+    "coverLabel": "写作",
+    "blogEntryId": "2026-05-23-first-note"
+  },
+  {
+    "order": 3,
     "id": "study-seat-2",
     "title": "学习位出租(2)",
     "description": "联系电话(2)：xxxxxxxxxxx。",
@@ -18,7 +28,7 @@
     "blogEntryId": ""
   },
   {
-    "order": 3,
+    "order": 4,
     "id": "study-seat-3",
     "title": "学习位出租(3)",
     "description": "联系电话(3)：xxxxxxxxxxx。",
@@ -27,7 +37,7 @@
     "blogEntryId": ""
   },
   {
-    "order": 4,
+    "order": 5,
     "id": "study-seat-4",
     "title": "学习位出租(4)",
     "description": "联系电话(4)：xxxxxxxxxxx。",

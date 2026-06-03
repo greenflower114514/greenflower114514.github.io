@@ -1822,6 +1822,7 @@ function normalizeOrderedAboutEntry(entry, aboutSection) {
   return {
     id,
     order: Number(entry.order),
+    blogEntryId,
     aboutSection,
     name: title,
     description,
@@ -1894,6 +1895,18 @@ function createPlaceholderPreviewItems(count) {
   }));
 }
 
+function getSupplementalBlogEntries(sectionId, orderedEntries) {
+  const coveredBlogIds = new Set(
+    orderedEntries
+      .flatMap((entry) => [normalizeAboutText(entry.blogEntryId), normalizeAboutText(entry.id)])
+      .filter(Boolean)
+  );
+
+  return normalizedAboutBlogEntries.filter((entry) => {
+    return entry.aboutSection === sectionId && !coveredBlogIds.has(normalizeAboutText(entry.id));
+  });
+}
+
 function getAboutItemsForSection(sectionId) {
   const jsonBackedSections = {
     study: normalizedStudyEntries,
@@ -1901,17 +1914,19 @@ function getAboutItemsForSection(sectionId) {
     watch: normalizedWatchEntries,
     listen: normalizedPlaylistEntries
   };
-  const sourceEntries = jsonBackedSections[sectionId] || normalizedAboutBlogEntries;
+  const orderedEntries = jsonBackedSections[sectionId];
+  const sourceEntries = orderedEntries
+    ? orderedEntries.concat(getSupplementalBlogEntries(sectionId, orderedEntries))
+    : normalizedAboutBlogEntries;
 
-  const dynamicItems = sourceEntries
-    .filter((entry) => entry.aboutSection === sectionId)
-    .slice(0, 4);
+  const allItems = sourceEntries.filter((entry) => entry.aboutSection === sectionId);
 
-  if (dynamicItems.length) {
-    const placeholderCount = Math.max(0, 4 - dynamicItems.length);
+  if (allItems.length) {
+    const previewItems = allItems.slice(0, 4);
+    const placeholderCount = Math.max(0, 4 - previewItems.length);
     return {
-      previewItems: dynamicItems.concat(createPlaceholderPreviewItems(placeholderCount)),
-      detailItems: dynamicItems
+      previewItems: previewItems.concat(createPlaceholderPreviewItems(placeholderCount)),
+      detailItems: allItems
     };
   }
 

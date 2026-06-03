@@ -1,0 +1,38 @@
+[
+  {
+    "order": 1,
+    "id": "read-diamond-1",
+    "title": "♦️",
+    "description": "🟠🟠🟠🟠",
+    "comment": "我",
+    "coverLabel": "我",
+    "blogEntryId": ""
+  },
+  {
+    "order": 2,
+    "id": "read-diamond-2",
+    "title": "♦️♦️",
+    "description": "🟠🟠🟠。",
+    "comment": "已",
+    "coverLabel": "不",
+    "blogEntryId": ""
+  },
+  {
+    "order": 3,
+    "id": "read-diamond-3",
+    "title": "♦️♦️♦️",
+    "description": "🟠🟠",
+    "comment": "急",
+    "coverLabel": "看",
+    "blogEntryId": ""
+  },
+  {
+    "order": 4,
+    "id": "read-diamond-4",
+    "title": "♦️♦️♦️♦️",
+    "description": "🟠",
+    "comment": "哭。",
+    "coverLabel": "书",
+    "blogEntryId": ""
+  }
+]

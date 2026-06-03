@@ -1,0 +1,38 @@
+[
+  {
+    "order": 1,
+    "id": "study-seat-1",
+    "title": "学习位出租(1)",
+    "description": "联系电话(1)：xxxxxxxxxxx。",
+    "comment": "这里用来做什么...发表获奖感言的位置吗？",
+    "coverLabel": "待",
+    "blogEntryId": "2026-05-27-photo-demo"
+  },
+  {
+    "order": 2,
+    "id": "study-seat-2",
+    "title": "学习位出租(2)",
+    "description": "联系电话(2)：xxxxxxxxxxx。",
+    "comment": "这里用来做什么...发表获奖感言的位置吗？",
+    "coverLabel": "完",
+    "blogEntryId": ""
+  },
+  {
+    "order": 3,
+    "id": "study-seat-3",
+    "title": "学习位出租(3)",
+    "description": "联系电话(3)：xxxxxxxxxxx。",
+    "comment": "这里用来做什么...发表获奖感言的位置吗？",
+    "coverLabel": "善",
+    "blogEntryId": ""
+  },
+  {
+    "order": 4,
+    "id": "study-seat-4",
+    "title": "学习位出租(4)",
+    "description": "联系电话(4)：xxxxxxxxxxx。",
+    "comment": "这里用来做什么...发表获奖感言的位置吗？",
+    "coverLabel": "中",
+    "blogEntryId": ""
+  }
+]

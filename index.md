@@ -1477,6 +1477,9 @@ const aboutSectionsPath = "assets/about-sections.json";
 const visitCalendarKey = "greenflower-homepage-visits";
 const dailyBoardPath = "assets/daily-board.json";
 const playlistPath = "assets/playlist.json";
+const studyListPath = "assets/study-list.json";
+const readListPath = "assets/read-list.json";
+const watchListPath = "assets/watch-list.json";
 const panelStateKeyPrefix = "hero-panel:";
 const emptyAboutTitle = "内容还需要继续丰富";
 const emptyAboutDescription = "这里以后会自动展示对应分类的 blog 内容。";
@@ -1606,6 +1609,9 @@ const normalizedAboutBlogEntries = aboutBlogEntries
   .filter(Boolean)
   .sort((left, right) => String(right.date).localeCompare(String(left.date)));
 
+let normalizedStudyEntries = [];
+let normalizedReadEntries = [];
+let normalizedWatchEntries = [];
 let normalizedPlaylistEntries = [];
 const normalizedHomepageUpdateNotes = homepageUpdateNotes
   .map((entry) => ({
@@ -1804,23 +1810,56 @@ function renderUpdateBoard(playlist) {
   }
 }
 
-function normalizePlaylistEntry(entry) {
+function normalizeOrderedAboutEntry(entry, aboutSection) {
   const id = normalizeAboutText(entry.id);
   const title = normalizeAboutText(entry.title);
   if (!id || !title) return null;
   const blogEntryId = normalizeAboutText(entry.blogEntryId);
+  const description = [normalizeAboutText(entry.description), normalizeAboutText(entry.artist), normalizeAboutText(entry.duration)]
+    .filter(Boolean)
+    .join(" / ");
 
   return {
     id,
     order: Number(entry.order),
-    aboutSection: "listen",
+    aboutSection,
     name: title,
-    description: [normalizeAboutText(entry.artist), normalizeAboutText(entry.duration)].filter(Boolean).join(" / "),
-    comment: "和首页左下角播放器共用同一份歌单数据。",
+    description,
+    comment: normalizeAboutText(entry.comment),
     cover: normalizeAboutText(entry.coverSrc),
-    coverLabel: title,
+    coverLabel: normalizeAboutText(entry.coverLabel) || title,
     blogUrl: blogEntryId ? `blog.html#${encodeURIComponent(blogEntryId)}` : ""
   };
+}
+
+function normalizeStudyEntry(entry) {
+  return normalizeOrderedAboutEntry(entry, "study");
+}
+
+function normalizeReadEntry(entry) {
+  return normalizeOrderedAboutEntry(entry, "read");
+}
+
+function normalizeWatchEntry(entry) {
+  return normalizeOrderedAboutEntry(entry, "watch");
+}
+
+function normalizePlaylistEntry(entry) {
+  const normalized = normalizeOrderedAboutEntry(entry, "listen");
+  if (!normalized) return null;
+  return {
+    ...normalized,
+    comment: normalized.comment || "和首页左下角播放器共用同一份歌单数据。"
+  };
+}
+
+function normalizeEntryOrder(entry) {
+  const value = Number(entry.order);
+  return Number.isFinite(value) ? value : Number.MAX_SAFE_INTEGER;
+}
+
+function sortEntriesByOrder(entries) {
+  return entries.slice().sort((left, right) => normalizeEntryOrder(left) - normalizeEntryOrder(right));
 }
 
 function createEmptyAboutItems() {
@@ -1856,9 +1895,13 @@ function createPlaceholderPreviewItems(count) {
 }
 
 function getAboutItemsForSection(sectionId) {
-  const sourceEntries = sectionId === "listen"
-    ? normalizedPlaylistEntries
-    : normalizedAboutBlogEntries;
+  const jsonBackedSections = {
+    study: normalizedStudyEntries,
+    read: normalizedReadEntries,
+    watch: normalizedWatchEntries,
+    listen: normalizedPlaylistEntries
+  };
+  const sourceEntries = jsonBackedSections[sectionId] || normalizedAboutBlogEntries;
 
   const dynamicItems = sourceEntries
     .filter((entry) => entry.aboutSection === sectionId)
@@ -1967,25 +2010,36 @@ function loadAboutSections() {
     grid.innerHTML = '<p class="about-load-error">正在加载 About 内容...</p>';
   }
 
+  function fetchJsonList(path) {
+    return fetch(path).then((response) => {
+      if (!response.ok) throw new Error(`Failed to load ${path}`);
+      return response.json();
+    }).catch(() => []);
+  }
+
   Promise.all([
     fetch(aboutSectionsPath).then((response) => {
       if (!response.ok) throw new Error("About data request failed");
       return response.json();
     }),
-    fetch(playlistPath).then((response) => {
-      if (!response.ok) throw new Error("Playlist data request failed");
-      return response.json();
-    }).catch(() => [])
+    fetchJsonList(studyListPath),
+    fetchJsonList(readListPath),
+    fetchJsonList(watchListPath),
+    fetchJsonList(playlistPath)
   ])
-    .then(([sections, playlist]) => {
+    .then(([sections, studyList, readList, watchList, playlist]) => {
       if (!Array.isArray(sections)) throw new Error("About data is not an array");
+      normalizedStudyEntries = Array.isArray(studyList)
+        ? sortEntriesByOrder(studyList.map(normalizeStudyEntry).filter(Boolean))
+        : [];
+      normalizedReadEntries = Array.isArray(readList)
+        ? sortEntriesByOrder(readList.map(normalizeReadEntry).filter(Boolean))
+        : [];
+      normalizedWatchEntries = Array.isArray(watchList)
+        ? sortEntriesByOrder(watchList.map(normalizeWatchEntry).filter(Boolean))
+        : [];
       normalizedPlaylistEntries = Array.isArray(playlist)
-        ? playlist.map(normalizePlaylistEntry).filter(Boolean)
-            .sort((left, right) => {
-              const leftOrder = Number.isFinite(left.order) ? left.order : Number.MAX_SAFE_INTEGER;
-              const rightOrder = Number.isFinite(right.order) ? right.order : Number.MAX_SAFE_INTEGER;
-              return leftOrder - rightOrder;
-            })
+        ? sortEntriesByOrder(playlist.map(normalizePlaylistEntry).filter(Boolean))
         : [];
       renderUpdateBoard(Array.isArray(playlist) ? playlist : []);
       renderBlogLinkedAboutSections(sections);

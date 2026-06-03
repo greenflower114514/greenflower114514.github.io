@@ -1769,7 +1769,8 @@ function renderUpdateBoard(playlist) {
       cell.dataset.date = key;
       cell.dataset.page = String(pageByDate.get(key) || 1);
       cell.setAttribute("aria-label", `${key} 有更新`);
-      cell.addEventListener("click", () => {
+      cell.addEventListener("click", (event) => {
+        event.stopPropagation();
         highlightedUpdateDate = key;
         currentUpdatePage = pageByDate.get(key) || 1;
         setExpanded(true);

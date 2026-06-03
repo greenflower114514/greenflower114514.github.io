@@ -1560,7 +1560,7 @@ function renderAboutSections(sections) {
       <li>
         <h4>${escapeHtml(item.name)}</h4>
         <p>${escapeHtml(item.description)}</p>
-        ${commentText ? `<p class="about-comment">我的评价：${escapeHtml(commentText)}</p>` : ""}
+        <p class="about-comment">我的评价：${escapeHtml(commentText)}</p>
       </li>
     `;
     }).join("");
@@ -1957,7 +1957,7 @@ function renderBlogLinkedAboutSections(sections) {
       <li>
         <h4>${escapeHtml(item.name)}</h4>
         <p>${escapeHtml(item.description)}</p>
-        ${commentText ? `<p class="about-comment">我的评价：${escapeHtml(commentText)}</p>` : ""}
+        <p class="about-comment">我的评价：${escapeHtml(commentText)}</p>
         ${item.blogUrl ? `<a class="about-blog-link" href="${escapeHtml(item.blogUrl)}">前往这篇 Blog</a>` : ""}
       </li>
     `;

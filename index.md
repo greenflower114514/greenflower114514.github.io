@@ -1554,13 +1554,16 @@ function renderAboutSections(sections) {
         ${escapeHtml(item.coverLabel || item.name)}
       </button>
     `).join("");
-    const detailList = items.map((item) => `
+    const detailList = items.map((item) => {
+      const commentText = normalizeAboutText(item.comment);
+      return `
       <li>
         <h4>${escapeHtml(item.name)}</h4>
         <p>${escapeHtml(item.description)}</p>
-        <p class="about-comment">我的评价：${escapeHtml(item.comment)}</p>
+        ${commentText ? `<p class="about-comment">我的评价：${escapeHtml(commentText)}</p>` : ""}
       </li>
-    `).join("");
+    `;
+    }).join("");
 
     return `
       <article class="about-card" data-section="${escapeHtml(section.id)}">
@@ -1948,14 +1951,17 @@ function renderBlogLinkedAboutSections(sections) {
       <li><span class="about-item-name">${escapeHtml(item.name)}</span>：${escapeHtml(item.description)}</li>
     `).join("");
     const coverGrid = previewItems.map(buildAboutCoverButton).join("");
-    const detailList = detailItems.map((item) => `
+    const detailList = detailItems.map((item) => {
+      const commentText = normalizeAboutText(item.comment);
+      return `
       <li>
         <h4>${escapeHtml(item.name)}</h4>
         <p>${escapeHtml(item.description)}</p>
-        <p class="about-comment">我的评价：${escapeHtml(item.comment || emptyAboutComment)}</p>
+        ${commentText ? `<p class="about-comment">我的评价：${escapeHtml(commentText)}</p>` : ""}
         ${item.blogUrl ? `<a class="about-blog-link" href="${escapeHtml(item.blogUrl)}">前往这篇 Blog</a>` : ""}
       </li>
-    `).join("");
+    `;
+    }).join("");
 
     return `
       <article class="about-card" data-section="${escapeHtml(section.id)}">

@@ -1415,7 +1415,6 @@ body {
         <div class="update-board__head">
           <div>
             <h2 class="update-board__title">Recent Updates / 最近更新</h2>
-            <p class="update-board__copy">热力图只显示最近 365 天的更新日期；展开列表会继续保留更早的历史记录。点击红色日期可以直接跳到对应页。</p>
           </div>
           <span class="update-board__toggle" aria-hidden="true">+</span>
         </div>

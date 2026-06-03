@@ -1818,9 +1818,7 @@ function normalizeOrderedAboutEntry(entry, aboutSection) {
   const title = normalizeAboutText(entry.title);
   if (!id || !title) return null;
   const blogEntryId = normalizeAboutText(entry.blogEntryId);
-  const description = [normalizeAboutText(entry.description), normalizeAboutText(entry.artist), normalizeAboutText(entry.duration)]
-    .filter(Boolean)
-    .join(" / ");
+  const description = normalizeAboutText(entry.description);
 
   return {
     id,
@@ -1851,9 +1849,13 @@ function normalizeWatchEntry(entry) {
 function normalizePlaylistEntry(entry) {
   const normalized = normalizeOrderedAboutEntry(entry, "listen");
   if (!normalized) return null;
+  const fallbackDescription = [normalizeAboutText(entry.artist), normalizeAboutText(entry.duration)]
+    .filter(Boolean)
+    .join(" / ");
   return {
     ...normalized,
-    comment: normalized.comment || "和首页左下角播放器共用同一份歌单数据。"
+    description: normalized.description || fallbackDescription,
+    comment: normalized.comment
   };
 }
 

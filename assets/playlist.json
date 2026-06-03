@@ -7,7 +7,8 @@
     "coverSrc": "assets/music/cover.svg",
     "audioSrc": "assets/music/track.wav",
     "duration": "0:04",
-    "blogEntryId": ""
+    "blogEntryId": "",
+    "addedDate": "2026-05-23"
   },
   {
     "order": 3,
@@ -17,7 +18,8 @@
     "coverSrc": "assets/music/cover.svg",
     "audioSrc": "assets/music/track.wav",
     "duration": "0:04",
-    "blogEntryId": ""
+    "blogEntryId": "",
+    "addedDate": "2026-05-24"
   },
   {
     "order": 4,
@@ -27,7 +29,8 @@
     "coverSrc": "assets/music/cover.svg",
     "audioSrc": "assets/music/track.wav",
     "duration": "0:04",
-    "blogEntryId": ""
+    "blogEntryId": "",
+    "addedDate": "2026-05-27"
   },
   {
     "order": 1,
@@ -37,6 +40,7 @@
     "coverSrc": "assets/music/君の神様になりたい.png",
     "audioSrc": "assets/music/こはならむ - 君の神様になりたい。.mp3",
     "duration": "4:09",
-    "blogEntryId": ""
+    "blogEntryId": "",
+    "addedDate": "2026-06-02"
   }
 ]

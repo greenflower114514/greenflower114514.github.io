@@ -8,5 +8,7 @@ plugins:
 collections:
   blog:
     output: false
+  updates:
+    output: false
 header_pages: []
 show_excerpts: false

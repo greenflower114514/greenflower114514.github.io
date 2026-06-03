@@ -680,6 +680,151 @@ body {
   background: rgba(9, 10, 12, 0.34);
 }
 
+.update-board {
+  margin-top: 42px;
+  padding: 28px 30px 26px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(9, 10, 12, 0.34);
+  box-shadow: 0 22px 70px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(14px);
+}
+
+.update-board__button {
+  width: 100%;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.update-board__head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.update-board__title {
+  margin: 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.update-board__copy {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.7;
+}
+
+.update-board__toggle {
+  min-width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.update-board__grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 11px);
+  grid-auto-columns: 11px;
+  gap: 4px;
+  align-items: center;
+  min-height: 101px;
+  padding: 2px 0;
+  overflow-x: auto;
+}
+
+.update-board__cell {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.update-board__cell.is-active {
+  background: #ff4d5c;
+  box-shadow: 0 0 0 1px rgba(255, 77, 92, 0.16);
+}
+
+.update-board__legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.82rem;
+}
+
+.update-board__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.update-board__legend-swatch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.update-board__legend-swatch.is-active {
+  background: #ff4d5c;
+}
+
+.update-board__meta {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.update-board__details {
+  display: none;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.update-board.is-open .update-board__details {
+  display: block;
+}
+
+.update-board__list {
+  display: grid;
+  gap: 14px;
+}
+
+.update-board__entry {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.update-board__entry time {
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.update-board__entry p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.75;
+}
+
 .about-detail a {
   color: #d8e2ff;
 }
@@ -884,6 +1029,23 @@ body {
     font-size: 1.55rem;
   }
 
+  .update-board {
+    margin-top: 34px;
+    padding: 22px 18px;
+  }
+
+  .update-board__head {
+    display: block;
+  }
+
+  .update-board__toggle {
+    margin-top: 16px;
+  }
+
+  .update-board__meta {
+    margin-left: 0;
+  }
+
   .about-grid {
     grid-template-columns: 1fr;
   }
@@ -989,6 +1151,10 @@ body {
   .hero-panel {
     top: 92px;
     width: 260px;
+  }
+
+  .update-board {
+    padding: 24px;
   }
 
   .hero-panel--right {
@@ -1179,6 +1345,27 @@ body {
       </article>
     </section>
 
+    <section class="update-board" id="update-board" aria-label="主页更新记录">
+      <div class="update-board__button" id="update-board-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="update-board-details">
+        <div class="update-board__head">
+          <div>
+            <h2 class="update-board__title">Recent Updates / 最近更新</h2>
+            <p class="update-board__copy">最近 365 天里，只要新增了 Blog 或音乐，对应日期就会亮起。点击这里可以展开查看更新记录。</p>
+          </div>
+          <span class="update-board__toggle" aria-hidden="true">+</span>
+        </div>
+        <div class="update-board__grid" id="update-board-grid" aria-hidden="true"></div>
+        <div class="update-board__legend">
+          <span class="update-board__legend-item"><span class="update-board__legend-swatch"></span>无更新</span>
+          <span class="update-board__legend-item"><span class="update-board__legend-swatch is-active"></span>有更新</span>
+          <span class="update-board__meta" id="update-board-meta">正在整理更新记录...</span>
+        </div>
+      </div>
+      <div class="update-board__details" id="update-board-details">
+        <div class="update-board__list" id="update-board-list"></div>
+      </div>
+    </section>
+
     <section class="about-timeline" aria-label="人生时间线">
       <div class="timeline-heading">
         <h2>Timeline / 人生节点</h2>
@@ -1243,6 +1430,15 @@ const aboutBlogEntries = [
     aboutDescription: {{ post.aboutDescription | default: "" | jsonify }},
     aboutComment: {{ post.aboutComment | default: "" | jsonify }},
     cover: {{ post.cover | default: "" | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{% endfor %}
+];
+const homepageUpdateNotes = [
+{% assign homepage_updates = site.updates | sort: "date" | reverse %}
+{% for update in homepage_updates %}
+  {
+    date: {{ update.date | date: "%Y-%m-%d" | jsonify }},
+    summary: {{ update.summary | default: "" | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ];
@@ -1346,6 +1542,145 @@ const normalizedAboutBlogEntries = aboutBlogEntries
   .sort((left, right) => String(right.date).localeCompare(String(left.date)));
 
 let normalizedPlaylistEntries = [];
+const normalizedHomepageUpdateNotes = homepageUpdateNotes
+  .map((entry) => ({
+    date: normalizeAboutText(entry.date),
+    summary: normalizeAboutText(entry.summary)
+  }))
+  .filter((entry) => /^\d{4}-\d{2}-\d{2}$/.test(entry.date));
+
+function normalizeUpdateDate(value) {
+  const text = normalizeAboutText(value);
+  return /^\d{4}-\d{2}-\d{2}$/.test(text) ? text : "";
+}
+
+function formatUpdateDateLabel(value) {
+  const date = new Date(`${value}T00:00:00`);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("zh-CN", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).format(date);
+}
+
+function createHomepageUpdateMap(playlist) {
+  const updatesByDate = new Map();
+
+  function ensureEntry(date) {
+    if (!date) return null;
+    if (!updatesByDate.has(date)) {
+      updatesByDate.set(date, {
+        date,
+        hasUpdate: false,
+        summary: "",
+        sources: {
+          blog: false,
+          music: false,
+          manual: false
+        }
+      });
+    }
+    return updatesByDate.get(date);
+  }
+
+  aboutBlogEntries.forEach((entry) => {
+    const date = normalizeUpdateDate(entry.date);
+    if (!date) return;
+    const target = ensureEntry(date);
+    if (!target) return;
+    target.hasUpdate = true;
+    target.sources.blog = true;
+  });
+
+  if (Array.isArray(playlist)) {
+    playlist.forEach((track) => {
+      const date = normalizeUpdateDate(track?.addedDate);
+      if (!date) return;
+      const target = ensureEntry(date);
+      if (!target) return;
+      target.hasUpdate = true;
+      target.sources.music = true;
+    });
+  }
+
+  normalizedHomepageUpdateNotes.forEach((entry) => {
+    const date = normalizeUpdateDate(entry.date);
+    if (!date) return;
+    const target = ensureEntry(date);
+    if (!target) return;
+    target.sources.manual = true;
+    if (entry.summary) {
+      target.summary = entry.summary;
+    }
+  });
+
+  return [...updatesByDate.values()]
+    .filter((entry) => entry.hasUpdate || entry.sources.manual)
+    .map((entry) => ({
+      ...entry,
+      summary: entry.summary || "更新了内容"
+    }))
+    .sort((left, right) => String(right.date).localeCompare(String(left.date)));
+}
+
+function renderUpdateBoard(playlist) {
+  const board = document.getElementById("update-board");
+  const grid = document.getElementById("update-board-grid");
+  const list = document.getElementById("update-board-list");
+  const meta = document.getElementById("update-board-meta");
+  const toggle = document.getElementById("update-board-toggle");
+  const toggleIcon = board?.querySelector(".update-board__toggle");
+  if (!board || !grid || !list || !meta || !toggle || !toggleIcon) return;
+
+  const updates = createHomepageUpdateMap(playlist);
+  const updateDateSet = new Set(updates.map((entry) => entry.date));
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const start = new Date(today);
+  start.setDate(start.getDate() - 364);
+
+  grid.innerHTML = "";
+  for (let offset = 0; offset < 365; offset += 1) {
+    const date = new Date(start);
+    date.setDate(start.getDate() + offset);
+    const key = formatVisitDate(date);
+    const cell = document.createElement("span");
+    cell.className = "update-board__cell";
+    if (updateDateSet.has(key)) {
+      cell.classList.add("is-active");
+    }
+    cell.setAttribute("title", key);
+    grid.appendChild(cell);
+  }
+
+  meta.textContent = `${updates.length} 天有更新`;
+  list.innerHTML = updates.length
+    ? updates.map((entry) => `
+        <article class="update-board__entry">
+          <time datetime="${escapeHtml(entry.date)}">${escapeHtml(formatUpdateDateLabel(entry.date))}</time>
+          <p>${escapeHtml(entry.summary)}</p>
+        </article>
+      `).join("")
+    : '<article class="update-board__entry"><p>最近还没有可显示的更新记录。</p></article>';
+
+  if (!toggle.dataset.bound) {
+    const handleToggle = () => {
+      const expanded = toggle.getAttribute("aria-expanded") === "true";
+      board.classList.toggle("is-open", !expanded);
+      toggle.setAttribute("aria-expanded", String(!expanded));
+      toggleIcon.textContent = expanded ? "+" : "−";
+    };
+
+    toggle.addEventListener("click", handleToggle);
+    toggle.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      handleToggle();
+    });
+    toggle.dataset.bound = "true";
+  }
+}
 
 function normalizePlaylistEntry(entry) {
   const id = normalizeAboutText(entry.id);
@@ -1530,9 +1865,13 @@ function loadAboutSections() {
               return leftOrder - rightOrder;
             })
         : [];
+      renderUpdateBoard(Array.isArray(playlist) ? playlist : []);
       renderBlogLinkedAboutSections(sections);
     })
-    .catch(showAboutLoadError);
+    .catch(() => {
+      renderUpdateBoard([]);
+      showAboutLoadError();
+    });
 }
 
 const lightbox = document.getElementById("detail-lightbox");

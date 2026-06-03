@@ -134,10 +134,10 @@
     duration.textContent = formatTime(durationValue);
   }
 
-  function applyTrack(track, keepPlayback) {
+  function applyTrack(track, keepPlayback, forcePlayback) {
     if (!track) return;
 
-    const shouldResume = keepPlayback && !audio.paused;
+    const shouldResume = Boolean(forcePlayback) || (keepPlayback && !audio.paused);
     hasMetadata = false;
 
     title.textContent = track.title || "Untitled";
@@ -160,10 +160,10 @@
     }
   }
 
-  function changeTrack(direction) {
+  function changeTrack(direction, forcePlayback) {
     if (!playlist.length) return;
     currentIndex = (currentIndex + direction + playlist.length) % playlist.length;
-    applyTrack(getCurrentTrack(), true);
+    applyTrack(getCurrentTrack(), true, forcePlayback);
   }
 
   playButton.addEventListener("click", async () => {
@@ -227,7 +227,7 @@
   audio.addEventListener("play", () => setPlayingState(true));
   audio.addEventListener("pause", () => setPlayingState(false));
   audio.addEventListener("ended", () => {
-    changeTrack(1);
+    changeTrack(1, true);
   });
 
   audio.addEventListener("error", () => {

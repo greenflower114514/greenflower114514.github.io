@@ -1415,7 +1415,7 @@ body {
         <div class="update-board__head">
           <div>
             <h2 class="update-board__title">Recent Updates / 最近更新</h2>
-            <p class="update-board__copy">最近 365 天里，只要新增了 Blog 或音乐，对应日期就会亮起。点击这里可以展开查看更新记录。</p>
+            <p class="update-board__copy">热力图只显示最近 365 天的更新日期；展开列表会继续保留更早的历史记录。点击红色日期可以直接跳到对应页。</p>
           </div>
           <span class="update-board__toggle" aria-hidden="true">+</span>
         </div>
@@ -1700,19 +1700,24 @@ function renderUpdateBoard(playlist) {
   const toggleIcon = board?.querySelector(".update-board__toggle");
   if (!board || !grid || !list || !pagination || !meta || !toggle || !toggleIcon) return;
 
-  const updates = createHomepageUpdateMap(playlist);
-  const updateDateSet = new Set(updates.map((entry) => entry.date));
+  const allUpdates = createHomepageUpdateMap(playlist);
   const pageSize = 5;
   let currentUpdatePage = 1;
   let highlightedUpdateDate = "";
-  const totalPages = Math.max(1, Math.ceil(updates.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(allUpdates.length / pageSize));
   const pageByDate = new Map(
-    updates.map((entry, index) => [entry.date, Math.floor(index / pageSize) + 1])
+    allUpdates.map((entry, index) => [entry.date, Math.floor(index / pageSize) + 1])
   );
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const start = new Date(today);
   start.setDate(start.getDate() - 364);
+  const heatmapStartKey = formatVisitDate(start);
+  const updateDateSet = new Set(
+    allUpdates
+      .filter((entry) => entry.date >= heatmapStartKey)
+      .map((entry) => entry.date)
+  );
 
   function setExpanded(expanded) {
     board.classList.toggle("is-open", expanded);
@@ -1724,7 +1729,7 @@ function renderUpdateBoard(playlist) {
     const safePage = Math.min(Math.max(currentUpdatePage, 1), totalPages);
     currentUpdatePage = safePage;
     const startIndex = (safePage - 1) * pageSize;
-    const pageItems = updates.slice(startIndex, startIndex + pageSize);
+    const pageItems = allUpdates.slice(startIndex, startIndex + pageSize);
 
     list.innerHTML = pageItems.length
       ? pageItems.map((entry) => `
@@ -1735,7 +1740,7 @@ function renderUpdateBoard(playlist) {
         `).join("")
       : '<article class="update-board__entry"><p>最近还没有可显示的更新记录。</p></article>';
 
-    if (updates.length <= pageSize) {
+    if (allUpdates.length <= pageSize) {
       pagination.innerHTML = "";
       return;
     }
@@ -1781,7 +1786,7 @@ function renderUpdateBoard(playlist) {
     grid.appendChild(cell);
   }
 
-  meta.textContent = `${updates.length} 天有更新`;
+  meta.textContent = `近 365 天高亮 ${updateDateSet.size} 天 / 历史共 ${allUpdates.length} 条`;
   renderCurrentPage();
 
   if (!toggle.dataset.bound) {

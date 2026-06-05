@@ -3,7 +3,7 @@
   if (!root) return;
 
   const dataPath = "assets/gallery-list.json";
-  const pageSize = 5;
+  const pageSize = 6;
   let albums = [];
   let currentPage = 1;
 
@@ -118,9 +118,12 @@
   }
 
   function renderAlbumCard(album) {
-    const image = album.coverSrc ? `url('${escapeHtml(album.coverSrc)}')` : "linear-gradient(135deg, rgba(255,143,81,.38), rgba(87,188,255,.24))";
+    const imageMarkup = album.coverSrc
+      ? `<img class="gallery-card__image" src="${escapeHtml(album.coverSrc)}" alt="${escapeHtml(album.title)}">`
+      : `<span class="gallery-card__image gallery-card__image--placeholder" aria-hidden="true"></span>`;
     return `
-      <button class="gallery-card" type="button" style="--gallery-image: ${image};" data-gallery-album="${escapeHtml(album.id)}">
+      <button class="gallery-card" type="button" data-gallery-album="${escapeHtml(album.id)}">
+        ${imageMarkup}
         <span class="gallery-card__body">
           <span class="gallery-card__title">${escapeHtml(album.title)}</span>
           <span class="gallery-card__count">${album.photos.length} photos</span>
@@ -148,7 +151,8 @@
 
   function renderPhotoCard(album, photo) {
     return `
-      <button class="gallery-photo" type="button" style="--gallery-image: url('${escapeHtml(photo.imageSrc)}');" data-gallery-photo="${escapeHtml(photo.id)}">
+      <button class="gallery-photo" type="button" data-gallery-photo="${escapeHtml(photo.id)}">
+        <img class="gallery-photo__image" src="${escapeHtml(photo.imageSrc)}" alt="${escapeHtml(photo.title)}">
         <span class="gallery-photo__body">
           <span class="gallery-photo__title">${escapeHtml(photo.title)}</span>
           <span class="gallery-photo__meta">${escapeHtml([photo.date, photo.location].filter(Boolean).join(" / "))}</span>

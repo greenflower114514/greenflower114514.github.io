@@ -11,6 +11,8 @@
         "id": "window-note",
         "title": "窗边的桌面",
         "description": "Blog 图文示例里使用的窗边桌面插图，用来测试正文图片和相册预览效果。",
+        "previewDescription": "图文 Blog 示例插图。",
+        "detailDescription": "这张图来自 Blog 图文示例，用来确认 Markdown 正文插图、Gallery 相册预览和照片详情页能复用同一份站内图片资源。",
         "imageSrc": "assets/blog/2026-05-27-photo-demo/window-note.svg",
         "date": "2026-05-27",
         "location": "电子蜗居"
@@ -20,6 +22,8 @@
         "id": "oyster-heart",
         "title": "带壳的牡蛎",
         "description": "Read 模块里新增的书籍封面，也先放进相册作为图片展示样例。",
+        "previewDescription": "Read 模块的书籍封面。",
+        "detailDescription": "《带壳的牡蛎是大人的心脏》的封面资源来自 Read 模块。这里先作为 Gallery 示例，之后可以替换成更完整的读书相册或图片记录。",
         "imageSrc": "assets/book/带壳的牡蛎是大人的心脏.jpg",
         "date": "2026-06-03",
         "location": "Read 书架"
@@ -38,6 +42,8 @@
         "id": "daisy-cover",
         "title": "Daisy",
         "description": "Aimer - Daisy 的封面资源，来自当前 Listen 歌单。",
+        "previewDescription": "Aimer - Daisy 的封面。",
+        "detailDescription": "这张封面来自当前 Listen 歌单中的 Daisy。Gallery 详情页会显示更完整的说明，而相册页 hover 只保留短描述。",
         "imageSrc": "assets/music/Aimer - Daisy.png",
         "date": "2026-06-03",
         "location": "Listen 歌单"
@@ -47,6 +53,8 @@
         "id": "kamisama-cover",
         "title": "君の神様になりたい。",
         "description": "こはならむ - 君の神様になりたい。的封面资源，来自当前 Listen 歌单。",
+        "previewDescription": "こはならむ 歌曲封面。",
+        "detailDescription": "这是《君の神様になりたい。》在播放器和 Listen 模块中使用的封面。它也被放进 Gallery，用来展示音乐封面相册的详情页效果。",
         "imageSrc": "assets/music/君の神様になりたい.png",
         "date": "2026-06-02",
         "location": "Listen 歌单"
@@ -56,6 +64,8 @@
         "id": "aurora-demo",
         "title": "Aurora Demo",
         "description": "播放器早期占位曲目的 SVG 封面，保留作页面功能示例。",
+        "previewDescription": "播放器早期占位封面。",
+        "detailDescription": "这个 SVG 是音乐播放器早期使用的占位封面。它保留下来作为 Gallery 的示例素材，方便测试不同图片格式在相册中的显示效果。",
         "imageSrc": "assets/music/cover.svg",
         "date": "2026-05-23",
         "location": "播放器样例"

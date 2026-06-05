@@ -39,6 +39,8 @@
       id,
       title,
       description: normalizeText(photo.description),
+      previewDescription: normalizeText(photo.previewDescription),
+      detailDescription: normalizeText(photo.detailDescription),
       imageSrc,
       date: normalizeText(photo.date),
       location: normalizeText(photo.location)
@@ -150,6 +152,7 @@
   }
 
   function renderPhotoCard(album, photo) {
+    const previewDescription = photo.previewDescription || photo.description || "这张照片还没有详细信息。";
     return `
       <button class="gallery-photo" type="button" data-gallery-photo="${escapeHtml(photo.id)}">
         <img class="gallery-photo__image" src="${escapeHtml(photo.imageSrc)}" alt="${escapeHtml(photo.title)}">
@@ -157,7 +160,7 @@
           <span class="gallery-photo__title">${escapeHtml(photo.title)}</span>
           <span class="gallery-photo__meta">${escapeHtml([photo.date, photo.location].filter(Boolean).join(" / "))}</span>
         </span>
-        <span class="gallery-photo__popover">${escapeHtml(photo.description || "这张照片还没有详细信息。")}</span>
+        <span class="gallery-photo__popover">${escapeHtml(previewDescription)}</span>
       </button>
     `;
   }
@@ -184,6 +187,7 @@
       return;
     }
     const meta = [photo.date, photo.location].filter(Boolean);
+    const detailDescription = photo.detailDescription || photo.description || "这张照片还没有详细信息。";
     renderShell(
       photo.title,
       album.title,
@@ -195,7 +199,7 @@
           <div class="gallery-detail__copy">
             <h3>${escapeHtml(photo.title)}</h3>
             ${meta.length ? `<div class="gallery-detail__meta">${meta.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>` : ""}
-            <p>${escapeHtml(photo.description || "这张照片还没有详细信息。")}</p>
+            <p>${escapeHtml(detailDescription)}</p>
           </div>
         </div>
       `,

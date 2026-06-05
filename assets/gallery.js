@@ -239,6 +239,7 @@
     let didDrag = false;
     let startX = 0;
     let startScrollLeft = 0;
+    let startAlbumButton = null;
 
     track.addEventListener("pointerdown", (event) => {
       if (event.button !== 0) return;
@@ -246,6 +247,7 @@
       didDrag = false;
       startX = event.clientX;
       startScrollLeft = track.scrollLeft;
+      startAlbumButton = event.target.closest("[data-gallery-album]");
       track.classList.add("is-dragging");
       track.setPointerCapture(event.pointerId);
     });
@@ -253,17 +255,22 @@
     track.addEventListener("pointermove", (event) => {
       if (!isDragging) return;
       const delta = event.clientX - startX;
-      if (Math.abs(delta) > 4) didDrag = true;
+      if (Math.abs(delta) > 12) didDrag = true;
       track.scrollLeft = startScrollLeft - delta;
     });
 
     function endDrag(event) {
       if (!isDragging) return;
+      const shouldOpenAlbum = !didDrag && startAlbumButton;
       isDragging = false;
       track.classList.remove("is-dragging");
       if (track.hasPointerCapture(event.pointerId)) {
         track.releasePointerCapture(event.pointerId);
       }
+      if (shouldOpenAlbum) {
+        setHash(`album/${encodeURIComponent(startAlbumButton.dataset.galleryAlbum)}`);
+      }
+      startAlbumButton = null;
     }
 
     track.addEventListener("pointerup", endDrag);

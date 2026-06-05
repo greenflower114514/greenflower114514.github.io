@@ -71,5 +71,36 @@
         "location": "播放器样例"
       }
     ]
+  },
+  {
+    "order": 3,
+    "id": "drag-test",
+    "title": "拖拽测试",
+    "description": "这组相册专门用来测试 Gallery 首页横向拖拽效果，默认会排在第三个位置。",
+    "coverSrc": "assets/gallery/music-aurora-demo.svg",
+    "photos": [
+      {
+        "order": 1,
+        "id": "drag-card-one",
+        "title": "测试卡片一",
+        "description": "用于确认第三组相册能被横向拖出来。",
+        "previewDescription": "拖拽测试用图一。",
+        "detailDescription": "这张图用于测试 Gallery 首页横向拖拽后，点击第三组相册仍然能够进入相册内部并查看照片详情。",
+        "imageSrc": "assets/gallery/music-aurora-demo.svg",
+        "date": "2026-06-05",
+        "location": "Gallery 测试"
+      },
+      {
+        "order": 2,
+        "id": "drag-card-two",
+        "title": "测试卡片二",
+        "description": "用于确认拖拽后相册内部照片网格仍正常。",
+        "previewDescription": "拖拽测试用图二。",
+        "detailDescription": "这张图用于确认相册内部的照片预览、hover 描述和点击进入详情页都没有被首页拖拽逻辑影响。",
+        "imageSrc": "assets/gallery/site-window-note.svg",
+        "date": "2026-06-05",
+        "location": "Gallery 测试"
+      }
+    ]
   }
 ]

@@ -130,9 +130,9 @@
     renderShell(
       "图片陈列室",
       "每一组照片先收进方形模块里，悬停可以看描述，按住左右拖动浏览更多相册。",
-      `<div class="gallery-grid" data-gallery-drag tabindex="0" aria-label="横向浏览相册">${albums.map(renderAlbumCard).join("")}</div>`
+      `<div class="gallery-grid gallery-drag-track" data-gallery-drag="albums" tabindex="0" aria-label="横向浏览相册">${albums.map(renderAlbumCard).join("")}</div>`
     );
-    initAlbumDrag();
+    initGalleryDragTracks();
   }
 
   function renderPhotoCard(album, photo) {
@@ -155,7 +155,7 @@
       return;
     }
     const content = album.photos.length
-      ? `<div class="gallery-album-grid">${album.photos.map((photo) => renderPhotoCard(album, photo)).join("")}</div>`
+      ? `<div class="gallery-album-grid gallery-drag-track" data-gallery-drag="photos" tabindex="0" aria-label="横向浏览照片">${album.photos.map((photo) => renderPhotoCard(album, photo)).join("")}</div>`
       : `<div class="gallery-empty">这一组还没有照片。</div>`;
     renderShell(
       album.title,
@@ -163,6 +163,7 @@
       content,
       `<div class="gallery-actions"><button class="gallery-button" type="button" data-gallery-home>返回 Gallery</button></div>`
     );
+    initGalleryDragTracks();
   }
 
   function renderPhotoDetail(album, photo) {
@@ -231,56 +232,60 @@
     }
   });
 
-  function initAlbumDrag() {
-    const track = root.querySelector("[data-gallery-drag]");
-    if (!track) return;
+  function initGalleryDragTracks() {
+    root.querySelectorAll("[data-gallery-drag]").forEach((track) => {
+      let isDragging = false;
+      let didDrag = false;
+      let startX = 0;
+      let startScrollLeft = 0;
+      let startTarget = null;
 
-    let isDragging = false;
-    let didDrag = false;
-    let startX = 0;
-    let startScrollLeft = 0;
-    let startAlbumButton = null;
+      track.addEventListener("pointerdown", (event) => {
+        if (event.button !== 0) return;
+        isDragging = true;
+        didDrag = false;
+        startX = event.clientX;
+        startScrollLeft = track.scrollLeft;
+        startTarget = event.target.closest("[data-gallery-album], [data-gallery-photo]");
+        track.classList.add("is-dragging");
+        track.setPointerCapture(event.pointerId);
+      });
 
-    track.addEventListener("pointerdown", (event) => {
-      if (event.button !== 0) return;
-      isDragging = true;
-      didDrag = false;
-      startX = event.clientX;
-      startScrollLeft = track.scrollLeft;
-      startAlbumButton = event.target.closest("[data-gallery-album]");
-      track.classList.add("is-dragging");
-      track.setPointerCapture(event.pointerId);
-    });
+      track.addEventListener("pointermove", (event) => {
+        if (!isDragging) return;
+        const delta = event.clientX - startX;
+        if (Math.abs(delta) > 12) didDrag = true;
+        track.scrollLeft = startScrollLeft - delta;
+      });
 
-    track.addEventListener("pointermove", (event) => {
-      if (!isDragging) return;
-      const delta = event.clientX - startX;
-      if (Math.abs(delta) > 12) didDrag = true;
-      track.scrollLeft = startScrollLeft - delta;
-    });
-
-    function endDrag(event) {
-      if (!isDragging) return;
-      const shouldOpenAlbum = !didDrag && startAlbumButton;
-      isDragging = false;
-      track.classList.remove("is-dragging");
-      if (track.hasPointerCapture(event.pointerId)) {
-        track.releasePointerCapture(event.pointerId);
+      function endDrag(event) {
+        if (!isDragging) return;
+        const shouldOpenTarget = !didDrag && startTarget;
+        isDragging = false;
+        track.classList.remove("is-dragging");
+        if (track.hasPointerCapture(event.pointerId)) {
+          track.releasePointerCapture(event.pointerId);
+        }
+        if (shouldOpenTarget) {
+          if (startTarget.dataset.galleryAlbum) {
+            setHash(`album/${encodeURIComponent(startTarget.dataset.galleryAlbum)}`);
+          } else if (startTarget.dataset.galleryPhoto) {
+            const albumId = getRoute().albumId;
+            setHash(`photo/${encodeURIComponent(albumId)}/${encodeURIComponent(startTarget.dataset.galleryPhoto)}`);
+          }
+        }
+        startTarget = null;
       }
-      if (shouldOpenAlbum) {
-        setHash(`album/${encodeURIComponent(startAlbumButton.dataset.galleryAlbum)}`);
-      }
-      startAlbumButton = null;
-    }
 
-    track.addEventListener("pointerup", endDrag);
-    track.addEventListener("pointercancel", endDrag);
-    track.addEventListener("click", (event) => {
-      if (!didDrag) return;
-      event.preventDefault();
-      event.stopPropagation();
-      didDrag = false;
-    }, true);
+      track.addEventListener("pointerup", endDrag);
+      track.addEventListener("pointercancel", endDrag);
+      track.addEventListener("click", (event) => {
+        if (!didDrag) return;
+        event.preventDefault();
+        event.stopPropagation();
+        didDrag = false;
+      }, true);
+    });
   }
 
   window.addEventListener("hashchange", renderRoute);

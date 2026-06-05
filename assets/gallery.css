@@ -61,26 +61,33 @@
   overflow-y: hidden;
   padding: 2px 2px 16px;
   scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.28) rgba(255, 255, 255, 0.06);
+  scrollbar-width: none;
   cursor: grab;
   user-select: none;
   touch-action: pan-x;
 }
 
 .gallery-grid::-webkit-scrollbar {
-  height: 8px;
-}
-
-.gallery-grid::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.gallery-grid::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.28);
+  display: none;
 }
 
 .gallery-grid.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.gallery-drag-track {
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-x;
+  scrollbar-width: none;
+}
+
+.gallery-drag-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-drag-track.is-dragging {
   cursor: grabbing;
   scroll-snap-type: none;
 }
@@ -112,9 +119,9 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  opacity: 0.84;
+  opacity: 1;
   transform: scale(1);
-  transition: transform 260ms ease, opacity 260ms ease;
+  transition: transform 260ms ease;
 }
 
 .gallery-card__image--placeholder {
@@ -123,20 +130,11 @@
     linear-gradient(135deg, rgba(255, 143, 81, 0.22), rgba(87, 188, 255, 0.18));
 }
 
-.gallery-card::after,
-.gallery-photo::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 10%, rgba(5, 6, 8, 0.88) 92%);
-}
-
 .gallery-card:hover .gallery-card__image,
 .gallery-card:focus-visible .gallery-card__image,
 .gallery-photo:hover .gallery-photo__image,
 .gallery-photo:focus-visible .gallery-photo__image {
   transform: scale(1.07);
-  opacity: 0.54;
 }
 
 .gallery-card:focus-visible,
@@ -152,6 +150,7 @@
   inset: auto 0 0;
   z-index: 1;
   padding: 18px;
+  background: linear-gradient(180deg, transparent, rgba(5, 6, 8, 0.78));
 }
 
 .gallery-card__title,
@@ -229,13 +228,18 @@
 }
 
 .gallery-album-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
   gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 2px 16px;
+  scroll-snap-type: x mandatory;
 }
 
 .gallery-photo {
   aspect-ratio: 4 / 5;
+  flex: 0 0 min(34vw, 360px);
+  scroll-snap-align: start;
 }
 
 .gallery-detail {
@@ -322,12 +326,12 @@
     padding: 18px;
   }
 
-  .gallery-album-grid {
-    grid-template-columns: 1fr;
-  }
-
   .gallery-card {
     flex-basis: min(86vw, 360px);
+  }
+
+  .gallery-photo {
+    flex-basis: min(82vw, 340px);
   }
 
   .gallery-card__popover,

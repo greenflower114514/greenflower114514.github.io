@@ -107,7 +107,7 @@
 
 .gallery-card {
   aspect-ratio: 1;
-  flex: 0 0 calc((100% - 20px) / 2);
+  flex: 0 0 min(47%, 560px);
   scroll-snap-align: start;
 }
 

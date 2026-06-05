@@ -247,7 +247,6 @@
         startX = event.clientX;
         startScrollLeft = track.scrollLeft;
         track.classList.add("is-dragging");
-        track.setPointerCapture(event.pointerId);
       });
 
       track.addEventListener("pointermove", (event) => {
@@ -265,9 +264,6 @@
         suppressClick = didDrag;
         isDragging = false;
         track.classList.remove("is-dragging");
-        if (track.hasPointerCapture(event.pointerId)) {
-          track.releasePointerCapture(event.pointerId);
-        }
       }
 
       track.addEventListener("pointerup", endDrag);

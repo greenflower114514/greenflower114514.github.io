@@ -3,9 +3,7 @@
   if (!root) return;
 
   const dataPath = "assets/gallery-list.json";
-  const pageSize = 6;
   let albums = [];
-  let currentPage = 1;
 
   function escapeHtml(value) {
     return String(value ?? "")
@@ -108,17 +106,6 @@
     renderShell("相册", "这里会展示按组整理好的图片。", `<div class="gallery-empty">${escapeHtml(message)}</div>`);
   }
 
-  function renderPagination(totalPages) {
-    if (totalPages <= 1) return "";
-    return `
-      <div class="gallery-pagination">
-        <button class="gallery-button" type="button" data-gallery-page="prev" ${currentPage === 1 ? "disabled" : ""}>上一页</button>
-        <span class="gallery-page-indicator">第 ${currentPage} / ${totalPages} 页</span>
-        <button class="gallery-button" type="button" data-gallery-page="next" ${currentPage === totalPages ? "disabled" : ""}>下一页</button>
-      </div>
-    `;
-  }
-
   function renderAlbumCard(album) {
     const imageMarkup = album.coverSrc
       ? `<img class="gallery-card__image" src="${escapeHtml(album.coverSrc)}" alt="${escapeHtml(album.title)}">`
@@ -140,15 +127,12 @@
       renderEmpty("还没有相册。");
       return;
     }
-    const totalPages = Math.max(1, Math.ceil(albums.length / pageSize));
-    currentPage = Math.min(Math.max(currentPage, 1), totalPages);
-    const pageAlbums = albums.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     renderShell(
       "图片陈列室",
-      "每一组照片先收进方形模块里，悬停可以看描述，点击进入对应相册。",
-      `<div class="gallery-grid">${pageAlbums.map(renderAlbumCard).join("")}</div>`,
-      renderPagination(totalPages)
+      "每一组照片先收进方形模块里，悬停可以看描述，按住左右拖动浏览更多相册。",
+      `<div class="gallery-grid" data-gallery-drag tabindex="0" aria-label="横向浏览相册">${albums.map(renderAlbumCard).join("")}</div>`
     );
+    initAlbumDrag();
   }
 
   function renderPhotoCard(album, photo) {
@@ -227,13 +211,6 @@
   }
 
   root.addEventListener("click", (event) => {
-    const pageButton = event.target.closest("[data-gallery-page]");
-    if (pageButton) {
-      currentPage += pageButton.dataset.galleryPage === "prev" ? -1 : 1;
-      renderList();
-      return;
-    }
-
     const homeButton = event.target.closest("[data-gallery-home]");
     if (homeButton) {
       setHash("");
@@ -253,6 +230,51 @@
       setHash(`album/${encodeURIComponent(albumButton.dataset.galleryAlbum)}`);
     }
   });
+
+  function initAlbumDrag() {
+    const track = root.querySelector("[data-gallery-drag]");
+    if (!track) return;
+
+    let isDragging = false;
+    let didDrag = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    track.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      isDragging = true;
+      didDrag = false;
+      startX = event.clientX;
+      startScrollLeft = track.scrollLeft;
+      track.classList.add("is-dragging");
+      track.setPointerCapture(event.pointerId);
+    });
+
+    track.addEventListener("pointermove", (event) => {
+      if (!isDragging) return;
+      const delta = event.clientX - startX;
+      if (Math.abs(delta) > 4) didDrag = true;
+      track.scrollLeft = startScrollLeft - delta;
+    });
+
+    function endDrag(event) {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove("is-dragging");
+      if (track.hasPointerCapture(event.pointerId)) {
+        track.releasePointerCapture(event.pointerId);
+      }
+    }
+
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("click", (event) => {
+      if (!didDrag) return;
+      event.preventDefault();
+      event.stopPropagation();
+      didDrag = false;
+    }, true);
+  }
 
   window.addEventListener("hashchange", renderRoute);
 

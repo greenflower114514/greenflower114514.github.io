@@ -238,7 +238,7 @@
       let didDrag = false;
       let startX = 0;
       let startScrollLeft = 0;
-      let startTarget = null;
+      let suppressClick = false;
 
       track.addEventListener("pointerdown", (event) => {
         if (event.button !== 0) return;
@@ -246,7 +246,6 @@
         didDrag = false;
         startX = event.clientX;
         startScrollLeft = track.scrollLeft;
-        startTarget = event.target.closest("[data-gallery-album], [data-gallery-photo]");
         track.classList.add("is-dragging");
         track.setPointerCapture(event.pointerId);
       });
@@ -255,35 +254,31 @@
         if (!isDragging) return;
         const delta = event.clientX - startX;
         if (Math.abs(delta) > 12) didDrag = true;
-        track.scrollLeft = startScrollLeft - delta;
+        if (didDrag) {
+          event.preventDefault();
+          track.scrollLeft = startScrollLeft - delta;
+        }
       });
 
       function endDrag(event) {
         if (!isDragging) return;
-        const shouldOpenTarget = !didDrag && startTarget;
+        suppressClick = didDrag;
         isDragging = false;
         track.classList.remove("is-dragging");
         if (track.hasPointerCapture(event.pointerId)) {
           track.releasePointerCapture(event.pointerId);
         }
-        if (shouldOpenTarget) {
-          if (startTarget.dataset.galleryAlbum) {
-            setHash(`album/${encodeURIComponent(startTarget.dataset.galleryAlbum)}`);
-          } else if (startTarget.dataset.galleryPhoto) {
-            const albumId = getRoute().albumId;
-            setHash(`photo/${encodeURIComponent(albumId)}/${encodeURIComponent(startTarget.dataset.galleryPhoto)}`);
-          }
-        }
-        startTarget = null;
       }
 
       track.addEventListener("pointerup", endDrag);
       track.addEventListener("pointercancel", endDrag);
       track.addEventListener("click", (event) => {
-        if (!didDrag) return;
+        if (!suppressClick) return;
         event.preventDefault();
         event.stopPropagation();
+        event.stopImmediatePropagation();
         didDrag = false;
+        suppressClick = false;
       }, true);
     });
   }

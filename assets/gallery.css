@@ -122,6 +122,9 @@
   opacity: 1;
   transform: scale(1);
   transition: transform 260ms ease;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .gallery-card__image--placeholder {

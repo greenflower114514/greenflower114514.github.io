@@ -108,7 +108,7 @@
 
   function renderAlbumCard(album) {
     const imageMarkup = album.coverSrc
-      ? `<img class="gallery-card__image" src="${escapeHtml(album.coverSrc)}" alt="${escapeHtml(album.title)}">`
+      ? `<img class="gallery-card__image" src="${escapeHtml(album.coverSrc)}" alt="${escapeHtml(album.title)}" draggable="false">`
       : `<span class="gallery-card__image gallery-card__image--placeholder" aria-hidden="true"></span>`;
     return `
       <button class="gallery-card" type="button" data-gallery-album="${escapeHtml(album.id)}">
@@ -139,7 +139,7 @@
     const previewDescription = photo.previewDescription || photo.description || "这张照片还没有详细信息。";
     return `
       <button class="gallery-photo" type="button" data-gallery-photo="${escapeHtml(photo.id)}">
-        <img class="gallery-photo__image" src="${escapeHtml(photo.imageSrc)}" alt="${escapeHtml(photo.title)}">
+        <img class="gallery-photo__image" src="${escapeHtml(photo.imageSrc)}" alt="${escapeHtml(photo.title)}" draggable="false">
         <span class="gallery-photo__body">
           <span class="gallery-photo__title">${escapeHtml(photo.title)}</span>
           <span class="gallery-photo__meta">${escapeHtml([photo.date, photo.location].filter(Boolean).join(" / "))}</span>

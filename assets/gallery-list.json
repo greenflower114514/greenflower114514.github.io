@@ -1,0 +1,65 @@
+[
+  {
+    "order": 1,
+    "id": "site-notes",
+    "title": "站点素材",
+    "description": "先收纳主页装修过程中用到的图像素材，之后可以继续替换成真正的生活照片。",
+    "coverSrc": "assets/blog/2026-05-27-photo-demo/window-note.svg",
+    "photos": [
+      {
+        "order": 1,
+        "id": "window-note",
+        "title": "窗边的桌面",
+        "description": "Blog 图文示例里使用的窗边桌面插图，用来测试正文图片和相册预览效果。",
+        "imageSrc": "assets/blog/2026-05-27-photo-demo/window-note.svg",
+        "date": "2026-05-27",
+        "location": "电子蜗居"
+      },
+      {
+        "order": 2,
+        "id": "oyster-heart",
+        "title": "带壳的牡蛎",
+        "description": "Read 模块里新增的书籍封面，也先放进相册作为图片展示样例。",
+        "imageSrc": "assets/book/带壳的牡蛎是大人的心脏.jpg",
+        "date": "2026-06-03",
+        "location": "Read 书架"
+      }
+    ]
+  },
+  {
+    "order": 2,
+    "id": "music-covers",
+    "title": "音乐封面",
+    "description": "首页播放器和 Listen 模块里正在使用的封面图，之后也可以整理成真正的音乐照片墙。",
+    "coverSrc": "assets/music/Aimer - Daisy.png",
+    "photos": [
+      {
+        "order": 1,
+        "id": "daisy-cover",
+        "title": "Daisy",
+        "description": "Aimer - Daisy 的封面资源，来自当前 Listen 歌单。",
+        "imageSrc": "assets/music/Aimer - Daisy.png",
+        "date": "2026-06-03",
+        "location": "Listen 歌单"
+      },
+      {
+        "order": 2,
+        "id": "kamisama-cover",
+        "title": "君の神様になりたい。",
+        "description": "こはならむ - 君の神様になりたい。的封面资源，来自当前 Listen 歌单。",
+        "imageSrc": "assets/music/君の神様になりたい.png",
+        "date": "2026-06-02",
+        "location": "Listen 歌单"
+      },
+      {
+        "order": 3,
+        "id": "aurora-demo",
+        "title": "Aurora Demo",
+        "description": "播放器早期占位曲目的 SVG 封面，保留作页面功能示例。",
+        "imageSrc": "assets/music/cover.svg",
+        "date": "2026-05-23",
+        "location": "播放器样例"
+      }
+    ]
+  }
+]

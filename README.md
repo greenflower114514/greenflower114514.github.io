@@ -34,7 +34,7 @@ aboutSection: building
 
 ## 撰写思考
 
-- 思考文章保存在 `_thoughts/`，每条思考单独一个 Markdown 文件。
+- 思考文章保存在 `_thoughts/`，每条思考单独一个 Markdown 文件。可复制 `templates/thought-template.md` 到 `_thoughts/`，再修改标题、日期、摘要、图片路径和正文。
 - Thinking 页面会按日期从新到旧自动显示文章卡片。卡片展示标题、日期和背景图；点击卡片可阅读该条思考的详情。
 - 文件名建议使用 `年-月-日-简短主题.md`，并填写 `title`、`date` 和简短摘要 `excerpt`。
 - 可用 `cover` 指定卡片和详情页顶部的背景图；省略时使用主页默认背景。

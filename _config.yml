@@ -10,5 +10,7 @@ collections:
     output: false
   updates:
     output: false
+  thoughts:
+    output: false
 header_pages: []
 show_excerpts: false

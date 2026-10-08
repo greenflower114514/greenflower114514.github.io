@@ -9,9 +9,6 @@ gateAnswer: 猫
 gateHint: 答案就在 blog 页顶部。
 gateVersion: 1
 aboutSection: building
-aboutTitle: 主页继续施工
-aboutDescription: 左侧索引、答题门和阅读区都已经接起来了，接下来开始把站点慢慢填满。
-aboutComment: 先把能用的骨架搭稳，再一点点把内容和风格补到位。
 ---
 
 这个页面会慢慢变成一个适合记录日常、学习、想法和碎碎念的角落。它不需要一开始就很完整，先能写、能看、能慢慢长大就够了。

@@ -1457,6 +1457,16 @@ body {
             </div>
           </article>
         </li>
+
+        <li class="timeline-item">
+          <article class="timeline-card">
+            <span class="timeline-year">2026.7.1</span>
+            <div class="timeline-copy">
+              <h3 class="timeline-title">入职</h3>
+              <p>开启新的工作阶段。</p>
+            </div>
+          </article>
+        </li>
       </ol>
     </section>
   </main>
@@ -1494,9 +1504,6 @@ const aboutBlogEntries = [
     aboutSection: {{ post.aboutSection | default: "" | jsonify }},
     title: {{ post.title | default: "" | jsonify }},
     excerpt: {{ post.excerpt | default: post.content | strip_html | strip_newlines | truncate: 140 | jsonify }},
-    aboutTitle: {{ post.aboutTitle | default: "" | jsonify }},
-    aboutDescription: {{ post.aboutDescription | default: "" | jsonify }},
-    aboutComment: {{ post.aboutComment | default: "" | jsonify }},
     cover: {{ post.cover | default: "" | jsonify }}
   }{% unless forloop.last %},{% endunless %}
 {% endfor %}
@@ -1591,8 +1598,8 @@ function normalizeAboutBlogEntry(entry) {
   const aboutSection = normalizeAboutText(entry.aboutSection);
   if (!aboutSection) return null;
 
-  const title = normalizeAboutText(entry.aboutTitle) || normalizeAboutText(entry.title) || emptyAboutTitle;
-  const description = normalizeAboutText(entry.aboutDescription) || normalizeAboutText(entry.excerpt) || emptyAboutDescription;
+  const title = normalizeAboutText(entry.title) || emptyAboutTitle;
+  const description = normalizeAboutText(entry.excerpt) || emptyAboutDescription;
 
   return {
     id: normalizeAboutText(entry.id),
@@ -1600,7 +1607,7 @@ function normalizeAboutBlogEntry(entry) {
     aboutSection,
     name: title,
     description,
-    comment: normalizeAboutText(entry.aboutComment),
+    comment: "",
     cover: normalizeAboutText(entry.cover),
     coverLabel: title,
     blogUrl: normalizeAboutText(entry.id) ? `blog.html#${encodeURIComponent(normalizeAboutText(entry.id))}` : ""

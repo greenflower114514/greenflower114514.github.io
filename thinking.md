@@ -114,7 +114,21 @@ permalink: /thinking.html
   line-height: 1.95;
 }
 
-.thought-detail-body img { max-width: 100%; height: auto; }
+.thought-detail-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 28px auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.28);
+}
+.thought-detail-body figure { margin: 30px 0; }
+.thought-detail-body figcaption {
+  margin-top: -18px;
+  color: rgba(255, 255, 255, 0.54);
+  font-size: 0.84rem;
+  text-align: center;
+}
 .thought-detail-body h2, .thought-detail-body h3 { color: #fff; }
 .thought-back { display: inline-flex; margin-bottom: 24px; color: #ffe0a3; text-decoration: none; }
 .thought-empty { grid-column: 1 / -1; padding: 32px; color: rgba(255, 255, 255, 0.68); border: 1px solid rgba(255, 255, 255, 0.14); }

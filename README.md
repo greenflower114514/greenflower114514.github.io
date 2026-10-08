@@ -39,6 +39,7 @@ aboutSection: building
 - Thought entries live in `_thoughts/`, one Markdown file per thought.
 - The Thinking page automatically lists them newest first. Each card shows its title, date, and cover; opening a card shows its own detail view.
 - Use a `cover` path for a custom background image. If omitted, the homepage hero background is used.
+- To place images inside the thought body, save them under `assets/thinking/` and insert a Markdown image at the desired position. Images are responsive and centered in the detail view.
 - Use `YYYY-MM-DD-short-title.md` filenames and fill in `title`, `date`, and a short `excerpt`.
 
 ```md
@@ -50,6 +51,12 @@ cover: /assets/thinking/my-thought.svg
 ---
 
 把思考正文写在这里。支持 Markdown 标题、列表、引用和图片。
+
+这段文字后面显示图片：
+
+![图片说明](/assets/thinking/my-photo.jpg)
+
+图片后面继续写正文。
 ```
 
 ## Gate example

@@ -114,7 +114,7 @@ permalink: /thinking.html
   line-height: 1.95;
 }
 
-.thought-detail-body p { margin: 0 0 1.1em; }
+.thought-detail-body .thought-section-break { margin-top: 1.8em; }
 .thought-detail-body img {
   display: block;
   max-width: 100%;

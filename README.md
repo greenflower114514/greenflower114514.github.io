@@ -101,3 +101,38 @@ gateVersion: 1
   ]
 }
 ```
+
+## 管理 Gallery 相册
+
+- 相册图片按相册分别放在 `assets/gallery/<相册ID>/`，例如 `assets/gallery/travel-2026/`。建议用英文小写字母、数字和短横线命名相册 ID。
+- 相册和照片的标题、说明、顺序及图片路径统一登记在 `assets/gallery-list.json`。`coverSrc` 是相册封面；省略它时会使用相册中的第一张照片。
+- 照片的 `imageSrc` 使用从网站根目录开始的路径，例如 `/assets/gallery/travel-2026/photo-01.jpg`。照片文件放到对应目录，再在 JSON 中添加照片信息。
+- `order` 控制相册或照片的显示顺序，数字越小越靠前。照片 `id` 需在该相册内唯一；相册 `id` 需全站唯一。
+- `description` 用于说明相册或照片；照片可用 `previewDescription` 设置网格悬停短描述，用 `detailDescription` 设置详情页描述。照片的 `date` 和 `location` 可选。
+
+新建相册时，在 `assets/gallery-list.json` 数组末尾复制并填写下面的结构，并创建对应图片目录：
+
+```json
+{
+  "order": 4,
+  "id": "travel-2026",
+  "title": "旅行记录",
+  "description": "记录旅途中的风景。",
+  "coverSrc": "/assets/gallery/travel-2026/photo-01.jpg",
+  "photos": [
+    {
+      "order": 1,
+      "id": "photo-01",
+      "title": "海边日落",
+      "description": "沿海散步时拍下的日落。",
+      "previewDescription": "海边的日落。",
+      "detailDescription": "在旅程最后一天拍下的日落。",
+      "imageSrc": "/assets/gallery/travel-2026/photo-01.jpg",
+      "date": "2026-10-10",
+      "location": "海边"
+    }
+  ]
+}
+```
+
+给已有相册添加照片时，把图片放进该相册目录，并在对应相册的 `photos` 数组中添加一个照片对象。JSON 项之间需要用逗号分隔，保存后刷新 Gallery 页面即可查看。

@@ -1,105 +1,21 @@
 [
   {
     "order": 1,
-    "id": "site-notes",
-    "title": "站点素材",
-    "description": "先收纳主页装修过程中用到的图像素材，之后可以继续替换成真正的生活照片。",
-    "coverSrc": "assets/gallery/site-window-note.svg",
+    "id": "today-best",
+    "title": "今日最佳",
+    "description": "记录了每天拍摄的最满意的一张照片",
+    "coverSrc": "/assets/gallery/today-best/cover.svg",
     "photos": [
       {
         "order": 1,
-        "id": "window-note",
-        "title": "窗边的桌面",
-        "description": "Blog 图文示例里使用的窗边桌面插图，用来测试正文图片和相册预览效果。",
-        "previewDescription": "图文 Blog 示例插图。",
-        "detailDescription": "这张图来自 Blog 图文示例，用来确认 Markdown 正文插图、Gallery 相册预览和照片详情页能复用同一份站内图片资源。",
-        "imageSrc": "assets/gallery/site-window-note.svg",
-        "date": "2026-05-27",
-        "location": "电子蜗居"
-      },
-      {
-        "order": 2,
-        "id": "oyster-heart",
-        "title": "带壳的牡蛎",
-        "description": "Read 模块里新增的书籍封面，也先放进相册作为图片展示样例。",
-        "previewDescription": "Read 模块的书籍封面。",
-        "detailDescription": "《带壳的牡蛎是大人的心脏》的封面资源来自 Read 模块。这里先作为 Gallery 示例，之后可以替换成更完整的读书相册或图片记录。",
-        "imageSrc": "assets/gallery/book-oyster-heart.jpg",
-        "date": "2026-06-03",
-        "location": "Read 书架"
-      }
-    ]
-  },
-  {
-    "order": 2,
-    "id": "music-covers",
-    "title": "音乐封面",
-    "description": "首页播放器和 Listen 模块里正在使用的封面图，之后也可以整理成真正的音乐照片墙。",
-    "coverSrc": "assets/gallery/music-daisy.png",
-    "photos": [
-      {
-        "order": 1,
-        "id": "daisy-cover",
-        "title": "Daisy",
-        "description": "Aimer - Daisy 的封面资源，来自当前 Listen 歌单。",
-        "previewDescription": "Aimer - Daisy 的封面。",
-        "detailDescription": "这张封面来自当前 Listen 歌单中的 Daisy。Gallery 详情页会显示更完整的说明，而相册页 hover 只保留短描述。",
-        "imageSrc": "assets/gallery/music-daisy.png",
-        "date": "2026-06-03",
-        "location": "Listen 歌单"
-      },
-      {
-        "order": 2,
-        "id": "kamisama-cover",
-        "title": "君の神様になりたい。",
-        "description": "こはならむ - 君の神様になりたい。的封面资源，来自当前 Listen 歌单。",
-        "previewDescription": "こはならむ 歌曲封面。",
-        "detailDescription": "这是《君の神様になりたい。》在播放器和 Listen 模块中使用的封面。它也被放进 Gallery，用来展示音乐封面相册的详情页效果。",
-        "imageSrc": "assets/gallery/music-kamisama.png",
-        "date": "2026-06-02",
-        "location": "Listen 歌单"
-      },
-      {
-        "order": 3,
-        "id": "aurora-demo",
-        "title": "Aurora Demo",
-        "description": "播放器早期占位曲目的 SVG 封面，保留作页面功能示例。",
-        "previewDescription": "播放器早期占位封面。",
-        "detailDescription": "这个 SVG 是音乐播放器早期使用的占位封面。它保留下来作为 Gallery 的示例素材，方便测试不同图片格式在相册中的显示效果。",
-        "imageSrc": "assets/gallery/music-aurora-demo.svg",
-        "date": "2026-05-23",
-        "location": "播放器样例"
-      }
-    ]
-  },
-  {
-    "order": 3,
-    "id": "drag-test",
-    "title": "拖拽测试",
-    "description": "这组相册专门用来测试 Gallery 首页横向拖拽效果，默认会排在第三个位置。",
-    "coverSrc": "assets/gallery/music-aurora-demo.svg",
-    "photos": [
-      {
-        "order": 1,
-        "id": "drag-card-one",
-        "title": "测试卡片一",
-        "description": "用于确认第三组相册能被横向拖出来。",
-        "previewDescription": "拖拽测试用图一。",
-        "detailDescription": "这张图用于测试 Gallery 首页横向拖拽后，点击第三组相册仍然能够进入相册内部并查看照片详情。",
-        "imageSrc": "assets/gallery/music-aurora-demo.svg",
-        "date": "2026-06-05",
-        "location": "Gallery 测试"
-      },
-      {
-        "order": 2,
-        "id": "drag-card-two",
-        "title": "测试卡片二",
-        "description": "用于确认拖拽后相册内部照片网格仍正常。",
-        "previewDescription": "拖拽测试用图二。",
-        "detailDescription": "这张图用于确认相册内部的照片预览、hover 描述和点击进入详情页都没有被首页拖拽逻辑影响。",
-        "imageSrc": "assets/gallery/site-window-note.svg",
-        "date": "2026-06-05",
-        "location": "Gallery 测试"
+        "id": "line-cat",
+        "title": "线条小猫",
+        "description": "一只叫做“可乐”的小猫，脑袋大大，身体小小",
+        "previewDescription": "一只叫做“可乐”的小猫，脑袋大大，身体小小",
+        "detailDescription": "给照片中的小猫添加了外轮廓，现在小猫变得更加卡通了，如果有懂得小猫萌点的人想要收藏的话我将以一颗猫粮的价格出售这张照片（但我并不是作者来着）",
+        "imageSrc": "/assets/gallery/today-best/line-cat.jpg",
+        "date": "2026-10-10",
+        "location": ""
       }
     ]
   }

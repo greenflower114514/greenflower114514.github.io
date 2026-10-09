@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-labelledby="title">
+  <title id="title">今日最佳</title>
+  <rect width="800" height="800" fill="#f7f5ef"/>
+  <circle cx="400" cy="400" r="250" fill="none" stroke="#a9b5a2" stroke-width="2"/>
+  <circle cx="400" cy="400" r="236" fill="none" stroke="#d8ddd3" stroke-width="1"/>
+  <text x="400" y="416" text-anchor="middle" dominant-baseline="middle" fill="#343b35" font-family="'Noto Serif CJK SC', 'Songti SC', serif" font-size="78" letter-spacing="10">今日最佳</text>
+</svg>

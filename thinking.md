@@ -33,51 +33,77 @@ permalink: /thinking.html
 
 .thinking-heading p { margin: 8px 0 0; }
 
-.thinking-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.thought-card {
-  min-height: 250px;
-  display: flex;
-  align-items: end;
-  padding: 24px;
+.thought-calendar {
   overflow: hidden;
-  color: #fff;
-  text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  background-color: #17191b;
-  background-position: center;
-  background-size: cover;
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.24);
-  transition: transform 180ms ease, border-color 180ms ease;
+  background: rgba(9, 10, 12, 0.72);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.2);
 }
 
-.thought-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.36);
+.thought-calendar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.thought-card-content {
+.thought-calendar-head h3 { margin: 0; color: #fff; font-size: 1.25rem; }
+.thought-calendar-nav { display: flex; gap: 8px; }
+.thought-calendar-nav button {
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+}
+.thought-calendar-nav button:hover:not(:disabled) { background: rgba(255, 255, 255, 0.14); }
+.thought-calendar-nav button:disabled { opacity: 0.35; cursor: default; }
+.thought-calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.thought-calendar-weekday {
+  padding: 12px 8px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.78rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.thought-calendar-cell {
+  min-width: 0;
+  min-height: 112px;
+  padding: 10px;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.thought-calendar-cell--empty { background: rgba(255, 255, 255, 0.015); }
+.thought-day {
   width: 100%;
-  padding-top: 64px;
-  background: linear-gradient(180deg, transparent, rgba(5, 6, 8, 0.82) 35%);
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px;
+  color: rgba(255, 255, 255, 0.78);
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: default;
 }
+.thought-day--has-entry { color: #fff; border-color: rgba(255, 224, 163, 0.28); background: rgba(255, 224, 163, 0.07); cursor: pointer; }
+.thought-day--has-entry:hover { border-color: rgba(255, 224, 163, 0.72); background: rgba(255, 224, 163, 0.13); }
+.thought-day-number { color: #ffe0a3; font-size: 0.9rem; }
+.thought-day-title { width: 100%; color: rgba(255, 255, 255, 0.9); font-size: 0.82rem; line-height: 1.4; overflow-wrap: anywhere; }
+.thought-calendar-empty { padding: 18px 22px; color: rgba(255, 255, 255, 0.55); }
+.thought-calendar[hidden] { display: none; }
+.thinking-calendar[hidden] { display: none; }
 
-.thought-card time,
 .thought-detail time {
   display: block;
   color: rgba(255, 255, 255, 0.68);
   font-size: 0.82rem;
   letter-spacing: 0.08em;
-}
-
-.thought-card h3 {
-  margin: 8px 0 0;
-  color: #fff;
-  font-size: 1.25rem;
 }
 
 .thought-detail {
@@ -132,17 +158,13 @@ permalink: /thinking.html
 }
 .thought-detail-body h2, .thought-detail-body h3 { color: #fff; }
 .thought-back { display: inline-flex; margin-bottom: 24px; color: #ffe0a3; text-decoration: none; }
-.thought-empty { grid-column: 1 / -1; padding: 32px; color: rgba(255, 255, 255, 0.68); border: 1px solid rgba(255, 255, 255, 0.14); }
-
-@media (max-width: 900px) {
-  .thinking-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
 @media (max-width: 600px) {
   .thinking-main { width: calc(100% - 32px); margin-top: -32px; }
   .thinking-heading { display: block; }
-  .thinking-grid { grid-template-columns: 1fr; }
-  .thought-card { min-height: 220px; }
+  .thought-calendar-head { padding: 14px; }
+  .thought-calendar-cell { min-height: 80px; padding: 4px; }
+  .thought-day { min-height: 68px; padding: 5px; gap: 5px; }
+  .thought-day-title { font-size: 0.7rem; }
   .thought-detail-cover { min-height: 230px; }
 }
 </style>
@@ -218,17 +240,18 @@ permalink: /thinking.html
       </div>
       <a class="thought-back" id="thought-back" href="thinking.html" hidden>← 返回全部思考</a>
     </div>
-    <section class="thinking-grid" id="thinking-grid" aria-label="思考记录">
-      {% assign thought_documents = site.thoughts | sort: "date" | reverse %}
-      {% for thought in thought_documents %}
-      <a class="thought-card" href="thinking.html#{{ thought.slug | default: thought.path | split: "/" | last | replace: ".md", "" | replace: ".markdown", "" | uri_escape }}" data-thought-id="{{ thought.slug | default: thought.path | split: "/" | last | replace: ".md", "" | replace: ".markdown", "" | escape }}" style="background-image: linear-gradient(180deg, rgba(4, 5, 7, 0.02), rgba(4, 5, 7, 0.18)), url('{{ thought.cover | default: "/assets/hero-background.svg" | relative_url }}')">
-        <div class="thought-card-content">
-          <time datetime="{{ thought.date | date: "%Y-%m-%d" }}">{{ thought.date | date: "%Y.%m.%d" }}</time>
-          <h3>{{ thought.title | escape }}</h3>
+    <section class="thinking-calendar" id="thinking-calendar" aria-label="思考日历">
+      <div class="thought-calendar">
+        <div class="thought-calendar-head">
+          <h3 id="thought-calendar-title"></h3>
+          <div class="thought-calendar-nav" aria-label="切换月份">
+            <button type="button" id="thought-month-prev" aria-label="上个月">‹</button>
+            <button type="button" id="thought-month-next" aria-label="下个月">›</button>
+          </div>
         </div>
-      </a>
-      {% endfor %}
-      {% unless thought_documents.size > 0 %}<p class="thought-empty">还没有思考记录。新增一篇 `_thoughts/` Markdown 文件后，它会自动出现在这里。</p>{% endunless %}
+        <div class="thought-calendar-grid" id="thought-calendar-grid" role="grid" aria-label="思考日期"></div>
+        <p class="thought-calendar-empty" id="thought-calendar-empty" hidden>这个月还没有思考记录。</p>
+      </div>
     </section>
 
     <div id="thought-data" hidden>
@@ -245,9 +268,85 @@ permalink: /thinking.html
 <script>
 (() => {
   const content = document.getElementById("thinking-content");
-  const grid = document.getElementById("thinking-grid");
+  const calendar = document.getElementById("thinking-calendar");
+  const calendarTitle = document.getElementById("thought-calendar-title");
+  const calendarGrid = document.getElementById("thought-calendar-grid");
+  const calendarEmpty = document.getElementById("thought-calendar-empty");
+  const previousMonth = document.getElementById("thought-month-prev");
+  const nextMonth = document.getElementById("thought-month-next");
   const back = document.getElementById("thought-back");
   const records = [...document.querySelectorAll("#thought-data article")];
+  const weekdays = ["日", "一", "二", "三", "四", "五", "六"];
+
+  function dateParts(dateText) {
+    const [year, month, day] = dateText.split("-").map(Number);
+    return { year, month, day };
+  }
+
+  function monthKey(year, month) {
+    return `${year}-${String(month + 1).padStart(2, "0")}`;
+  }
+
+  const availableMonths = records.map((record) => {
+    const { year, month } = dateParts(record.dataset.date);
+    return monthKey(year, month - 1);
+  }).sort();
+  const firstMonth = availableMonths[0] || "";
+  const lastMonth = availableMonths.at(-1) || "";
+  let visibleMonth = lastMonth ? dateParts(`${lastMonth}-01`) : dateParts(new Date().toISOString().slice(0, 10));
+
+  function renderCalendar() {
+    const { year, month } = visibleMonth;
+    const key = monthKey(year, month - 1);
+    calendarTitle.textContent = new Date(year, month - 1, 1).toLocaleDateString("zh-CN", { year: "numeric", month: "long" });
+    previousMonth.disabled = !firstMonth || key <= firstMonth;
+    nextMonth.disabled = !lastMonth || key >= lastMonth;
+    calendarGrid.innerHTML = weekdays.map((day) => `<div class="thought-calendar-weekday" role="columnheader">周${day}</div>`).join("");
+
+    const firstWeekday = new Date(year, month - 1, 1).getDay();
+    const daysInMonth = new Date(year, month, 0).getDate();
+    const thoughtsByDay = new Map();
+    records.forEach((record) => {
+      const { year: recordYear, month: recordMonth, day } = dateParts(record.dataset.date);
+      if (recordYear !== year || recordMonth !== month) return;
+      const list = thoughtsByDay.get(day) || [];
+      list.push(record);
+      thoughtsByDay.set(day, list);
+    });
+
+    for (let index = 0; index < firstWeekday; index += 1) {
+      calendarGrid.insertAdjacentHTML("beforeend", '<div class="thought-calendar-cell thought-calendar-cell--empty" role="gridcell" aria-hidden="true"></div>');
+    }
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const dayRecords = thoughtsByDay.get(day) || [];
+      const cell = document.createElement("div");
+      cell.className = "thought-calendar-cell";
+      cell.setAttribute("role", "gridcell");
+      if (dayRecords.length) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "thought-day thought-day--has-entry";
+        button.setAttribute("aria-label", `${year}年${month}月${day}日：${dayRecords.map((record) => record.dataset.title).join("、")}`);
+        button.addEventListener("click", () => { window.location.hash = dayRecords[0].dataset.thoughtId; });
+        button.innerHTML = `<span class="thought-day-number">${day} 日</span>${dayRecords.map((record) => `<span class="thought-day-title">${escapeHtml(record.dataset.title)}</span>`).join("")}`;
+        cell.append(button);
+      } else {
+        cell.innerHTML = `<div class="thought-day"><span class="thought-day-number">${day}</span></div>`;
+      }
+      calendarGrid.append(cell);
+    }
+    const trailingCells = (7 - ((firstWeekday + daysInMonth) % 7)) % 7;
+    for (let index = 0; index < trailingCells; index += 1) {
+      calendarGrid.insertAdjacentHTML("beforeend", '<div class="thought-calendar-cell thought-calendar-cell--empty" role="gridcell" aria-hidden="true"></div>');
+    }
+    calendarEmpty.hidden = thoughtsByDay.size > 0;
+  }
+
+  function changeMonth(offset) {
+    const next = new Date(visibleMonth.year, visibleMonth.month - 1 + offset, 1);
+    visibleMonth = { year: next.getFullYear(), month: next.getMonth() + 1 };
+    renderCalendar();
+  }
 
   function escapeHtml(value) {
     return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
@@ -257,13 +356,13 @@ permalink: /thinking.html
     const id = decodeURIComponent(window.location.hash.slice(1));
     const thought = records.find((entry) => entry.dataset.thoughtId === id);
     if (!thought) {
-      grid.hidden = false;
+      calendar.hidden = false;
       back.hidden = true;
       content.querySelector(".thought-detail")?.remove();
       return;
     }
 
-    grid.hidden = true;
+    calendar.hidden = true;
     back.hidden = false;
     content.querySelector(".thought-detail")?.remove();
     const detail = document.createElement("article");
@@ -280,6 +379,9 @@ permalink: /thinking.html
     window.scrollTo({ top: content.offsetTop - 24, behavior: "smooth" });
   }
 
+  previousMonth.addEventListener("click", () => changeMonth(-1));
+  nextMonth.addEventListener("click", () => changeMonth(1));
+  renderCalendar();
   window.addEventListener("hashchange", render);
   render();
 })();

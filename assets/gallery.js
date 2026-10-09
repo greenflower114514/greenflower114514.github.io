@@ -2,7 +2,7 @@
   const root = document.getElementById("gallery-app");
   if (!root) return;
 
-  const dataPath = "assets/gallery-list.json";
+  const dataPath = `${window.location.pathname.replace(/[^/]*$/, "")}assets/gallery-list.json?v=20261010-today-best`;
   let albums = [];
 
   function escapeHtml(value) {
@@ -281,7 +281,7 @@
 
   window.addEventListener("hashchange", renderRoute);
 
-  fetch(dataPath)
+  fetch(dataPath, { cache: "no-store" })
     .then((response) => {
       if (!response.ok) throw new Error("Failed to load gallery data");
       return response.json();

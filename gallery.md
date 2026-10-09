@@ -4,10 +4,10 @@ title: 个人主页
 permalink: /gallery.html
 ---
 
-<link rel="stylesheet" href="assets/nav-shell.css">
-<link rel="stylesheet" href="assets/gallery.css">
-<link rel="stylesheet" href="assets/pet-cat.css">
-<link rel="stylesheet" href="assets/music-player.css">
+<link rel="stylesheet" href="{{ '/assets/nav-shell.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/gallery.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/pet-cat.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/music-player.css' | relative_url }}">
 
 <div class="profile-page">
   <section class="profile-hero">
@@ -76,7 +76,7 @@ permalink: /gallery.html
 <main class="gallery-shell" id="gallery-app" aria-label="Gallery 相册内容"></main>
 
 <div id="music-player" aria-label="首页音乐播放器"></div>
-<script src="assets/nav-shell.js"></script>
-<script src="assets/gallery.js"></script>
-<script src="assets/music-player.js"></script>
-<script src="assets/pet-cat.js"></script>
+<script src="{{ '/assets/nav-shell.js' | relative_url }}"></script>
+<script src="{{ '/assets/gallery.js' | relative_url }}"></script>
+<script src="{{ '/assets/music-player.js' | relative_url }}"></script>
+<script src="{{ '/assets/pet-cat.js' | relative_url }}"></script>

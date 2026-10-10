@@ -16,6 +16,17 @@
         "imageSrc": "/assets/gallery/today-best/line-cat.jpg",
         "date": "2026-10-10",
         "location": ""
+      },
+      {
+        "order": 2,
+        "id": "shenzhen-bay-park-road",
+        "title": "去深圳湾公园的路上",
+        "description": "去公园的路上拍下了卡车从桥上经过",
+        "previewDescription": "去公园的路上拍下了卡车从桥上经过",
+        "detailDescription": "去深圳湾公园的路上抬头发现桥上有很多花，楼和树出现的也是恰到好处，于是等待有车经过的时候拍下了这张",
+        "imageSrc": "/assets/gallery/today-best/深圳湾公园路上.jpg",
+        "date": "2026-10-11",
+        "location": "深圳湾公园"
       }
     ]
   }

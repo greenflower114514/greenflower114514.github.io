@@ -243,6 +243,16 @@
   aspect-ratio: 4 / 5;
   flex: 0 0 min(34vw, 360px);
   scroll-snap-align: start;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.gallery-photo__image {
+  object-fit: contain;
+}
+
+.gallery-photo:hover .gallery-photo__image,
+.gallery-photo:focus-visible .gallery-photo__image {
+  transform: none;
 }
 
 .gallery-detail {
@@ -267,13 +277,6 @@
   max-height: 68vh;
   object-fit: contain;
   display: block;
-}
-
-.gallery-detail__copy h3 {
-  margin: 0 0 14px;
-  color: rgba(255, 255, 255, 0.95);
-  font-size: clamp(2rem, 4vw, 4rem);
-  line-height: 1;
 }
 
 .gallery-detail__copy p {

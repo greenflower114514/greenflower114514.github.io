@@ -182,7 +182,6 @@
             <img class="gallery-detail__image" src="${escapeHtml(photo.imageSrc)}" alt="${escapeHtml(photo.title)}">
           </div>
           <div class="gallery-detail__copy">
-            <h3>${escapeHtml(photo.title)}</h3>
             ${meta.length ? `<div class="gallery-detail__meta">${meta.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>` : ""}
             <p>${escapeHtml(detailDescription)}</p>
           </div>

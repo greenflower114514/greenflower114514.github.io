@@ -13,6 +13,10 @@
   const dreambook = document.getElementById("dreambook");
   const journalList = document.getElementById("journal-list");
   const esc = (value) => String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
+  const safeImageUrl = (value) => {
+    const url = String(value || "").trim();
+    return /^(https?:\/\/|\/assets\/)/i.test(url) ? url : "";
+  };
   const today = () => {
     const d = new Date();
     return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -52,8 +56,9 @@
       return;
     }
     dreambook.innerHTML = chosen.map(({wish,index},position) => {
-      const preview = wish.image ? ' style="background-image:linear-gradient(180deg,rgba(10,12,14,.12),rgba(10,12,14,.45)),url(\''+esc(wish.image)+'\')"' : "";
-      return '<article class="dream-card"><div class="dream-fields"><h3>梦想 '+(position+1)+' · '+esc(wish.text||"尚未命名")+'</h3><label>我为什么想实现它？<textarea data-wish="'+index+'" data-field="reason" rows="2" placeholder="写下这个愿望对你的意义">'+esc(wish.reason)+'</textarea></label><label>梦想图片地址<input data-wish="'+index+'" data-field="image" type="url" placeholder="图片加入网站后可填写图片路径" value="'+esc(wish.image)+'"></label><div class="form-grid"><label>目标金额<input data-wish="'+index+'" data-field="amount" type="number" min="0" step="0.01" placeholder="可选" value="'+esc(wish.amount)+'"></label><label>当前储蓄<input data-wish="'+index+'" data-field="saved" type="number" min="0" step="0.01" placeholder="可选" value="'+esc(wish.saved)+'"></label></div></div><div class="dream-preview"'+preview+'>'+(!wish.image?'梦想图片预览':'')+'</div></article>';
+      const imageUrl = safeImageUrl(wish.image);
+      const preview = imageUrl ? '<img src="'+esc(imageUrl)+'" alt="梦想手册图片预览">' : '梦想图片预览';
+      return '<article class="dream-card"><div class="dream-fields"><h3>梦想 '+(position+1)+' · '+esc(wish.text||"尚未命名")+'</h3><label>我为什么想实现它？<textarea data-wish="'+index+'" data-field="reason" rows="2" placeholder="写下这个愿望对你的意义">'+esc(wish.reason)+'</textarea></label><label>梦想图片地址<input data-wish="'+index+'" data-field="image" type="url" placeholder="图片加入网站后可填写图片路径" value="'+esc(wish.image)+'"></label><div class="form-grid"><label>目标金额<input data-wish="'+index+'" data-field="amount" type="number" min="0" step="0.01" placeholder="可选" value="'+esc(wish.amount)+'"></label><label>当前储蓄<input data-wish="'+index+'" data-field="saved" type="number" min="0" step="0.01" placeholder="可选" value="'+esc(wish.saved)+'"></label></div></div><div class="dream-preview">'+preview+'</div></article>';
     }).join("");
   }
   function renderGoose() {
@@ -100,7 +105,11 @@
     if(!el.matches("[data-wish]"))return;
     state.wishes[Number(el.dataset.wish)][el.dataset.field]=el.value;
     save();
-    if(el.dataset.field==="image")renderDreambook();
+    if(el.dataset.field==="image") {
+      const preview=el.closest(".dream-card")?.querySelector(".dream-preview");
+      const imageUrl=safeImageUrl(el.value);
+      if(preview)preview.innerHTML=imageUrl?'<img src="'+esc(imageUrl)+'" alt="梦想手册图片预览">':"梦想图片预览";
+    }
   });
   document.querySelectorAll("[data-goose]").forEach(input=>input.addEventListener("input",()=>{
     state.goose[input.dataset.goose]=input.value;save();renderGoose();

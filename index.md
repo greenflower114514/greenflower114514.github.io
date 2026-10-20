@@ -1302,7 +1302,7 @@ body {
         <a href="money-plan.html">
           <span class="profile-nav-icon">◉</span>
           <span class="profile-nav-en">Money Plan</span>
-          <span class="profile-nav-cn">小狗钱钱</span>
+          <span class="profile-nav-cn">小狗钱钱计划</span>
         </a>
       </nav>
     </div>

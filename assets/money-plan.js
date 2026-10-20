@@ -1,204 +1,240 @@
 (() => {
-  const storageKey = "money-plan-v1";
-  const wishSeed = [
-    {text:"开面包店",selected:true,priority:2},
-    {text:"出国旅游",selected:true,priority:1},
-    {text:"吃美食",selected:false},
-    {text:"买电子设备",selected:false},
-    {text:"收集餐具",selected:false},
-    {text:"买新衣服",selected:false},
-    {text:"换大公寓",selected:true,priority:3},
-    {text:"出国留学",selected:false},
-    {text:"换高配置电脑",selected:false},
-    {text:"买许多家具",selected:false}
-  ];
-  const emptyWish = () => ({ text:"", reason:"", amount:"", image:"", selected:false, priority:0, saved:"" });
-  const freshState = () => ({
-    wishes:wishSeed.map(wish=>({...emptyWish(),...wish})),
-    wishDefaultsVersion:1,
-    goose:{target:"",saved:"",rule:""},
-    journals:{},
-    review:{date:"",text:""}
-  });
-  let state = freshState();
-  const status = document.getElementById("save-status");
-  const wishList = document.getElementById("wish-list");
-  const dreambook = document.getElementById("dreambook");
-  const journalList = document.getElementById("journal-list");
-  const esc = (value) => String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");
-  const safeImageUrl = (value) => {
-    const url = String(value || "").trim();
-    return /^(https?:\/\/|\/assets\/)/i.test(url) ? url : "";
-  };
+  "use strict";
+
+  const PASSCODE_SALT = "8c8733e22f8b4b5806a438bc2ba1bb50";
+  const PASSCODE_HASH = "d55fa3f1ba1745cc1eff4b4b2a6d486156e2a03c5eb52bcf6d505aa89875a55d";
+  const PASSCODE_ITERATIONS = 200000;
+  const UNLOCK_KEY = "money-plan-unlocked";
+  const gate = document.getElementById("access-gate");
+  const content = document.getElementById("money-content");
+  const form = document.getElementById("access-form");
+  const passwordInput = document.getElementById("access-password");
+  const message = document.getElementById("access-message");
+  let planData = { wishes: [], dreams: [], goose: {}, entries: [] };
+  let entriesByDate = new Map();
+  let selectedDate = "";
+  let shownYear;
+  let shownMonth;
+
+  const esc = value => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#39;");
+  const hexBytes = value => Uint8Array.from(value.match(/.{2}/g) || [], byte => parseInt(byte, 16));
+  const bytesHex = bytes => Array.from(new Uint8Array(bytes), byte => byte.toString(16).padStart(2, "0")).join("");
   const today = () => {
-    const d = new Date();
-    return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+    const date = new Date();
+    return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
   };
-  function save() {
-    try {
-      localStorage.setItem(storageKey, JSON.stringify(state));
-      status.textContent = "已保存在此浏览器 · "+new Date().toLocaleTimeString("zh-CN",{hour:"2-digit",minute:"2-digit"});
-    } catch {
-      status.textContent = "浏览器存储空间不足，请先导出备份。";
-    }
+  const formatDate = date => {
+    const parts = String(date || "").split("-").map(Number);
+    return parts.length === 3 ? parts[0] + "年" + parts[1] + "月" + parts[2] + "日" : String(date || "");
+  };
+  const successesOf = entry => Array.isArray(entry?.successes) ? entry.successes.map(item => String(item || "").trim()).filter(Boolean) : [];
+  const money = value => value === "" || value === null || value === undefined ? "" : "¥" + Number(value).toLocaleString("zh-CN", { maximumFractionDigits: 2 });
+
+  async function checkPasscode(passcode) {
+    if (!globalThis.crypto?.subtle) return false;
+    const key = await crypto.subtle.importKey("raw", new TextEncoder().encode(passcode), "PBKDF2", false, ["deriveBits"]);
+    const digest = await crypto.subtle.deriveBits({
+      name: "PBKDF2",
+      salt: hexBytes(PASSCODE_SALT),
+      iterations: PASSCODE_ITERATIONS,
+      hash: "SHA-256"
+    }, key, 256);
+    return bytesHex(digest) === PASSCODE_HASH;
   }
-  function load() {
+
+  function unlock() {
+    gate.hidden = true;
+    content.hidden = false;
+    passwordInput.value = "";
+    initialize().catch(error => {
+      console.error("Unable to load money plan data", error);
+      document.getElementById("wish-list").innerHTML = '<li class="empty-state">计划数据暂时无法读取，请刷新页面稍后再试。</li>';
+    });
+  }
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+    message.textContent = "正在验证…";
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
     try {
-      const saved = JSON.parse(localStorage.getItem(storageKey));
-      if (saved && typeof saved === "object") {
-        state = {...freshState(), ...saved};
-        state.wishes = Array.from({length:10},(_,i)=>({...emptyWish(),...(saved.wishes?.[i]||{})}));
-        if (Number(saved.wishDefaultsVersion||0) < 1) {
-          state.wishes.forEach((wish,index)=>{
-            wish.text=wishSeed[index].text;
-            wish.selected=wishSeed[index].selected;
-            wish.priority=wishSeed[index].priority||0;
-          });
-          state.wishDefaultsVersion=1;
-          save();
-        }
-        state.goose = {...freshState().goose,...(saved.goose||{})};
-        state.journals = saved.journals && typeof saved.journals==="object" ? saved.journals : {};
-        state.review = {...freshState().review,...(saved.review||{})};
+      if (await checkPasscode(passwordInput.value)) {
+        sessionStorage.setItem(UNLOCK_KEY, "1");
+        message.textContent = "";
+        unlock();
+      } else {
+        message.textContent = "口令不正确，请再试一次。";
+        passwordInput.select();
       }
-    } catch {}
-  }
+    } catch {
+      message.textContent = "当前浏览器无法验证口令，请使用最新版浏览器后重试。";
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+
+  document.getElementById("lock-page").addEventListener("click", () => {
+    sessionStorage.removeItem(UNLOCK_KEY);
+    content.hidden = true;
+    gate.hidden = false;
+    message.textContent = "";
+    passwordInput.focus();
+  });
+
   function renderWishes() {
-    wishList.innerHTML = state.wishes.map((wish,index) => '<article class="wish-card"><span class="wish-number">'+String(index+1).padStart(2,"0")+'</span><div class="wish-fields"><label class="wish-select"><input type="checkbox" data-wish="'+index+'" data-field="selected" '+(wish.selected?"checked":"")+'> 选入我的三个重要梦想</label><input data-wish="'+index+'" data-field="text" maxlength="160" placeholder="愿望 '+(index+1)+'：我希望实现什么？" value="'+esc(wish.text)+'"><input data-wish="'+index+'" data-field="reason" maxlength="220" placeholder="为什么这个愿望对我重要？" value="'+esc(wish.reason)+'"></div></article>').join("");
-    const filled = state.wishes.filter(w=>w.text.trim()).length;
-    const selected = state.wishes.filter(w=>w.selected).length;
-    document.getElementById("wish-count").textContent = "已填写 "+filled+" / 10";
-    document.getElementById("dream-count").textContent = "已选 "+selected+" / 3 个梦想";
-    renderDreambook();
+    const list = document.getElementById("wish-list");
+    const wishes = Array.isArray(planData.wishes) ? planData.wishes : [];
+    list.innerHTML = wishes.map(wish => {
+      const selected = Boolean(wish.selected);
+      return '<li class="wish-item' + (selected ? " is-priority" : "") + '"><strong>' + esc(wish.title) + '</strong>' + (selected ? '<span class="priority-tag">重要愿望</span>' : "") + "</li>";
+    }).join("") || '<li class="empty-state">愿望清单暂时为空。</li>';
   }
+
   function renderDreambook() {
-    const chosen = state.wishes.map((wish,index)=>({wish,index})).filter(item=>item.wish.selected)
-      .sort((left,right)=>(left.wish.priority||999)-(right.wish.priority||999)||left.index-right.index);
-    if (!chosen.length) {
-      dreambook.innerHTML = '<div class="empty-state">先在上方选出最多三个愿望，它们会出现在这里。</div>';
+    const container = document.getElementById("dreambook");
+    const dreams = Array.isArray(planData.dreams) ? planData.dreams : [];
+    const emptyValue = value => value ? '<strong>' + esc(value) + '</strong>' : '<span class="empty-value">（留空）</span>';
+    container.innerHTML = dreams.map(dream => {
+      const image = /^(https?:\/\/|\/assets\/)/i.test(String(dream.image || "")) ? '<img src="' + esc(dream.image) + '" alt="' + esc(dream.title) + '的梦想图片">' : "";
+      return '<article class="dream-card"><div><h3>' + esc(dream.title) + '</h3>' +
+        (dream.reason ? '<p class="dream-reason">' + esc(dream.reason) + '</p>' : "") +
+        '<div class="dream-facts"><span>目标金额：' + emptyValue(money(dream.targetAmount)) + '</span><span>已存金额：' + emptyValue(money(dream.savedAmount)) + '</span></div></div>' +
+        '<div class="dream-preview">' + (image || "梦想图片") + '</div></article>';
+    }).join("") || '<div class="empty-state">还没有梦想手册内容。</div>';
+  }
+
+  function renderGoose() {
+    const goose = planData.goose || {};
+    const fields = [
+      ["本金目标", goose.targetAmount ? money(goose.targetAmount) : ""],
+      ["已积累金额", goose.savedAmount ? money(goose.savedAmount) : ""],
+      ["我的金鹅规则", goose.rule || ""]
+    ];
+    document.getElementById("goose-summary").innerHTML = '<div class="goose-card">' + fields.map(([label, value]) =>
+      '<div class="goose-fact"><span>' + esc(label) + '</span><strong>' + (value ? esc(value) : '<span class="empty-value">（留空）</span>') + '</strong></div>'
+    ).join("") + "</div>";
+  }
+
+  function renderCalendar() {
+    const firstDay = new Date(shownYear, shownMonth, 1);
+    const dayCount = new Date(shownYear, shownMonth + 1, 0).getDate();
+    document.getElementById("calendar-month").textContent = shownYear + "年" + (shownMonth + 1) + "月";
+    const cells = [];
+    for (let blank = 0; blank < firstDay.getDay(); blank++) cells.push('<span class="calendar-blank" aria-hidden="true"></span>');
+    for (let day = 1; day <= dayCount; day++) {
+      const dateKey = shownYear + "-" + String(shownMonth + 1).padStart(2, "0") + "-" + String(day).padStart(2, "0");
+      const entry = entriesByDate.get(dateKey);
+      const wins = successesOf(entry);
+      const classes = ["calendar-day"];
+      if (entry) classes.push("has-entry");
+      if (dateKey === selectedDate) classes.push("is-selected");
+      if (dateKey === today()) classes.push("is-today");
+      const snippet = wins[0] || entry?.action || "";
+      const accessible = formatDate(dateKey) + (entry ? "，完成" + wins.length + "件事" + (snippet ? "，" + snippet : "") : "，无记录");
+      cells.push('<button type="button" class="' + classes.join(" ") + '" data-date="' + dateKey + '" aria-label="' + esc(accessible) + '" aria-pressed="' + (dateKey === selectedDate) + '"><span class="day-number">' + day + '</span>' +
+        (entry ? '<span class="day-count">' + wins.length + " 件</span>" + (snippet ? '<span class="day-snippet">' + esc(snippet) + "</span>" : "") : "") + "</button>");
+    }
+    document.getElementById("calendar-days").innerHTML = cells.join("");
+    renderDayDetail();
+  }
+
+  function renderDayDetail() {
+    const entry = entriesByDate.get(selectedDate);
+    const detail = document.getElementById("day-detail");
+    if (!entry) {
+      detail.innerHTML = "<h3>" + esc(formatDate(selectedDate)) + '</h3><p class="empty-state">这一天还没有每日记录。</p>';
       return;
     }
-    dreambook.innerHTML = chosen.map(({wish,index},position) => {
-      const imageUrl = safeImageUrl(wish.image);
-      const preview = imageUrl ? '<img src="'+esc(imageUrl)+'" alt="梦想手册图片预览">' : '梦想图片预览';
-      return '<article class="dream-card"><div class="dream-fields"><h3>梦想 '+(position+1)+' · '+esc(wish.text||"尚未命名")+'</h3><label>我为什么想实现它？<textarea data-wish="'+index+'" data-field="reason" rows="2" placeholder="写下这个愿望对你的意义">'+esc(wish.reason)+'</textarea></label><label>梦想图片地址<input data-wish="'+index+'" data-field="image" type="url" placeholder="图片加入网站后可填写图片路径" value="'+esc(wish.image)+'"></label><div class="form-grid"><label>目标金额<input data-wish="'+index+'" data-field="amount" type="number" min="0" step="0.01" placeholder="可选" value="'+esc(wish.amount)+'"></label><label>当前储蓄<input data-wish="'+index+'" data-field="saved" type="number" min="0" step="0.01" placeholder="可选" value="'+esc(wish.saved)+'"></label></div></div><div class="dream-preview">'+preview+'</div></article>';
+    const wins = successesOf(entry);
+    const parts = ['<h3>' + esc(formatDate(selectedDate)) + " · 做成了 " + wins.length + " 件事</h3>"];
+    if (wins.length) parts.push('<ol class="successes-list">' + wins.map(item => "<li>" + esc(item) + "</li>").join("") + "</ol>");
+    else parts.push('<p class="empty-value">这一天没有填写成功日记。</p>');
+    if (entry.action) parts.push('<p><span class="detail-label">愿望行动：</span>' + esc(entry.action) + "</p>");
+    if (entry.gooseSaved || entry.dreamSaved) parts.push('<p><span class="detail-label">储蓄记录：</span>' + (entry.gooseSaved ? "金鹅 " + esc(money(entry.gooseSaved)) : "") + (entry.gooseSaved && entry.dreamSaved ? " · " : "") + (entry.dreamSaved ? "梦想罐 " + esc(money(entry.dreamSaved)) : "") + "</p>");
+    if (entry.note) parts.push('<p><span class="detail-label">备注：</span>' + esc(entry.note) + "</p>");
+    detail.innerHTML = parts.join("");
+  }
+
+  function renderStats() {
+    const entries = [...entriesByDate.entries()].sort((a, b) => b[0].localeCompare(a[0]));
+    const totalSuccesses = entries.reduce((sum, [, entry]) => sum + successesOf(entry).length, 0);
+    const totalDays = entries.length;
+    const average = totalDays ? (totalSuccesses / totalDays).toFixed(1) : "0";
+    document.getElementById("stats-summary").innerHTML =
+      '<article class="stat-card"><span>有记录的天数</span><strong>' + totalDays + '</strong></article>' +
+      '<article class="stat-card"><span>完成事项总数</span><strong>' + totalSuccesses + '</strong></article>' +
+      '<article class="stat-card"><span>每日平均完成</span><strong>' + average + "</strong></article>";
+    const list = document.getElementById("stats-list");
+    if (!entries.length) {
+      list.innerHTML = '<p class="empty-state">还没有每日记录。之后每次添加记录，这里会汇总完成的事项和总数。</p>';
+      return;
+    }
+    list.innerHTML = entries.map(([date, entry]) => {
+      const wins = successesOf(entry);
+      return '<article class="stats-day"><h3>' + esc(formatDate(date)) + " · " + wins.length + " 件</h3>" +
+        (wins.length ? '<ol>' + wins.map(item => "<li>" + esc(item) + "</li>").join("") + "</ol>" : '<p class="empty-value">没有填写成功日记。</p>') + "</article>";
     }).join("");
   }
-  function renderGoose() {
-    document.querySelectorAll("[data-goose]").forEach(input=>{input.value=state.goose[input.dataset.goose]??"";});
-    const target=Number(state.goose.target)||0;
-    const dailySaved=Object.values(state.journals).reduce((sum,item)=>sum+(Number(item.goose)||0),0);
-    const saved=(Number(state.goose.saved)||0)+dailySaved;
-    const percent=target>0?Math.min(100,Math.max(0,saved/target*100)):0;
-    document.getElementById("goose-progress").style.width=percent+"%";
-    document.getElementById("goose-progress-label").textContent=target>0?"已积累 "+saved.toLocaleString("zh-CN")+" / "+target.toLocaleString("zh-CN")+"（"+Math.round(percent)+"%）":"填写目标和当前金额后查看进度。";
+
+  function selectDate(date) {
+    selectedDate = date;
+    const [year, month] = date.split("-").map(Number);
+    shownYear = year;
+    shownMonth = month - 1;
+    renderCalendar();
   }
-  function renderReview() {
-    document.getElementById("review-date").value=state.review.date||"";
-    document.getElementById("weekly-review").value=state.review.text||"";
-  }
-  function getSuccesses(item) {
-    const legacy = typeof item.success === "string" ? item.success.split("\\n").filter(Boolean) : [];
-    const successes = Array.isArray(item.successes) ? item.successes : legacy;
-    return Array.from({length:5},(_,index)=>String(successes[index]||""));
-  }
-  function renderJournals() {
-    const entries=Object.entries(state.journals).sort((a,b)=>b[0].localeCompare(a[0]));
-    journalList.innerHTML=entries.length?entries.map(([date,item])=>{
-      const successes=getSuccesses(item).filter(value=>value.trim());
-      const successMarkup=successes.length?'<div class="journal-successes"><strong>今天做成的事：</strong><ol>'+successes.map(value=>'<li>'+esc(value)+'</li>').join("")+'</ol></div>':'';
-      return '<article class="journal-entry"><time>'+esc(date)+'</time>'+(item.action?'<p><strong>愿望行动：</strong>'+esc(item.action)+'</p>':'')+successMarkup+((item.goose||item.dream)?'<p><strong>存入：</strong>金鹅 '+esc(item.goose||"0")+' · 梦想罐 '+esc(item.dream||"0")+'</p>':'')+(item.note?'<p>'+esc(item.note)+'</p>':'')+'<button type="button" data-delete-day="'+esc(date)+'">删除这条记录</button></article>';
-    }).join(""):'<p class="empty-state">还没有每日记录。</p>';
-  }
-  function fillDaily(date) {
-    const item=state.journals[date]||{};
-    document.getElementById("daily-date").value=date;
-    document.getElementById("daily-action").value=item.action||"";
-    getSuccesses(item).forEach((value,index)=>{document.getElementById("daily-success-"+(index+1)).value=value;});
-    document.getElementById("daily-goose").value=item.goose||"";
-    document.getElementById("daily-dream").value=item.dream||"";
-    document.getElementById("daily-note").value=item.note||"";
-  }
-  load();
-  renderWishes();
-  renderGoose();
-  renderReview();
-  renderJournals();
-  fillDaily(today());
-  wishList.addEventListener("change",event=>{
-    const el=event.target;
-    if(!el.matches("[data-wish]")) return;
-    const index=Number(el.dataset.wish),field=el.dataset.field;
-    if(field==="selected"&&el.checked&&state.wishes.filter(w=>w.selected).length>=3){el.checked=false;status.textContent="最多选择三个愿望。";return;}
-    state.wishes[index][field]=field==="selected"?el.checked:el.value;
-    if(field==="selected") {
-      state.wishes[index].priority=el.checked
-        ? Math.max(0,...state.wishes.filter(wish=>wish.selected&&wish.priority).map(wish=>wish.priority))+1
-        : 0;
-    }
-    save();
-    if(field==="selected")renderWishes();
-  });
-  dreambook.addEventListener("input",event=>{
-    const el=event.target;
-    if(!el.matches("[data-wish]"))return;
-    state.wishes[Number(el.dataset.wish)][el.dataset.field]=el.value;
-    save();
-    if(el.dataset.field==="image") {
-      const preview=el.closest(".dream-card")?.querySelector(".dream-preview");
-      const imageUrl=safeImageUrl(el.value);
-      if(preview)preview.innerHTML=imageUrl?'<img src="'+esc(imageUrl)+'" alt="梦想手册图片预览">':"梦想图片预览";
-    }
-  });
-  document.querySelectorAll("[data-goose]").forEach(input=>input.addEventListener("input",()=>{
-    state.goose[input.dataset.goose]=input.value;save();renderGoose();
-  }));
-  document.getElementById("daily-date").addEventListener("change",event=>fillDaily(event.target.value||today()));
-  document.getElementById("daily-form").addEventListener("input",()=>{
-    const date=document.getElementById("daily-date").value||today();
-    const item={
-      action:document.getElementById("daily-action").value,
-      successes:Array.from({length:5},(_,index)=>document.getElementById("daily-success-"+(index+1)).value),
-      goose:document.getElementById("daily-goose").value,
-      dream:document.getElementById("daily-dream").value,
-      note:document.getElementById("daily-note").value
+
+  function setupTabs() {
+    const calendarTab = document.getElementById("calendar-tab");
+    const statsTab = document.getElementById("stats-tab");
+    const calendarView = document.getElementById("calendar-view");
+    const statsView = document.getElementById("stats-view");
+    const setView = showStats => {
+      calendarTab.classList.toggle("is-active", !showStats);
+      statsTab.classList.toggle("is-active", showStats);
+      calendarTab.setAttribute("aria-selected", String(!showStats));
+      statsTab.setAttribute("aria-selected", String(showStats));
+      calendarView.hidden = showStats;
+      statsView.hidden = !showStats;
     };
-    const hasContent=item.action.trim()||item.successes.some(value=>value.trim())||item.goose.trim()||item.dream.trim()||item.note.trim();
-    if(hasContent)state.journals[date]=item;
-    else delete state.journals[date];
-    save();renderJournals();renderGoose();
-  });
-  document.getElementById("daily-form").addEventListener("submit",event=>{
-    event.preventDefault();
-    document.getElementById("daily-hint").textContent="当天内容已保存。";
-    fillDaily(document.getElementById("daily-date").value||today());
-  });
-  journalList.addEventListener("click",event=>{
-    const button=event.target.closest("[data-delete-day]");
-    if(!button)return;
-    delete state.journals[button.dataset.deleteDay];save();renderJournals();
-    if(button.dataset.deleteDay===document.getElementById("daily-date").value)fillDaily(today());
-  });
-  document.getElementById("weekly-review").addEventListener("input",event=>{state.review.text=event.target.value;save();});
-  document.getElementById("review-date").addEventListener("change",event=>{state.review.date=event.target.value;save();});
-  document.getElementById("export-plan").addEventListener("click",()=>{
-    const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
-    const url=URL.createObjectURL(blob),anchor=document.createElement("a");
-    anchor.href=url;anchor.download="money-plan-backup-"+today()+".json";anchor.click();URL.revokeObjectURL(url);
-  });
-  document.getElementById("import-plan").addEventListener("change",async event=>{
-    const file=event.target.files?.[0];if(!file)return;
-    try{
-      const imported=JSON.parse(await file.text());
-      if(!Array.isArray(imported.wishes)||imported.wishes.length!==10||(!imported.journals||typeof imported.journals!=="object"||Array.isArray(imported.journals)))throw new Error("格式不符");
-      if(!window.confirm("导入会替换当前浏览器中的计划内容。确定继续吗？"))return;
-      state={...freshState(),...imported,wishes:imported.wishes.map(w=>({...emptyWish(),...w})),goose:{...freshState().goose,...(imported.goose||{})}};
-      renderWishes();renderGoose();renderReview();renderJournals();fillDaily(today());save();
-    }catch{status.textContent="无法读取此备份文件，请选择本页面导出的 JSON。";}
-    finally{event.target.value="";}
-  });
-  document.getElementById("reset-plan").addEventListener("click",()=>{
-    if(!window.confirm("这会清空当前浏览器保存的愿望、计划和每日记录，且无法恢复。请先导出备份。确定清空吗？"))return;
-    state=freshState();localStorage.removeItem(storageKey);renderWishes();renderGoose();renderReview();renderJournals();fillDaily(today());save();
-  });
+    calendarTab.addEventListener("click", () => setView(false));
+    statsTab.addEventListener("click", () => setView(true));
+  }
+
+  async function initialize() {
+    const response = await fetch("assets/money-plan-data.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Data request failed: " + response.status);
+    planData = await response.json();
+    if (!Array.isArray(planData.entries)) planData.entries = [];
+    entriesByDate = new Map(planData.entries.filter(entry => /^\d{4}-\d{2}-\d{2}$/.test(entry.date || "")).map(entry => [entry.date, entry]));
+    const current = today();
+    const latest = [...entriesByDate.keys()].sort().at(-1);
+    selectedDate = entriesByDate.has(current) ? current : (latest || current);
+    const [year, month] = selectedDate.split("-").map(Number);
+    shownYear = year;
+    shownMonth = month - 1;
+
+    renderWishes();
+    renderDreambook();
+    renderGoose();
+    renderCalendar();
+    renderStats();
+    setupTabs();
+    document.getElementById("previous-month").addEventListener("click", () => {
+      shownMonth--;
+      if (shownMonth < 0) { shownMonth = 11; shownYear--; }
+      renderCalendar();
+    });
+    document.getElementById("next-month").addEventListener("click", () => {
+      shownMonth++;
+      if (shownMonth > 11) { shownMonth = 0; shownYear++; }
+      renderCalendar();
+    });
+    document.getElementById("calendar-days").addEventListener("click", event => {
+      const button = event.target.closest("[data-date]");
+      if (button) selectDate(button.dataset.date);
+    });
+  }
+
+  if (sessionStorage.getItem(UNLOCK_KEY) === "1") unlock();
 })();

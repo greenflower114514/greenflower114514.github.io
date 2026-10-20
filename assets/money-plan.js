@@ -74,15 +74,24 @@
     document.getElementById("review-date").value=state.review.date||"";
     document.getElementById("weekly-review").value=state.review.text||"";
   }
+  function getSuccesses(item) {
+    const legacy = typeof item.success === "string" ? item.success.split("\\n").filter(Boolean) : [];
+    const successes = Array.isArray(item.successes) ? item.successes : legacy;
+    return Array.from({length:5},(_,index)=>String(successes[index]||""));
+  }
   function renderJournals() {
     const entries=Object.entries(state.journals).sort((a,b)=>b[0].localeCompare(a[0]));
-    journalList.innerHTML=entries.length?entries.map(([date,item])=>'<article class="journal-entry"><time>'+esc(date)+'</time>'+(item.action?'<p><strong>行动：</strong>'+esc(item.action)+'</p>':'')+(item.success?'<p><strong>成功日记：</strong>'+esc(item.success)+'</p>':'')+((item.goose||item.dream)?'<p><strong>存入：</strong>金鹅 '+esc(item.goose||"0")+' · 梦想罐 '+esc(item.dream||"0")+'</p>':'')+(item.note?'<p>'+esc(item.note)+'</p>':'')+'<button type="button" data-delete-day="'+esc(date)+'">删除这条记录</button></article>').join(""):'<p class="empty-state">还没有每日记录。</p>';
+    journalList.innerHTML=entries.length?entries.map(([date,item])=>{
+      const successes=getSuccesses(item).filter(value=>value.trim());
+      const successMarkup=successes.length?'<div class="journal-successes"><strong>今天做成的事：</strong><ol>'+successes.map(value=>'<li>'+esc(value)+'</li>').join("")+'</ol></div>':'';
+      return '<article class="journal-entry"><time>'+esc(date)+'</time>'+(item.action?'<p><strong>愿望行动：</strong>'+esc(item.action)+'</p>':'')+successMarkup+((item.goose||item.dream)?'<p><strong>存入：</strong>金鹅 '+esc(item.goose||"0")+' · 梦想罐 '+esc(item.dream||"0")+'</p>':'')+(item.note?'<p>'+esc(item.note)+'</p>':'')+'<button type="button" data-delete-day="'+esc(date)+'">删除这条记录</button></article>';
+    }).join(""):'<p class="empty-state">还没有每日记录。</p>';
   }
   function fillDaily(date) {
     const item=state.journals[date]||{};
     document.getElementById("daily-date").value=date;
     document.getElementById("daily-action").value=item.action||"";
-    document.getElementById("daily-success").value=item.success||"";
+    getSuccesses(item).forEach((value,index)=>{document.getElementById("daily-success-"+(index+1)).value=value;});
     document.getElementById("daily-goose").value=item.goose||"";
     document.getElementById("daily-dream").value=item.dream||"";
     document.getElementById("daily-note").value=item.note||"";
@@ -121,12 +130,13 @@
     const date=document.getElementById("daily-date").value||today();
     const item={
       action:document.getElementById("daily-action").value,
-      success:document.getElementById("daily-success").value,
+      successes:Array.from({length:5},(_,index)=>document.getElementById("daily-success-"+(index+1)).value),
       goose:document.getElementById("daily-goose").value,
       dream:document.getElementById("daily-dream").value,
       note:document.getElementById("daily-note").value
     };
-    if(Object.values(item).some(value=>value.trim()))state.journals[date]=item;
+    const hasContent=item.action.trim()||item.successes.some(value=>value.trim())||item.goose.trim()||item.dream.trim()||item.note.trim();
+    if(hasContent)state.journals[date]=item;
     else delete state.journals[date];
     save();renderJournals();renderGoose();
   });

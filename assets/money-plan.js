@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const PASSCODE_SALT = "8c8733e22f8b4b5806a438bc2ba1bb50";
-  const PASSCODE_HASH = "d55fa3f1ba1745cc1eff4b4b2a6d486156e2a03c5eb52bcf6d505aa89875a55d";
+  const PASSCODE_SALT = "25a32ced8eefdb76437b71935174e706";
+  const PASSCODE_HASH = "82e6168f90881f0c76a66650801d6ca4eef16a178bb43049486c44622bd85712";
   const PASSCODE_ITERATIONS = 200000;
   const UNLOCK_KEY = "money-plan-unlocked";
   const gate = document.getElementById("access-gate");

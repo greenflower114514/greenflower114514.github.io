@@ -1,18 +1,18 @@
 (() => {
   const storageKey = "money-plan-v1";
   const wishSeed = [
-    {text:"开面包店",selected:false},
-    {text:"出国旅游",selected:true},
+    {text:"开面包店",selected:true,priority:2},
+    {text:"出国旅游",selected:true,priority:1},
     {text:"吃美食",selected:false},
     {text:"买电子设备",selected:false},
     {text:"收集餐具",selected:false},
     {text:"买新衣服",selected:false},
-    {text:"换大公寓",selected:true},
+    {text:"换大公寓",selected:true,priority:3},
     {text:"出国留学",selected:false},
     {text:"换高配置电脑",selected:false},
     {text:"买许多家具",selected:false}
   ];
-  const emptyWish = () => ({ text:"", reason:"", amount:"", image:"", selected:false, saved:"" });
+  const emptyWish = () => ({ text:"", reason:"", amount:"", image:"", selected:false, priority:0, saved:"" });
   const freshState = () => ({
     wishes:wishSeed.map(wish=>({...emptyWish(),...wish})),
     wishDefaultsVersion:1,
@@ -52,6 +52,7 @@
           state.wishes.forEach((wish,index)=>{
             wish.text=wishSeed[index].text;
             wish.selected=wishSeed[index].selected;
+            wish.priority=wishSeed[index].priority||0;
           });
           state.wishDefaultsVersion=1;
           save();
@@ -71,7 +72,8 @@
     renderDreambook();
   }
   function renderDreambook() {
-    const chosen = state.wishes.map((wish,index)=>({wish,index})).filter(item=>item.wish.selected);
+    const chosen = state.wishes.map((wish,index)=>({wish,index})).filter(item=>item.wish.selected)
+      .sort((left,right)=>(left.wish.priority||999)-(right.wish.priority||999)||left.index-right.index);
     if (!chosen.length) {
       dreambook.innerHTML = '<div class="empty-state">先在上方选出最多三个愿望，它们会出现在这里。</div>';
       return;
@@ -129,6 +131,11 @@
     const index=Number(el.dataset.wish),field=el.dataset.field;
     if(field==="selected"&&el.checked&&state.wishes.filter(w=>w.selected).length>=3){el.checked=false;status.textContent="最多选择三个愿望。";return;}
     state.wishes[index][field]=field==="selected"?el.checked:el.value;
+    if(field==="selected") {
+      state.wishes[index].priority=el.checked
+        ? Math.max(0,...state.wishes.filter(wish=>wish.selected&&wish.priority).map(wish=>wish.priority))+1
+        : 0;
+    }
     save();
     if(field==="selected")renderWishes();
   });

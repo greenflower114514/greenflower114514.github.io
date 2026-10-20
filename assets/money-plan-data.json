@@ -1,0 +1,73 @@
+{
+  "wishes": [
+    {
+      "title": "开面包店",
+      "selected": false
+    },
+    {
+      "title": "出国旅游",
+      "selected": true
+    },
+    {
+      "title": "吃美食",
+      "selected": false
+    },
+    {
+      "title": "买电子设备",
+      "selected": false
+    },
+    {
+      "title": "收集餐具",
+      "selected": false
+    },
+    {
+      "title": "买新衣服",
+      "selected": false
+    },
+    {
+      "title": "换大公寓",
+      "selected": true
+    },
+    {
+      "title": "出国留学",
+      "selected": false
+    },
+    {
+      "title": "换高配置电脑",
+      "selected": false
+    },
+    {
+      "title": "买许多家具",
+      "selected": false
+    }
+  ],
+  "dreams": [
+    {
+      "title": "出国旅游",
+      "image": "",
+      "reason": "",
+      "targetAmount": "",
+      "savedAmount": ""
+    },
+    {
+      "title": "开面包店",
+      "image": "",
+      "reason": "",
+      "targetAmount": "",
+      "savedAmount": ""
+    },
+    {
+      "title": "换大公寓",
+      "image": "",
+      "reason": "",
+      "targetAmount": "",
+      "savedAmount": ""
+    }
+  ],
+  "goose": {
+    "targetAmount": "",
+    "savedAmount": "",
+    "rule": ""
+  },
+  "entries": []
+}

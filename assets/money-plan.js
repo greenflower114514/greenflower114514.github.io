@@ -63,7 +63,9 @@
   }
   function renderGoose() {
     document.querySelectorAll("[data-goose]").forEach(input=>{input.value=state.goose[input.dataset.goose]??"";});
-    const target=Number(state.goose.target)||0, saved=Number(state.goose.saved)||0;
+    const target=Number(state.goose.target)||0;
+    const dailySaved=Object.values(state.journals).reduce((sum,item)=>sum+(Number(item.goose)||0),0);
+    const saved=(Number(state.goose.saved)||0)+dailySaved;
     const percent=target>0?Math.min(100,Math.max(0,saved/target*100)):0;
     document.getElementById("goose-progress").style.width=percent+"%";
     document.getElementById("goose-progress-label").textContent=target>0?"已积累 "+saved.toLocaleString("zh-CN")+" / "+target.toLocaleString("zh-CN")+"（"+Math.round(percent)+"%）":"填写目标和当前金额后查看进度。";
@@ -126,7 +128,7 @@
     };
     if(Object.values(item).some(value=>value.trim()))state.journals[date]=item;
     else delete state.journals[date];
-    save();renderJournals();
+    save();renderJournals();renderGoose();
   });
   document.getElementById("daily-form").addEventListener("submit",event=>{
     event.preventDefault();

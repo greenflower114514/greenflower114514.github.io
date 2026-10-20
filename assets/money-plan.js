@@ -1,8 +1,21 @@
 (() => {
   const storageKey = "money-plan-v1";
+  const wishSeed = [
+    {text:"开面包店",selected:false},
+    {text:"出国旅游",selected:true},
+    {text:"吃美食",selected:false},
+    {text:"买电子设备",selected:false},
+    {text:"收集餐具",selected:false},
+    {text:"买新衣服",selected:false},
+    {text:"换大公寓",selected:true},
+    {text:"出国留学",selected:false},
+    {text:"换高配置电脑",selected:false},
+    {text:"买许多家具",selected:false}
+  ];
   const emptyWish = () => ({ text:"", reason:"", amount:"", image:"", selected:false, saved:"" });
   const freshState = () => ({
-    wishes:Array.from({length:10}, emptyWish),
+    wishes:wishSeed.map(wish=>({...emptyWish(),...wish})),
+    wishDefaultsVersion:1,
     goose:{target:"",saved:"",rule:""},
     journals:{},
     review:{date:"",text:""}
@@ -35,6 +48,14 @@
       if (saved && typeof saved === "object") {
         state = {...freshState(), ...saved};
         state.wishes = Array.from({length:10},(_,i)=>({...emptyWish(),...(saved.wishes?.[i]||{})}));
+        if (Number(saved.wishDefaultsVersion||0) < 1) {
+          state.wishes.forEach((wish,index)=>{
+            wish.text=wishSeed[index].text;
+            wish.selected=wishSeed[index].selected;
+          });
+          state.wishDefaultsVersion=1;
+          save();
+        }
         state.goose = {...freshState().goose,...(saved.goose||{})};
         state.journals = saved.journals && typeof saved.journals==="object" ? saved.journals : {};
         state.review = {...freshState().review,...(saved.review||{})};

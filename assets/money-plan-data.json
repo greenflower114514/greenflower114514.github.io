@@ -1,11 +1,11 @@
 {
   "wishes": [
     {
-      "title": "开面包店",
-      "selected": false
+      "title": "出国旅游",
+      "selected": true
     },
     {
-      "title": "出国旅游",
+      "title": "开面包店",
       "selected": true
     },
     {

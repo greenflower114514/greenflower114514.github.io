@@ -57,12 +57,20 @@ permalink: /money-plan.html
 
     <section class="plan-section" aria-labelledby="daily-heading">
       <div class="section-heading"><span>04 / DAILY JOURNAL</span><h2 id="daily-heading">每日记录</h2>
-        <p>每天花几分钟记录实际行动、成功和金钱去向。小事也可以记，重点是留下真实的进展。</p>
+        <p>成功日记单独记录今天做成的五件事，不用和十个愿望挂钩。为愿望采取的行动、储蓄记录分别填写。</p>
       </div>
       <form id="daily-form" class="daily-form">
         <label>日期<input id="daily-date" type="date" required></label>
-        <label class="span-all">今天为愿望做的一小步<textarea id="daily-action" rows="2" placeholder="今天做了什么？没有行动也可以写下下一步。"></textarea></label>
-        <label class="span-all">今天的成功日记<textarea id="daily-success" rows="3" placeholder="记下今天做成或处理得不错的事。"></textarea></label>
+        <label class="span-all">今天为某个愿望采取的一步（可选）<textarea id="daily-action" rows="2" placeholder="这是愿望行动记录，与下面的五件成功分开。"></textarea></label>
+        <fieldset class="success-list-input span-all">
+          <legend>成功日记 · 今天做成的五件事</legend>
+          <p>写下今天五件具体做成的事，可以很小；不要求它们和愿望有关。</p>
+          <label>1<input id="daily-success-1" type="text" maxlength="240" placeholder="今天我做成了……"></label>
+          <label>2<input id="daily-success-2" type="text" maxlength="240" placeholder="今天我做成了……"></label>
+          <label>3<input id="daily-success-3" type="text" maxlength="240" placeholder="今天我做成了……"></label>
+          <label>4<input id="daily-success-4" type="text" maxlength="240" placeholder="今天我做成了……"></label>
+          <label>5<input id="daily-success-5" type="text" maxlength="240" placeholder="今天我做成了……"></label>
+        </fieldset>
         <div class="form-grid">
           <label>今天存入金鹅<input id="daily-goose" type="number" min="0" step="0.01" placeholder="可留空"></label>
           <label>今天存入梦想罐<input id="daily-dream" type="number" min="0" step="0.01" placeholder="可留空"></label>

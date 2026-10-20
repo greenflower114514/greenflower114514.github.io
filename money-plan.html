@@ -1,0 +1,96 @@
+---
+layout: home
+title: 小狗钱钱计划
+permalink: /money-plan.html
+---
+
+<link rel="stylesheet" href="assets/nav-shell.css">
+<link rel="stylesheet" href="assets/pet-cat.css">
+<link rel="stylesheet" href="assets/music-player.css">
+<link rel="stylesheet" href="assets/money-plan.css">
+
+<main class="money-page">
+  <header class="money-hero">
+    <a class="money-home" href="index.html">← 返回主页</a>
+    <p class="eyebrow">A DOG NAMED MONEY / PERSONAL PLAN</p>
+    <h1>小狗钱钱计划</h1>
+    <p class="money-lead">把愿望写下来，让梦想看得见；照顾好自己的金鹅，再用每天的小记录积累信心。</p>
+    <p class="privacy-note">本页内容自动保存在当前浏览器中，不会自动上传到网站。请定期导出备份；换设备时可导入备份文件。</p>
+    <div class="toolbar">
+      <span id="save-status" role="status">正在读取本地计划…</span>
+      <button id="export-plan" class="button button--subtle" type="button">导出备份</button>
+      <label class="button button--subtle import-button">导入备份<input id="import-plan" type="file" accept="application/json,.json"></label>
+      <button id="reset-plan" class="button button--danger" type="button">清空本机记录</button>
+    </div>
+  </header>
+
+  <div class="money-layout">
+    <section class="plan-section" aria-labelledby="wishes-heading">
+      <div class="section-heading"><span>01 / WISH LIST</span><h2 id="wishes-heading">十个愿望</h2>
+        <p>先不判断能否实现，把希望通过财富实现的愿望写下来。再从中选出最重要的三个。</p>
+      </div>
+      <div class="wish-progress"><strong id="wish-count">已填写 0 / 10</strong><span id="dream-count">已选 0 / 3 个梦想</span></div>
+      <div id="wish-list" class="wish-list"></div>
+    </section>
+
+    <section class="plan-section" aria-labelledby="dreambook-heading">
+      <div class="section-heading"><span>02 / DREAM ALBUM</span><h2 id="dreambook-heading">梦想手册与梦想储蓄罐</h2>
+        <p>为选出的三个愿望补上图片、理由和大致金额；记录各自已经存下的进度。</p>
+      </div>
+      <div id="dreambook" class="dreambook">
+        <div class="empty-state">先在上方选出最多三个愿望，它们会出现在这里。</div>
+      </div>
+    </section>
+
+    <section class="plan-section" aria-labelledby="goose-heading">
+      <div class="section-heading"><span>03 / GOLDEN GOOSE</span><h2 id="goose-heading">养一只金鹅</h2>
+        <p>记录用于长期积累的本金目标与进度。书中的分配方式是故事里的示例；这里由你按自己的收支情况填写，不预设比例或投资方式。</p>
+      </div>
+      <div class="form-grid">
+        <label>金鹅目标金额<input data-goose="target" type="number" min="0" step="0.01" placeholder="例如：计划积累的本金"></label>
+        <label>当前累计金额<input data-goose="saved" type="number" min="0" step="0.01" placeholder="已为金鹅存下多少"></label>
+        <label class="span-all">我的金鹅规则<textarea data-goose="rule" rows="3" placeholder="例如：每次收入到账后，先按自己设定的额度转入长期储蓄；需要时再定期复核。"></textarea></label>
+      </div>
+      <div class="progress-track" aria-label="金鹅储蓄进度"><span id="goose-progress"></span></div>
+      <p id="goose-progress-label" class="progress-label">填写目标和当前金额后查看进度。</p>
+    </section>
+
+    <section class="plan-section" aria-labelledby="daily-heading">
+      <div class="section-heading"><span>04 / DAILY JOURNAL</span><h2 id="daily-heading">每日记录</h2>
+        <p>每天花几分钟记录实际行动、成功和金钱去向。小事也可以记，重点是留下真实的进展。</p>
+      </div>
+      <form id="daily-form" class="daily-form">
+        <label>日期<input id="daily-date" type="date" required></label>
+        <label class="span-all">今天为愿望做的一小步<textarea id="daily-action" rows="2" placeholder="今天做了什么？没有行动也可以写下下一步。"></textarea></label>
+        <label class="span-all">今天的成功日记<textarea id="daily-success" rows="3" placeholder="记下今天做成或处理得不错的事。"></textarea></label>
+        <div class="form-grid">
+          <label>今天存入金鹅<input id="daily-goose" type="number" min="0" step="0.01" placeholder="可留空"></label>
+          <label>今天存入梦想罐<input id="daily-dream" type="number" min="0" step="0.01" placeholder="可留空"></label>
+        </div>
+        <label class="span-all">备注<textarea id="daily-note" rows="2" placeholder="观察、调整或想记住的事。"></textarea></label>
+        <div class="daily-actions"><button class="button" type="submit">保存当天记录</button><span id="daily-hint" role="status"></span></div>
+      </form>
+      <div class="journal-history">
+        <h3>过往记录</h3>
+        <div id="journal-list" class="journal-list"><p class="empty-state">还没有每日记录。</p></div>
+      </div>
+    </section>
+
+    <section class="plan-section" aria-labelledby="review-heading">
+      <div class="section-heading"><span>05 / WEEKLY REVIEW</span><h2 id="review-heading">每周回看</h2>
+        <p>一周一次，看看愿望是否仍然重要、储蓄是否按自己的能力推进、哪些行动值得继续。</p>
+      </div>
+      <label>本周回顾<textarea id="weekly-review" rows="5" placeholder="本周我完成了什么？有什么让我更接近愿望？下周最小的一步是什么？"></textarea></label>
+      <label class="review-date">回顾日期<input id="review-date" type="date"></label>
+    </section>
+
+    <footer class="money-footer">
+      <p>目标可以调整，记录可以补充。这里是帮助自己持续行动的工具，不是要求每天完美完成的清单。</p>
+      <a href="thinking.html">去 Thinking 记录今天的思考 →</a>
+    </footer>
+  </div>
+</main>
+<script src="assets/money-plan.js"></script>
+<script src="assets/nav-shell.js"></script>
+<script src="assets/music-player.js"></script>
+<script src="assets/pet-cat.js"></script>

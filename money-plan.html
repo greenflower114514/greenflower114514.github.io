@@ -9,87 +9,77 @@ permalink: /money-plan.html
 <link rel="stylesheet" href="assets/music-player.css">
 <link rel="stylesheet" href="assets/money-plan.css">
 
-<main class="money-page">
+<div id="access-gate" class="access-gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <form id="access-form" class="access-card">
+    <p class="eyebrow">A DOG NAMED MONEY / PERSONAL PLAN</p>
+    <h1 id="gate-title">小狗钱钱计划</h1>
+    <p>输入页面口令，查看愿望清单、每日记录和计划统计。</p>
+    <label for="access-password">页面口令</label>
+    <input id="access-password" type="password" autocomplete="current-password" required>
+    <button class="button" type="submit">进入计划</button>
+    <p id="access-message" class="access-message" role="status"></p>
+    <a class="money-home" href="index.html">← 返回主页</a>
+  </form>
+</div>
+
+<main id="money-content" class="money-page" hidden>
   <header class="money-hero">
     <a class="money-home" href="index.html">← 返回主页</a>
+    <button id="lock-page" class="button button--subtle lock-button" type="button">锁定页面</button>
     <p class="eyebrow">A DOG NAMED MONEY / PERSONAL PLAN</p>
     <h1>小狗钱钱计划</h1>
     <p class="money-lead">把愿望写下来，让梦想看得见；照顾好自己的金鹅，再用每天的小记录积累信心。</p>
-    <p class="privacy-note">预设的十个愿望名称会显示在网站页面。你填写的理由、金额和每日记录只保存在当前浏览器，不会自动上传；请定期导出备份，换设备时可导入。</p>
-    <div class="toolbar">
-      <span id="save-status" role="status">正在读取本地计划…</span>
-      <button id="export-plan" class="button button--subtle" type="button">导出备份</button>
-      <label class="button button--subtle import-button">导入备份<input id="import-plan" type="file" accept="application/json,.json"></label>
-      <button id="reset-plan" class="button button--danger" type="button">清空本机记录</button>
-    </div>
+    <p class="privacy-note">本页使用前端口令遮挡页面，适合日常防止误打开。网页内容仍可通过源码访问，请勿放入需要保密的信息。</p>
   </header>
 
   <div class="money-layout">
     <section class="plan-section" aria-labelledby="wishes-heading">
       <div class="section-heading"><span>01 / WISH LIST</span><h2 id="wishes-heading">十个愿望</h2>
-        <p>先不判断能否实现，把希望通过财富实现的愿望写下来。再从中选出最重要的三个。</p>
+        <p>这是固定清单。三个重要愿望已标出，后续可按你的想法更新网站内容。</p>
       </div>
-      <div class="wish-progress"><strong id="wish-count">已填写 0 / 10</strong><span id="dream-count">已选 0 / 3 个梦想</span></div>
-      <div id="wish-list" class="wish-list"></div>
+      <ol id="wish-list" class="wish-list"></ol>
     </section>
 
     <section class="plan-section" aria-labelledby="dreambook-heading">
       <div class="section-heading"><span>02 / DREAM ALBUM</span><h2 id="dreambook-heading">梦想手册与梦想储蓄罐</h2>
-        <p>为选出的三个愿望补上图片、理由和大致金额；记录各自已经存下的进度。</p>
+        <p>为选出的三个愿望收集图片、写下理由，并记录大致目标金额与储蓄进度。尚未填写的部分先留空。</p>
       </div>
-      <div id="dreambook" class="dreambook">
-        <div class="empty-state">先在上方选出最多三个愿望，它们会出现在这里。</div>
-      </div>
+      <div id="dreambook" class="dreambook"></div>
     </section>
 
     <section class="plan-section" aria-labelledby="goose-heading">
       <div class="section-heading"><span>03 / GOLDEN GOOSE</span><h2 id="goose-heading">养一只金鹅</h2>
-        <p>记录用于长期积累的本金目标与进度。书中的分配方式是故事里的示例；这里由你按自己的收支情况填写，不预设比例或投资方式。</p>
+        <p>记录长期积累的目标、当前金额和自己的储蓄规则。金额与规则留空时不会显示预设内容。</p>
       </div>
-      <div class="form-grid">
-        <label>金鹅目标金额<input data-goose="target" type="number" min="0" step="0.01" placeholder="例如：计划积累的本金"></label>
-        <label>已有金鹅积累（不含每日记录）<input data-goose="saved" type="number" min="0" step="0.01" placeholder="已为金鹅存下多少"></label>
-        <label class="span-all">我的金鹅规则<textarea data-goose="rule" rows="3" placeholder="例如：每次收入到账后，先按自己设定的额度转入长期储蓄；需要时再定期复核。"></textarea></label>
-      </div>
-      <div class="progress-track" aria-label="金鹅储蓄进度"><span id="goose-progress"></span></div>
-      <p id="goose-progress-label" class="progress-label">填写目标和当前金额后查看进度。</p>
+      <div id="goose-summary" class="goose-summary"></div>
     </section>
 
     <section class="plan-section" aria-labelledby="daily-heading">
-      <div class="section-heading"><span>04 / DAILY JOURNAL</span><h2 id="daily-heading">每日记录</h2>
-        <p>成功日记单独记录今天做成的五件事，不用和十个愿望挂钩。为愿望采取的行动、储蓄记录分别填写。</p>
+      <div class="section-heading"><span>04 / DAILY JOURNAL</span><h2 id="daily-heading">每日成功日记</h2>
+        <p>记录每天做成的五件事。选择日期查看当天内容，日历上会显示记录数量和一条简要内容。</p>
       </div>
-      <form id="daily-form" class="daily-form">
-        <label>日期<input id="daily-date" type="date" required></label>
-        <label class="span-all">今天为某个愿望采取的一步（可选）<textarea id="daily-action" rows="2" placeholder="这是愿望行动记录，与下面的五件成功分开。"></textarea></label>
-        <fieldset class="success-list-input span-all">
-          <legend>成功日记 · 今天做成的五件事</legend>
-          <p>写下今天五件具体做成的事，可以很小；不要求它们和愿望有关。</p>
-          <label>1<input id="daily-success-1" type="text" maxlength="240" placeholder="今天我做成了……"></label>
-          <label>2<input id="daily-success-2" type="text" maxlength="240" placeholder="今天我做成了……"></label>
-          <label>3<input id="daily-success-3" type="text" maxlength="240" placeholder="今天我做成了……"></label>
-          <label>4<input id="daily-success-4" type="text" maxlength="240" placeholder="今天我做成了……"></label>
-          <label>5<input id="daily-success-5" type="text" maxlength="240" placeholder="今天我做成了……"></label>
-        </fieldset>
-        <div class="form-grid">
-          <label>今天存入金鹅<input id="daily-goose" type="number" min="0" step="0.01" placeholder="可留空"></label>
-          <label>今天存入梦想罐<input id="daily-dream" type="number" min="0" step="0.01" placeholder="可留空"></label>
+      <div class="view-switch" role="tablist" aria-label="每日记录视图">
+        <button class="view-tab is-active" id="calendar-tab" type="button" role="tab" aria-selected="true" aria-controls="calendar-view">日历</button>
+        <button class="view-tab" id="stats-tab" type="button" role="tab" aria-selected="false" aria-controls="stats-view">统计</button>
+      </div>
+      <section id="calendar-view" class="journal-view" role="tabpanel" aria-labelledby="calendar-tab">
+        <div class="calendar-shell">
+          <div class="calendar-heading">
+            <button id="previous-month" class="calendar-arrow" type="button" aria-label="上一个月">‹</button>
+            <h3 id="calendar-month"></h3>
+            <button id="next-month" class="calendar-arrow" type="button" aria-label="下一个月">›</button>
+          </div>
+          <div class="calendar-grid calendar-weekdays" aria-hidden="true">
+            <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+          </div>
+          <div id="calendar-days" class="calendar-grid calendar-days"></div>
         </div>
-        <label class="span-all">备注<textarea id="daily-note" rows="2" placeholder="观察、调整或想记住的事。"></textarea></label>
-        <div class="daily-actions"><button class="button" type="submit">保存当天记录</button><span id="daily-hint" role="status"></span></div>
-      </form>
-      <div class="journal-history">
-        <h3>过往记录</h3>
-        <div id="journal-list" class="journal-list"><p class="empty-state">还没有每日记录。</p></div>
-      </div>
-    </section>
-
-    <section class="plan-section" aria-labelledby="review-heading">
-      <div class="section-heading"><span>05 / WEEKLY REVIEW</span><h2 id="review-heading">每周回看</h2>
-        <p>一周一次，看看愿望是否仍然重要、储蓄是否按自己的能力推进、哪些行动值得继续。</p>
-      </div>
-      <label>本周回顾<textarea id="weekly-review" rows="5" placeholder="本周我完成了什么？有什么让我更接近愿望？下周最小的一步是什么？"></textarea></label>
-      <label class="review-date">回顾日期<input id="review-date" type="date"></label>
+        <article id="day-detail" class="day-detail" aria-live="polite"></article>
+      </section>
+      <section id="stats-view" class="journal-view" role="tabpanel" aria-labelledby="stats-tab" hidden>
+        <div id="stats-summary" class="stats-summary"></div>
+        <div id="stats-list" class="stats-list"></div>
+      </section>
     </section>
 
     <footer class="money-footer">

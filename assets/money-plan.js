@@ -150,7 +150,7 @@
     const file=event.target.files?.[0];if(!file)return;
     try{
       const imported=JSON.parse(await file.text());
-      if(!Array.isArray(imported.wishes)||imported.wishes.length!==10||typeof imported.journals!=="object")throw new Error("格式不符");
+      if(!Array.isArray(imported.wishes)||imported.wishes.length!==10||(!imported.journals||typeof imported.journals!=="object"||Array.isArray(imported.journals)))throw new Error("格式不符");
       if(!window.confirm("导入会替换当前浏览器中的计划内容。确定继续吗？"))return;
       state={...freshState(),...imported,wishes:imported.wishes.map(w=>({...emptyWish(),...w})),goose:{...freshState().goose,...(imported.goose||{})}};
       renderWishes();renderGoose();renderReview();renderJournals();fillDaily(today());save();

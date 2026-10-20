@@ -41,6 +41,7 @@ input::placeholder,textarea::placeholder { color:rgba(255,255,255,.34); }
 .dream-card h3 { margin:0 0 14px; color:#f2d9b1; }
 .dream-fields { display:grid; gap:12px; }
 .dream-preview { min-height:150px; display:flex; align-items:center; justify-content:center; padding:12px; color:rgba(255,255,255,.34); text-align:center; font-size:.78rem; border:1px dashed rgba(255,255,255,.18); background:linear-gradient(145deg,rgba(216,186,141,.12),rgba(255,255,255,.025)); background-position:center; background-size:cover; }
+.dream-preview img { max-width:100%; max-height:190px; object-fit:contain; }
 .progress-track { height:8px; margin-top:20px; overflow:hidden; background:rgba(255,255,255,.10); }
 .progress-track span { display:block; width:0; height:100%; background:#d8ba8d; transition:width .2s ease; }
 .progress-label { color:rgba(255,255,255,.5); font-size:.82rem; }

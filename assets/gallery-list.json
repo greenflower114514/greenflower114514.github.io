@@ -27,6 +27,17 @@
         "imageSrc": "/assets/gallery/today-best/深圳湾公园路上.jpg",
         "date": "2026-10-11",
         "location": "深圳湾公园"
+      },
+      {
+        "order": 3,
+        "id": "2026-10-23-meidoufu-jibao",
+        "title": "霉豆腐和鸡煲",
+        "description": "霉豆腐和狍送的玩偶睡在一起。",
+        "previewDescription": "霉豆腐和狍送的玩偶睡在一起。",
+        "detailDescription": "霉豆腐和狍送的玩偶睡在一起。",
+        "imageSrc": "/assets/gallery/today-best/2026-10-23-meidoufu-jibao.jpg",
+        "date": "2026-10-23",
+        "location": ""
       }
     ]
   }

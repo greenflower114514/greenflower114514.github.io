@@ -1,0 +1,1696 @@
+{
+  "version": 1,
+  "timeZone": "Asia/Hong_Kong",
+  "uploads": [
+    {
+      "id": "push-39985069493",
+      "sha": "bee77aa3c84a9eecf03f6aea9bbbd1fb31ad76ba",
+      "uploadedAt": "2026-10-23T16:14:01.000Z",
+      "date": "2026-10-24",
+      "message": "Track homepage updates by actual GitHub upload date",
+      "items": [
+        "更新主页布局或 About 内容",
+        "更新上传记录与自动统计",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/bee77aa3c84a9eecf03f6aea9bbbd1fb31ad76ba"
+    },
+    {
+      "id": "69d2ce6f5de22f14a9cdaae3dc8a11b7774daff6:2026-10-23T15:59:51Z",
+      "sha": "69d2ce6f5de22f14a9cdaae3dc8a11b7774daff6",
+      "uploadedAt": "2026-10-23T15:59:51Z",
+      "date": "2026-10-23",
+      "message": "Publish October 23 thought and best photo",
+      "items": [
+        "发布 Thinking《照片和文字》",
+        "今日最佳新增《霉豆腐和鸡煲》",
+        "上传或调整相册图片",
+        "上传或调整 Thinking 配图"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/69d2ce6f5de22f14a9cdaae3dc8a11b7774daff6"
+    },
+    {
+      "id": "10a84574d3b6d53f69249d0732db2f08022dc6b5:2026-10-21T16:32:57Z",
+      "sha": "10a84574d3b6d53f69249d0732db2f08022dc6b5",
+      "uploadedAt": "2026-10-21T16:32:57Z",
+      "date": "2026-10-22",
+      "message": "Add finance learning thought for 2026-10-22",
+      "items": [
+        "发布 Thinking《先学习，再做理财决定》"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/10a84574d3b6d53f69249d0732db2f08022dc6b5"
+    },
+    {
+      "id": "6e508d01134f3f384f6417223e6f1946eeddd5f3:2026-10-20T16:55:29Z",
+      "sha": "6e508d01134f3f384f6417223e6f1946eeddd5f3",
+      "uploadedAt": "2026-10-20T16:55:29Z",
+      "date": "2026-10-21",
+      "message": "Clarify homepage money plan link",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/6e508d01134f3f384f6417223e6f1946eeddd5f3"
+    },
+    {
+      "id": "1b9761ec5f39b418d0e0699434c93abc74b5bee7:2026-10-20T16:55:21Z",
+      "sha": "1b9761ec5f39b418d0e0699434c93abc74b5bee7",
+      "uploadedAt": "2026-10-20T16:55:21Z",
+      "date": "2026-10-21",
+      "message": "Add today’s money plan reading thought",
+      "items": [
+        "发布 Thinking《精读《小狗钱钱》并完成计划网页》"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/1b9761ec5f39b418d0e0699434c93abc74b5bee7"
+    },
+    {
+      "id": "de8f455e9bd47749841eacc4aa99b4f815607077:2026-10-20T16:51:06Z",
+      "sha": "de8f455e9bd47749841eacc4aa99b4f815607077",
+      "uploadedAt": "2026-10-20T16:51:06Z",
+      "date": "2026-10-21",
+      "message": "Change money plan passcode",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/de8f455e9bd47749841eacc4aa99b4f815607077"
+    },
+    {
+      "id": "51b53e273ba5df476e03b9964a8860c1937b7779:2026-10-20T16:50:50Z",
+      "sha": "51b53e273ba5df476e03b9964a8860c1937b7779",
+      "uploadedAt": "2026-10-20T16:50:50Z",
+      "date": "2026-10-21",
+      "message": "Order important wishes first",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/51b53e273ba5df476e03b9964a8860c1937b7779"
+    },
+    {
+      "id": "0969df01f597376f2de5e6ca9bbc5d60eb62ee2e:2026-10-20T16:50:39Z",
+      "sha": "0969df01f597376f2de5e6ca9bbc5d60eb62ee2e",
+      "uploadedAt": "2026-10-20T16:50:39Z",
+      "date": "2026-10-21",
+      "message": "Move priority wishes to the top",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/0969df01f597376f2de5e6ca9bbc5d60eb62ee2e"
+    },
+    {
+      "id": "23e376adf4dd556d0a1838f362a73dc21ec761c9:2026-10-20T16:47:15Z",
+      "sha": "23e376adf4dd556d0a1838f362a73dc21ec761c9",
+      "uploadedAt": "2026-10-20T16:47:15Z",
+      "date": "2026-10-21",
+      "message": "Render read-only money plan calendar and statistics",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/23e376adf4dd556d0a1838f362a73dc21ec761c9"
+    },
+    {
+      "id": "8ca57d18a12b76696ecc7de12db1bad011cb5fe8:2026-10-20T16:46:39Z",
+      "sha": "8ca57d18a12b76696ecc7de12db1bad011cb5fe8",
+      "uploadedAt": "2026-10-20T16:46:39Z",
+      "date": "2026-10-21",
+      "message": "Style read-only money plan calendar",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/8ca57d18a12b76696ecc7de12db1bad011cb5fe8"
+    },
+    {
+      "id": "58692dca10307ff70478f3d0018a1b1aff575650:2026-10-20T16:46:08Z",
+      "sha": "58692dca10307ff70478f3d0018a1b1aff575650",
+      "uploadedAt": "2026-10-20T16:46:08Z",
+      "date": "2026-10-21",
+      "message": "Replace money plan editor with read-only views",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/58692dca10307ff70478f3d0018a1b1aff575650"
+    },
+    {
+      "id": "6e1d0c67445d6d16d2fdd1a64c9a3595417fb3af:2026-10-20T16:45:49Z",
+      "sha": "6e1d0c67445d6d16d2fdd1a64c9a3595417fb3af",
+      "uploadedAt": "2026-10-20T16:45:49Z",
+      "date": "2026-10-21",
+      "message": "Add read-only money plan data",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/6e1d0c67445d6d16d2fdd1a64c9a3595417fb3af"
+    },
+    {
+      "id": "d5240ba29a059182fb792cc6497e62bea0552760:2026-10-20T16:37:47Z",
+      "sha": "d5240ba29a059182fb792cc6497e62bea0552760",
+      "uploadedAt": "2026-10-20T16:37:47Z",
+      "date": "2026-10-21",
+      "message": "按用户给定顺序展示三个重点愿望",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/d5240ba29a059182fb792cc6497e62bea0552760"
+    },
+    {
+      "id": "8ff9de9d518a2cbee359dadfc56e6e5177e4ecf7:2026-10-20T16:37:30Z",
+      "sha": "8ff9de9d518a2cbee359dadfc56e6e5177e4ecf7",
+      "uploadedAt": "2026-10-20T16:37:30Z",
+      "date": "2026-10-21",
+      "message": "说明预设愿望公开范围与本地记录边界",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/8ff9de9d518a2cbee359dadfc56e6e5177e4ecf7"
+    },
+    {
+      "id": "07358eb3c1d7381c46e7418c1eecc00a18821d8d:2026-10-20T16:37:24Z",
+      "sha": "07358eb3c1d7381c46e7418c1eecc00a18821d8d",
+      "uploadedAt": "2026-10-20T16:37:24Z",
+      "date": "2026-10-21",
+      "message": "预填十个愿望并选出三个梦想",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/07358eb3c1d7381c46e7418c1eecc00a18821d8d"
+    },
+    {
+      "id": "f714784a28eac20f0ed3f967c1c18ceea7babc6f:2026-10-20T16:32:50Z",
+      "sha": "f714784a28eac20f0ed3f967c1c18ceea7babc6f",
+      "uploadedAt": "2026-10-20T16:32:50Z",
+      "date": "2026-10-21",
+      "message": "每日成功日记改为五项独立记录",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/f714784a28eac20f0ed3f967c1c18ceea7babc6f"
+    },
+    {
+      "id": "99612bdd573244ef66666dc6356f014e72599a23:2026-10-20T16:32:35Z",
+      "sha": "99612bdd573244ef66666dc6356f014e72599a23",
+      "uploadedAt": "2026-10-20T16:32:35Z",
+      "date": "2026-10-21",
+      "message": "增加每日五件成功的清晰填写布局",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/99612bdd573244ef66666dc6356f014e72599a23"
+    },
+    {
+      "id": "995cb1c57d3478301cc983bb2320c783bce0464f:2026-10-20T16:32:29Z",
+      "sha": "995cb1c57d3478301cc983bb2320c783bce0464f",
+      "uploadedAt": "2026-10-20T16:32:29Z",
+      "date": "2026-10-21",
+      "message": "明确成功日记记录每日五件成功",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/995cb1c57d3478301cc983bb2320c783bce0464f"
+    },
+    {
+      "id": "623bd92c009552cc09a53b455e8f167545982cf4:2026-10-20T16:18:15Z",
+      "sha": "623bd92c009552cc09a53b455e8f167545982cf4",
+      "uploadedAt": "2026-10-20T16:18:15Z",
+      "date": "2026-10-21",
+      "message": "将每日金鹅存入计入累计进度",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/623bd92c009552cc09a53b455e8f167545982cf4"
+    },
+    {
+      "id": "922548a6458976258dcba9de5312534eb7c7306e:2026-10-20T16:18:10Z",
+      "sha": "922548a6458976258dcba9de5312534eb7c7306e",
+      "uploadedAt": "2026-10-20T16:18:10Z",
+      "date": "2026-10-21",
+      "message": "明确金鹅存量与日记记录的关系",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/922548a6458976258dcba9de5312534eb7c7306e"
+    },
+    {
+      "id": "32843088e791634a6ddd7b28aae2513653149373:2026-10-20T16:17:17Z",
+      "sha": "32843088e791634a6ddd7b28aae2513653149373",
+      "uploadedAt": "2026-10-20T16:17:17Z",
+      "date": "2026-10-21",
+      "message": "完善计划备份导入校验",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/32843088e791634a6ddd7b28aae2513653149373"
+    },
+    {
+      "id": "dfd7eac188a91f37300cdf17aa0347a96f05472e:2026-10-20T16:17:12Z",
+      "sha": "dfd7eac188a91f37300cdf17aa0347a96f05472e",
+      "uploadedAt": "2026-10-20T16:17:12Z",
+      "date": "2026-10-21",
+      "message": "优化梦想图片预览布局",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/dfd7eac188a91f37300cdf17aa0347a96f05472e"
+    },
+    {
+      "id": "e095bf6d11a999a23723a7953e63b246ee8272d9:2026-10-20T16:17:00Z",
+      "sha": "e095bf6d11a999a23723a7953e63b246ee8272d9",
+      "uploadedAt": "2026-10-20T16:17:00Z",
+      "date": "2026-10-21",
+      "message": "修正梦想图片预览交互",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/e095bf6d11a999a23723a7953e63b246ee8272d9"
+    },
+    {
+      "id": "a8c287dcde0bed33f11bda1e362c651774eaef38:2026-10-20T16:16:37Z",
+      "sha": "a8c287dcde0bed33f11bda1e362c651774eaef38",
+      "uploadedAt": "2026-10-20T16:16:37Z",
+      "date": "2026-10-21",
+      "message": "在主页导航加入小狗钱钱计划",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/a8c287dcde0bed33f11bda1e362c651774eaef38"
+    },
+    {
+      "id": "423ce79fd7a1b8158b14b7ecd60c4eefa648aabe:2026-10-20T16:16:21Z",
+      "sha": "423ce79fd7a1b8158b14b7ecd60c4eefa648aabe",
+      "uploadedAt": "2026-10-20T16:16:21Z",
+      "date": "2026-10-21",
+      "message": "添加小狗钱钱计划本地记录功能",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/423ce79fd7a1b8158b14b7ecd60c4eefa648aabe"
+    },
+    {
+      "id": "ced8e49c8f790b27a43bed29863141043ac14118:2026-10-20T16:16:16Z",
+      "sha": "ced8e49c8f790b27a43bed29863141043ac14118",
+      "uploadedAt": "2026-10-20T16:16:16Z",
+      "date": "2026-10-21",
+      "message": "添加小狗钱钱计划页样式",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/ced8e49c8f790b27a43bed29863141043ac14118"
+    },
+    {
+      "id": "31d90af362a8d063da778487570f4c69a1bb5883:2026-10-20T16:16:10Z",
+      "sha": "31d90af362a8d063da778487570f4c69a1bb5883",
+      "uploadedAt": "2026-10-20T16:16:10Z",
+      "date": "2026-10-21",
+      "message": "新增小狗钱钱计划专页",
+      "items": [
+        "更新小狗钱钱计划页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/31d90af362a8d063da778487570f4c69a1bb5883"
+    },
+    {
+      "id": "0ea8f731a3ab9e1d475d921d806352b7198cba19:2026-10-11T17:46:06Z",
+      "sha": "0ea8f731a3ab9e1d475d921d806352b7198cba19",
+      "uploadedAt": "2026-10-11T17:46:06Z",
+      "date": "2026-10-12",
+      "message": "Clarify October 12 thinking Q&A",
+      "items": [
+        "更新 Thinking《AI时代，我该如何成为更有竞争力的技术美术？》"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/0ea8f731a3ab9e1d475d921d806352b7198cba19"
+    },
+    {
+      "id": "55cc9627a63d9bf5601c216249afe24eb56e9ed4:2026-10-11T17:38:30Z",
+      "sha": "55cc9627a63d9bf5601c216249afe24eb56e9ed4",
+      "uploadedAt": "2026-10-11T17:38:30Z",
+      "date": "2026-10-12",
+      "message": "Add October 12 thinking entry",
+      "items": [
+        "发布 Thinking《AI越来越会写代码之后，技术美术的价值在哪里？》"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/55cc9627a63d9bf5601c216249afe24eb56e9ed4"
+    },
+    {
+      "id": "368b2cf6101759afec44dba03d631fbada550e81:2026-10-10T18:35:24Z",
+      "sha": "368b2cf6101759afec44dba03d631fbada550e81",
+      "uploadedAt": "2026-10-10T18:35:24Z",
+      "date": "2026-10-11",
+      "message": "Fix gallery photo preview and title duplication",
+      "items": [
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/368b2cf6101759afec44dba03d631fbada550e81"
+    },
+    {
+      "id": "07bcfe863f44213ecaf35d7167f0fbb1596968e2:2026-10-10T18:28:17Z",
+      "sha": "07bcfe863f44213ecaf35d7167f0fbb1596968e2",
+      "uploadedAt": "2026-10-10T18:28:17Z",
+      "date": "2026-10-11",
+      "message": "Add Shenzhen Bay Park photo to gallery",
+      "items": [
+        "今日最佳新增《去深圳湾公园的路上》",
+        "上传或调整相册图片"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/07bcfe863f44213ecaf35d7167f0fbb1596968e2"
+    },
+    {
+      "id": "383cdedadfda5041f8f059ac7b3d77cdb38a63c5:2026-10-09T17:54:56Z",
+      "sha": "383cdedadfda5041f8f059ac7b3d77cdb38a63c5",
+      "uploadedAt": "2026-10-09T17:54:56Z",
+      "date": "2026-10-10",
+      "message": "Replace thought cards with calendar",
+      "items": [
+        "移除 Thinking《关于也可以是一张目录》",
+        "移除 Thinking《先把记录的桌子搭好》",
+        "上传或调整 Thinking 配图",
+        "调整 Thinking 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/383cdedadfda5041f8f059ac7b3d77cdb38a63c5"
+    },
+    {
+      "id": "d7da42790ff45cca24d40361169044d71cb1df9e:2026-10-09T17:47:05Z",
+      "sha": "d7da42790ff45cca24d40361169044d71cb1df9e",
+      "uploadedAt": "2026-10-09T17:47:05Z",
+      "date": "2026-10-10",
+      "message": "Update today's thought cover image",
+      "items": [
+        "更新 Thinking《夜校活动与猫尿床的处理方法》",
+        "上传或调整 Thinking 配图"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/d7da42790ff45cca24d40361169044d71cb1df9e"
+    },
+    {
+      "id": "39315693f87a7d7393c583a890a11fa921364c04:2026-10-09T17:44:40Z",
+      "sha": "39315693f87a7d7393c583a890a11fa921364c04",
+      "uploadedAt": "2026-10-09T17:44:40Z",
+      "date": "2026-10-10",
+      "message": "Preserve line breaks in today's thought",
+      "items": [
+        "更新 Thinking《夜校活动与猫尿床的处理方法》"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/39315693f87a7d7393c583a890a11fa921364c04"
+    },
+    {
+      "id": "16fb1a7f5624446877de46674637e910b53af0bb:2026-10-09T17:42:44Z",
+      "sha": "16fb1a7f5624446877de46674637e910b53af0bb",
+      "uploadedAt": "2026-10-09T17:42:44Z",
+      "date": "2026-10-10",
+      "message": "Fix gallery album routing on Pages",
+      "items": [
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/16fb1a7f5624446877de46674637e910b53af0bb"
+    },
+    {
+      "id": "5eb287f792737c9381f16e1429f84c48fcf05b1e:2026-10-09T17:39:36Z",
+      "sha": "5eb287f792737c9381f16e1429f84c48fcf05b1e",
+      "uploadedAt": "2026-10-09T17:39:36Z",
+      "date": "2026-10-10",
+      "message": "Add today's thoughts and gallery album",
+      "items": [
+        "发布 Thinking《夜校活动与猫尿床的处理方法》",
+        "今日最佳新增《线条小猫》",
+        "上传或调整相册图片",
+        "上传或调整 Thinking 配图",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/5eb287f792737c9381f16e1429f84c48fcf05b1e"
+    },
+    {
+      "id": "caefb0bda8224ee1c4bd6e3fc274f2ad66478f2e:2026-10-08T18:18:02Z",
+      "sha": "caefb0bda8224ee1c4bd6e3fc274f2ad66478f2e",
+      "uploadedAt": "2026-10-08T18:18:02Z",
+      "date": "2026-10-09",
+      "message": "仅拉开指定思考段落间距",
+      "items": [
+        "更新 Thinking《关于3分钟热度》",
+        "调整 Thinking 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/caefb0bda8224ee1c4bd6e3fc274f2ad66478f2e"
+    },
+    {
+      "id": "adeff878d8f0fc3abe59a4ab7891cbb8e28bd01e:2026-10-08T18:15:57Z",
+      "sha": "adeff878d8f0fc3abe59a4ab7891cbb8e28bd01e",
+      "uploadedAt": "2026-10-08T18:15:57Z",
+      "date": "2026-10-09",
+      "message": "增加思考详情段落间距",
+      "items": [
+        "调整 Thinking 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/adeff878d8f0fc3abe59a4ab7891cbb8e28bd01e"
+    },
+    {
+      "id": "40c48d05e8d9b9a21b68f1429c9858492285daa9:2026-10-08T18:09:44Z",
+      "sha": "40c48d05e8d9b9a21b68f1429c9858492285daa9",
+      "uploadedAt": "2026-10-08T18:09:44Z",
+      "date": "2026-10-09",
+      "message": "按原文修复三分钟热度思考",
+      "items": [
+        "更新 Thinking《关于3分钟热度》",
+        "补充主页更新说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/40c48d05e8d9b9a21b68f1429c9858492285daa9"
+    },
+    {
+      "id": "82d243767cc4a1933c35dca7834dbaa5244ba8c6:2026-10-08T18:03:16Z",
+      "sha": "82d243767cc4a1933c35dca7834dbaa5244ba8c6",
+      "uploadedAt": "2026-10-08T18:03:16Z",
+      "date": "2026-10-09",
+      "message": "发布关于三分钟热度的思考",
+      "items": [
+        "发布 Thinking《关于三分钟热度》",
+        "上传或调整 Thinking 配图",
+        "补充主页更新说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/82d243767cc4a1933c35dca7834dbaa5244ba8c6"
+    },
+    {
+      "id": "cb64334f2bab822786dceb2775b147d0a6789d3d:2026-10-08T16:50:19Z",
+      "sha": "cb64334f2bab822786dceb2775b147d0a6789d3d",
+      "uploadedAt": "2026-10-08T16:50:19Z",
+      "date": "2026-10-09",
+      "message": "添加思考文章模板",
+      "items": [
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/cb64334f2bab822786dceb2775b147d0a6789d3d"
+    },
+    {
+      "id": "df2caf564547a1f62d6398911010191a0ff263f8:2026-10-08T16:47:10Z",
+      "sha": "df2caf564547a1f62d6398911010191a0ff263f8",
+      "uploadedAt": "2026-10-08T16:47:10Z",
+      "date": "2026-10-09",
+      "message": "README改为中文并清理思考占位记录",
+      "items": [
+        "移除 Thinking《先留一个位置》",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/df2caf564547a1f62d6398911010191a0ff263f8"
+    },
+    {
+      "id": "4b9d9092c4de34fb9d9f188309a6a9cf4254a1da:2026-10-08T16:45:25Z",
+      "sha": "4b9d9092c4de34fb9d9f188309a6a9cf4254a1da",
+      "uploadedAt": "2026-10-08T16:45:25Z",
+      "date": "2026-10-09",
+      "message": "支持思考正文插入图片",
+      "items": [
+        "调整 Thinking 阅读页面",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/4b9d9092c4de34fb9d9f188309a6a9cf4254a1da"
+    },
+    {
+      "id": "63707ef5c96ca5d2eab04a057325b8b6fc2b89eb:2026-10-08T16:33:21Z",
+      "sha": "63707ef5c96ca5d2eab04a057325b8b6fc2b89eb",
+      "uploadedAt": "2026-10-08T16:33:21Z",
+      "date": "2026-10-09",
+      "message": "更新时间线，思考界面初始化",
+      "items": [
+        "更新 Blog《先留一个位置》",
+        "更新 Blog《About 区域变成模块化卡片》",
+        "更新 Blog《电子蜗居继续装修》",
+        "更新 Blog《带图片的 Blog 示例》",
+        "发布 Thinking《先留一个位置》",
+        "发布 Thinking《关于也可以是一张目录》",
+        "发布 Thinking《先把记录的桌子搭好》",
+        "上传或调整 Thinking 配图",
+        "更新主页布局或 About 内容",
+        "调整 Thinking 阅读页面",
+        "调整网站配置",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/63707ef5c96ca5d2eab04a057325b8b6fc2b89eb"
+    },
+    {
+      "id": "18e754741158f0345e23816a4788bc6d59abad9d:2026-06-05T11:05:33Z",
+      "sha": "18e754741158f0345e23816a4788bc6d59abad9d",
+      "uploadedAt": "2026-06-05T11:05:33Z",
+      "date": "2026-06-05",
+      "message": "Disable native gallery image dragging",
+      "items": [
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/18e754741158f0345e23816a4788bc6d59abad9d"
+    },
+    {
+      "id": "9efb9ccd829a67eaf981fb9bd69252164e205c2a:2026-06-05T10:41:51Z",
+      "sha": "9efb9ccd829a67eaf981fb9bd69252164e205c2a",
+      "uploadedAt": "2026-06-05T10:41:51Z",
+      "date": "2026-06-05",
+      "message": "Restore gallery album clicks",
+      "items": [
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/9efb9ccd829a67eaf981fb9bd69252164e205c2a"
+    },
+    {
+      "id": "58c8a2f66b5cfa933f3fd515f54c086daceb8906:2026-06-05T10:28:15Z",
+      "sha": "58c8a2f66b5cfa933f3fd515f54c086daceb8906",
+      "uploadedAt": "2026-06-05T10:28:15Z",
+      "date": "2026-06-05",
+      "message": "Prevent gallery drag from opening albums",
+      "items": [
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/58c8a2f66b5cfa933f3fd515f54c086daceb8906"
+    },
+    {
+      "id": "5598b822d993111ebc993022571a7493e4eab1c9:2026-06-05T09:49:16Z",
+      "sha": "5598b822d993111ebc993022571a7493e4eab1c9",
+      "uploadedAt": "2026-06-05T09:49:16Z",
+      "date": "2026-06-05",
+      "message": "Use original gallery image colors",
+      "items": [
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/5598b822d993111ebc993022571a7493e4eab1c9"
+    },
+    {
+      "id": "34ac802e9c12e918ef3eae5b452ac249593e8d32:2026-06-05T09:10:07Z",
+      "sha": "34ac802e9c12e918ef3eae5b452ac249593e8d32",
+      "uploadedAt": "2026-06-05T09:10:07Z",
+      "date": "2026-06-05",
+      "message": "Fix gallery drag click behavior",
+      "items": [
+        "拖拽测试新增《测试卡片一》",
+        "拖拽测试新增《测试卡片二》",
+        "更新相册内容与照片信息",
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/34ac802e9c12e918ef3eae5b452ac249593e8d32"
+    },
+    {
+      "id": "e8514666797cf5bbd85248db94ada3d400e989b8:2026-06-05T08:43:17Z",
+      "sha": "e8514666797cf5bbd85248db94ada3d400e989b8",
+      "uploadedAt": "2026-06-05T08:43:17Z",
+      "date": "2026-06-05",
+      "message": "Add draggable gallery carousel",
+      "items": [
+        "站点素材更新《窗边的桌面》",
+        "站点素材更新《带壳的牡蛎》",
+        "音乐封面更新《Daisy》",
+        "音乐封面更新《君の神様になりたい。》",
+        "音乐封面更新《Aurora Demo》",
+        "更新相册内容与照片信息",
+        "上传或调整相册图片",
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/e8514666797cf5bbd85248db94ada3d400e989b8"
+    },
+    {
+      "id": "260cdbaba1b37f7a71ca8f5d413c79b0061b2a8a:2026-06-05T06:21:18Z",
+      "sha": "260cdbaba1b37f7a71ca8f5d413c79b0061b2a8a",
+      "uploadedAt": "2026-06-05T06:21:18Z",
+      "date": "2026-06-05",
+      "message": "Separate gallery preview and detail descriptions",
+      "items": [
+        "站点素材更新《窗边的桌面》",
+        "站点素材更新《带壳的牡蛎》",
+        "音乐封面更新《Daisy》",
+        "音乐封面更新《君の神様になりたい。》",
+        "音乐封面更新《Aurora Demo》",
+        "更新相册内容与照片信息",
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/260cdbaba1b37f7a71ca8f5d413c79b0061b2a8a"
+    },
+    {
+      "id": "59f307661655bb3d6175c222ef4f112cc5e2472d:2026-06-05T06:08:23Z",
+      "sha": "59f307661655bb3d6175c222ef4f112cc5e2472d",
+      "uploadedAt": "2026-06-05T06:08:23Z",
+      "date": "2026-06-05",
+      "message": "Fix gallery image previews",
+      "items": [
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/59f307661655bb3d6175c222ef4f112cc5e2472d"
+    },
+    {
+      "id": "7e7568263ac073591564632a17339ca3ee90318e:2026-06-05T05:44:15Z",
+      "sha": "7e7568263ac073591564632a17339ca3ee90318e",
+      "uploadedAt": "2026-06-05T05:44:15Z",
+      "date": "2026-06-05",
+      "message": "Add hash-routed gallery module",
+      "items": [
+        "站点素材新增《窗边的桌面》",
+        "站点素材新增《带壳的牡蛎》",
+        "音乐封面新增《Daisy》",
+        "音乐封面新增《君の神様になりたい。》",
+        "音乐封面新增《Aurora Demo》",
+        "更新相册内容与照片信息",
+        "调整相册展示与交互"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/7e7568263ac073591564632a17339ca3ee90318e"
+    },
+    {
+      "id": "16302bce5992a2a12c286ba5dc84b7fc8df51c30:2026-06-03T03:05:18Z",
+      "sha": "16302bce5992a2a12c286ba5dc84b7fc8df51c30",
+      "uploadedAt": "2026-06-03T03:05:18Z",
+      "date": "2026-06-03",
+      "message": "Autoplay next music track on end",
+      "items": [
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/16302bce5992a2a12c286ba5dc84b7fc8df51c30"
+    },
+    {
+      "id": "b6587e63debb5f7c95646e1a89b75ce41b845157:2026-06-03T02:55:50Z",
+      "sha": "b6587e63debb5f7c95646e1a89b75ce41b845157",
+      "uploadedAt": "2026-06-03T02:55:50Z",
+      "date": "2026-06-03",
+      "message": "Add June 3 homepage update note",
+      "items": [
+        "补充主页更新说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/b6587e63debb5f7c95646e1a89b75ce41b845157"
+    },
+    {
+      "id": "7b005bfa65b74b6a0aa3070405d588ea8cf370c3:2026-06-03T02:48:05Z",
+      "sha": "7b005bfa65b74b6a0aa3070405d588ea8cf370c3",
+      "uploadedAt": "2026-06-03T02:48:05Z",
+      "date": "2026-06-03",
+      "message": "Avoid duplicate listen descriptions",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/7b005bfa65b74b6a0aa3070405d588ea8cf370c3"
+    },
+    {
+      "id": "e0237e525457e362e0e7a2fa6b4c3282fd9a58a9:2026-06-03T02:36:24Z",
+      "sha": "e0237e525457e362e0e7a2fa6b4c3282fd9a58a9",
+      "uploadedAt": "2026-06-03T02:36:24Z",
+      "date": "2026-06-03",
+      "message": "Rename playlist to listen list",
+      "items": [
+        "更新主页布局或 About 内容",
+        "更新歌单与歌曲信息",
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/e0237e525457e362e0e7a2fa6b4c3282fd9a58a9"
+    },
+    {
+      "id": "c78dea5f308f807755e39d712362aebcda058481:2026-06-03T02:12:44Z",
+      "sha": "c78dea5f308f807755e39d712362aebcda058481",
+      "uploadedAt": "2026-06-03T02:12:44Z",
+      "date": "2026-06-03",
+      "message": "Keep empty about comment labels",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/c78dea5f308f807755e39d712362aebcda058481"
+    },
+    {
+      "id": "2dc61fc442d6a99702e3fe425b34334078d727ba:2026-06-03T02:06:50Z",
+      "sha": "2dc61fc442d6a99702e3fe425b34334078d727ba",
+      "uploadedAt": "2026-06-03T02:06:50Z",
+      "date": "2026-06-03",
+      "message": "Hide empty about comments",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/2dc61fc442d6a99702e3fe425b34334078d727ba"
+    },
+    {
+      "id": "09256e6ad63003de8d4b6a59c377162aa9e4a390:2026-06-03T01:59:09Z",
+      "sha": "09256e6ad63003de8d4b6a59c377162aa9e4a390",
+      "uploadedAt": "2026-06-03T01:59:09Z",
+      "date": "2026-06-03",
+      "message": "Add oyster heart book cover",
+      "items": [
+        "更新阅读书单"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/09256e6ad63003de8d4b6a59c377162aa9e4a390"
+    },
+    {
+      "id": "4e958b8a41153cd84f03dec5db6f4b4a0cf29b7e:2026-06-03T01:33:26Z",
+      "sha": "4e958b8a41153cd84f03dec5db6f4b4a0cf29b7e",
+      "uploadedAt": "2026-06-03T01:33:26Z",
+      "date": "2026-06-03",
+      "message": "Sync study blog entries into ordered list",
+      "items": [
+        "更新主页布局或 About 内容",
+        "更新学习记录"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/4e958b8a41153cd84f03dec5db6f4b4a0cf29b7e"
+    },
+    {
+      "id": "734c1bcefa37d034e560aa8b8ee3f33d8918808d:2026-06-03T01:26:21Z",
+      "sha": "734c1bcefa37d034e560aa8b8ee3f33d8918808d",
+      "uploadedAt": "2026-06-03T01:26:21Z",
+      "date": "2026-06-03",
+      "message": "Append unmatched blog entries to about lists",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/734c1bcefa37d034e560aa8b8ee3f33d8918808d"
+    },
+    {
+      "id": "633a0f82ac5dde56f59e8b3e7e944e646d901855:2026-06-03T01:16:04Z",
+      "sha": "633a0f82ac5dde56f59e8b3e7e944e646d901855",
+      "uploadedAt": "2026-06-03T01:16:04Z",
+      "date": "2026-06-03",
+      "message": "Drive about sections from ordered lists",
+      "items": [
+        "更新主页布局或 About 内容",
+        "更新阅读书单",
+        "更新学习记录",
+        "更新观影记录"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/633a0f82ac5dde56f59e8b3e7e944e646d901855"
+    },
+    {
+      "id": "b74ae91a9eb5510027682e69f549b8b189eb87de:2026-06-03T00:47:44Z",
+      "sha": "b74ae91a9eb5510027682e69f549b8b189eb87de",
+      "uploadedAt": "2026-06-03T00:47:44Z",
+      "date": "2026-06-03",
+      "message": "Remove update board copy",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/b74ae91a9eb5510027682e69f549b8b189eb87de"
+    },
+    {
+      "id": "0db528caddb4d602c139df53cdb715f06b4828c2:2026-06-03T00:44:27Z",
+      "sha": "0db528caddb4d602c139df53cdb715f06b4828c2",
+      "uploadedAt": "2026-06-03T00:44:27Z",
+      "date": "2026-06-03",
+      "message": "Clarify update board history scope",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/0db528caddb4d602c139df53cdb715f06b4828c2"
+    },
+    {
+      "id": "57e069ca9ceb23ddd88b1d8e5e47dac72863e647:2026-06-03T00:36:31Z",
+      "sha": "57e069ca9ceb23ddd88b1d8e5e47dac72863e647",
+      "uploadedAt": "2026-06-03T00:36:31Z",
+      "date": "2026-06-03",
+      "message": "Fix update heatmap cell expand",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/57e069ca9ceb23ddd88b1d8e5e47dac72863e647"
+    },
+    {
+      "id": "7eacc13fbc7bb17a04959fd484fda31c523c5b44:2026-06-03T00:32:41Z",
+      "sha": "7eacc13fbc7bb17a04959fd484fda31c523c5b44",
+      "uploadedAt": "2026-06-03T00:32:41Z",
+      "date": "2026-06-03",
+      "message": "Paginate homepage update list",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/7eacc13fbc7bb17a04959fd484fda31c523c5b44"
+    },
+    {
+      "id": "fcce6e4100b302dbc439b4deb363c1c669aa6a7f:2026-06-03T00:06:06Z",
+      "sha": "fcce6e4100b302dbc439b4deb363c1c669aa6a7f",
+      "uploadedAt": "2026-06-03T00:06:06Z",
+      "date": "2026-06-03",
+      "message": "Add homepage update heatmap",
+      "items": [
+        "更新主页布局或 About 内容",
+        "补充主页更新说明",
+        "调整网站配置"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/fcce6e4100b302dbc439b4deb363c1c669aa6a7f"
+    },
+    {
+      "id": "a4fcf01e763869197508482de139eb872919126d:2026-06-02T14:47:42Z",
+      "sha": "a4fcf01e763869197508482de139eb872919126d",
+      "uploadedAt": "2026-06-02T14:47:42Z",
+      "date": "2026-06-02",
+      "message": "Add blog links to ordered playlist entries",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/a4fcf01e763869197508482de139eb872919126d"
+    },
+    {
+      "id": "d8a807f69e5f1a54b81580675ef834102fdf8a51:2026-06-02T13:53:57Z",
+      "sha": "d8a807f69e5f1a54b81580675ef834102fdf8a51",
+      "uploadedAt": "2026-06-02T13:53:57Z",
+      "date": "2026-06-02",
+      "message": "Link RedBook nav to Xiaohongshu profile",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Thinking 阅读页面",
+        "调整相册展示与交互",
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/d8a807f69e5f1a54b81580675ef834102fdf8a51"
+    },
+    {
+      "id": "37b9c82d576eb5f58371c2e9309b8f83159fcf22:2026-06-02T13:29:02Z",
+      "sha": "37b9c82d576eb5f58371c2e9309b8f83159fcf22",
+      "uploadedAt": "2026-06-02T13:29:02Z",
+      "date": "2026-06-02",
+      "message": "Add ordered playlist support",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/37b9c82d576eb5f58371c2e9309b8f83159fcf22"
+    },
+    {
+      "id": "b882639def8748054e45c4582bca10e81ac1046f:2026-05-31T05:26:10Z",
+      "sha": "b882639def8748054e45c4582bca10e81ac1046f",
+      "uploadedAt": "2026-05-31T05:26:10Z",
+      "date": "2026-05-31",
+      "message": "Add music player to remaining pages",
+      "items": [
+        "调整 Thinking 阅读页面",
+        "调整相册展示与交互",
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/b882639def8748054e45c4582bca10e81ac1046f"
+    },
+    {
+      "id": "838f8030f2b4a994701f6c598024fe1c8d037b3b:2026-05-30T08:26:19Z",
+      "sha": "838f8030f2b4a994701f6c598024fe1c8d037b3b",
+      "uploadedAt": "2026-05-30T08:26:19Z",
+      "date": "2026-05-30",
+      "message": "Expand player and add collapse mode",
+      "items": [
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/838f8030f2b4a994701f6c598024fe1c8d037b3b"
+    },
+    {
+      "id": "6660cc4ceb1922f7f8cbc116950d557b48fcbf29:2026-05-30T07:03:47Z",
+      "sha": "6660cc4ceb1922f7f8cbc116950d557b48fcbf29",
+      "uploadedAt": "2026-05-30T07:03:47Z",
+      "date": "2026-05-30",
+      "message": "Adjust homepage player proportions",
+      "items": [
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/6660cc4ceb1922f7f8cbc116950d557b48fcbf29"
+    },
+    {
+      "id": "0e6a89abc33fa8aee3cb2ab60ded02ca567f5069:2026-05-30T06:43:12Z",
+      "sha": "0e6a89abc33fa8aee3cb2ab60ded02ca567f5069",
+      "uploadedAt": "2026-05-30T06:43:12Z",
+      "date": "2026-05-30",
+      "message": "Shrink player and wire homepage listen section",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/0e6a89abc33fa8aee3cb2ab60ded02ca567f5069"
+    },
+    {
+      "id": "1c26c57487888e6a1b0f15a29363bf40e559a283:2026-05-29T17:25:33Z",
+      "sha": "1c26c57487888e6a1b0f15a29363bf40e559a283",
+      "uploadedAt": "2026-05-29T17:25:33Z",
+      "date": "2026-05-30",
+      "message": "Refactor homepage music player into playlist layout",
+      "items": [
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/1c26c57487888e6a1b0f15a29363bf40e559a283"
+    },
+    {
+      "id": "40b3692081b3201b597aebafa3d89f55f2a0cc6e:2026-05-29T09:18:18Z",
+      "sha": "40b3692081b3201b597aebafa3d89f55f2a0cc6e",
+      "uploadedAt": "2026-05-29T09:18:18Z",
+      "date": "2026-05-29",
+      "message": "Add homepage vinyl music player",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整音乐播放器"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/40b3692081b3201b597aebafa3d89f55f2a0cc6e"
+    },
+    {
+      "id": "d76ce019e3ce382c8e1ab5da5cfa8758b735ff32:2026-05-29T08:20:31Z",
+      "sha": "d76ce019e3ce382c8e1ab5da5cfa8758b735ff32",
+      "uploadedAt": "2026-05-29T08:20:31Z",
+      "date": "2026-05-29",
+      "message": "Wire homepage hero panel collapse logic",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/d76ce019e3ce382c8e1ab5da5cfa8758b735ff32"
+    },
+    {
+      "id": "c825049f5ee2159bf2443ef3268cc6e38b3c7bda:2026-05-29T08:02:47Z",
+      "sha": "c825049f5ee2159bf2443ef3268cc6e38b3c7bda",
+      "uploadedAt": "2026-05-29T08:02:47Z",
+      "date": "2026-05-29",
+      "message": "Fix hero panel toggle labels and collapse UI",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Thinking 阅读页面",
+        "调整相册展示与交互",
+        "调整 Blog 阅读页面",
+        "调整主页导航"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/c825049f5ee2159bf2443ef3268cc6e38b3c7bda"
+    },
+    {
+      "id": "87bfcfed72644e598e5ba52c268ebe9b40a52825:2026-05-29T07:25:22Z",
+      "sha": "87bfcfed72644e598e5ba52c268ebe9b40a52825",
+      "uploadedAt": "2026-05-29T07:25:22Z",
+      "date": "2026-05-29",
+      "message": "Move hero panels into hero and add collapse",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Thinking 阅读页面",
+        "调整相册展示与交互",
+        "调整 Blog 阅读页面",
+        "调整主页导航"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/87bfcfed72644e598e5ba52c268ebe9b40a52825"
+    },
+    {
+      "id": "8349fa42c3e47bf43feeae78e4dd214a872e1a45:2026-05-29T06:38:41Z",
+      "sha": "8349fa42c3e47bf43feeae78e4dd214a872e1a45",
+      "uploadedAt": "2026-05-29T06:38:41Z",
+      "date": "2026-05-29",
+      "message": "Simplify cat mouth and remove paws",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/8349fa42c3e47bf43feeae78e4dd214a872e1a45"
+    },
+    {
+      "id": "43ece4df3f76c304a982021cf2ca066155e14288:2026-05-29T06:35:21Z",
+      "sha": "43ece4df3f76c304a982021cf2ca066155e14288",
+      "uploadedAt": "2026-05-29T06:35:21Z",
+      "date": "2026-05-29",
+      "message": "Refine cat outline face and paw styling",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/43ece4df3f76c304a982021cf2ca066155e14288"
+    },
+    {
+      "id": "a5d242bb14dee88acd53fa3869da181751f54da6:2026-05-29T06:22:32Z",
+      "sha": "a5d242bb14dee88acd53fa3869da181751f54da6",
+      "uploadedAt": "2026-05-29T06:22:32Z",
+      "date": "2026-05-29",
+      "message": "Trim lower outline and separate cat paws",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/a5d242bb14dee88acd53fa3869da181751f54da6"
+    },
+    {
+      "id": "80d7672ab2bb1e363660388867c489c8e908b5d6:2026-05-29T06:15:40Z",
+      "sha": "80d7672ab2bb1e363660388867c489c8e908b5d6",
+      "uploadedAt": "2026-05-29T06:15:40Z",
+      "date": "2026-05-29",
+      "message": "Move cat face and paws further right",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/80d7672ab2bb1e363660388867c489c8e908b5d6"
+    },
+    {
+      "id": "bc8fa4addaed11ef5204b2c51845c03994f0e435:2026-05-29T06:12:46Z",
+      "sha": "bc8fa4addaed11ef5204b2c51845c03994f0e435",
+      "uploadedAt": "2026-05-29T06:12:46Z",
+      "date": "2026-05-29",
+      "message": "Shift cat face group toward center",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/bc8fa4addaed11ef5204b2c51845c03994f0e435"
+    },
+    {
+      "id": "1ae0a4ce324a6b85c16ae2f8c9317f9207ace533:2026-05-29T06:10:07Z",
+      "sha": "1ae0a4ce324a6b85c16ae2f8c9317f9207ace533",
+      "uploadedAt": "2026-05-29T06:10:07Z",
+      "date": "2026-05-29",
+      "message": "Move cat face closer to body center",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/1ae0a4ce324a6b85c16ae2f8c9317f9207ace533"
+    },
+    {
+      "id": "71355dbbc84369b9f15b7348f4848f810adbbb1a:2026-05-29T06:05:45Z",
+      "sha": "71355dbbc84369b9f15b7348f4848f810adbbb1a",
+      "uploadedAt": "2026-05-29T06:05:45Z",
+      "date": "2026-05-29",
+      "message": "Redraw cat with centered face and symmetric body",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/71355dbbc84369b9f15b7348f4848f810adbbb1a"
+    },
+    {
+      "id": "bd7eaa26062148c5dfedb1c2a838c1ce9790c2b4:2026-05-29T06:02:14Z",
+      "sha": "bd7eaa26062148c5dfedb1c2a838c1ce9790c2b4",
+      "uploadedAt": "2026-05-29T06:02:14Z",
+      "date": "2026-05-29",
+      "message": "Center cat face and tighten tail overlap",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/bd7eaa26062148c5dfedb1c2a838c1ce9790c2b4"
+    },
+    {
+      "id": "8e7fefd8439c26e6e46167b2c0fa5ab05699c295:2026-05-29T05:58:45Z",
+      "sha": "8e7fefd8439c26e6e46167b2c0fa5ab05699c295",
+      "uploadedAt": "2026-05-29T05:58:45Z",
+      "date": "2026-05-29",
+      "message": "Balance cat body face and tail spacing",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/8e7fefd8439c26e6e46167b2c0fa5ab05699c295"
+    },
+    {
+      "id": "04b4050cc9ce93ec2cdd9dafd87544187bb879b0:2026-05-29T05:54:42Z",
+      "sha": "04b4050cc9ce93ec2cdd9dafd87544187bb879b0",
+      "uploadedAt": "2026-05-29T05:54:42Z",
+      "date": "2026-05-29",
+      "message": "Remove duplicate cat outline strokes",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/04b4050cc9ce93ec2cdd9dafd87544187bb879b0"
+    },
+    {
+      "id": "25ade29b7bde84a55dd6cd9ac885cec9a1f30677:2026-05-29T05:47:47Z",
+      "sha": "25ade29b7bde84a55dd6cd9ac885cec9a1f30677",
+      "uploadedAt": "2026-05-29T05:47:47Z",
+      "date": "2026-05-29",
+      "message": "Redraw cat silhouette to match reference",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/25ade29b7bde84a55dd6cd9ac885cec9a1f30677"
+    },
+    {
+      "id": "54e95d68e0b9eb1559dd6e157f77e9b8a6cb0c03:2026-05-29T05:43:10Z",
+      "sha": "54e95d68e0b9eb1559dd6e157f77e9b8a6cb0c03",
+      "uploadedAt": "2026-05-29T05:43:10Z",
+      "date": "2026-05-29",
+      "message": "Adjust cat outline spacing and eye color",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/54e95d68e0b9eb1559dd6e157f77e9b8a6cb0c03"
+    },
+    {
+      "id": "7341a02bb72b08beaaa3b5ab59d5913035fe3cde:2026-05-29T05:38:42Z",
+      "sha": "7341a02bb72b08beaaa3b5ab59d5913035fe3cde",
+      "uploadedAt": "2026-05-29T05:38:42Z",
+      "date": "2026-05-29",
+      "message": "Refactor cat pet for layered idle and eye tracking",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/7341a02bb72b08beaaa3b5ab59d5913035fe3cde"
+    },
+    {
+      "id": "66c8eab5a4a974431dd29f7f561ed435d2c3b847:2026-05-29T05:19:59Z",
+      "sha": "66c8eab5a4a974431dd29f7f561ed435d2c3b847",
+      "uploadedAt": "2026-05-29T05:19:59Z",
+      "date": "2026-05-29",
+      "message": "Upgrade cat idle animation and head tracking",
+      "items": [
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/66c8eab5a4a974431dd29f7f561ed435d2c3b847"
+    },
+    {
+      "id": "b779af21997d2d562f0f632046ecd956d21629b1:2026-05-29T04:56:41Z",
+      "sha": "b779af21997d2d562f0f632046ecd956d21629b1",
+      "uploadedAt": "2026-05-29T04:56:41Z",
+      "date": "2026-05-29",
+      "message": "Add sitewide animated cat pet",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Thinking 阅读页面",
+        "调整相册展示与交互",
+        "调整 Blog 阅读页面",
+        "调整主页宠物与互动效果"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/b779af21997d2d562f0f632046ecd956d21629b1"
+    },
+    {
+      "id": "9bc51f4161e54ff4467369f036c3b5cc0aadbe3f:2026-05-26T19:26:08Z",
+      "sha": "9bc51f4161e54ff4467369f036c3b5cc0aadbe3f",
+      "uploadedAt": "2026-05-26T19:26:08Z",
+      "date": "2026-05-27",
+      "message": "Pad about previews and add blog links",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/9bc51f4161e54ff4467369f036c3b5cc0aadbe3f"
+    },
+    {
+      "id": "4a24689507bb038dc393619d6f8dad3b1c227dd9:2026-05-26T19:15:22Z",
+      "sha": "4a24689507bb038dc393619d6f8dad3b1c227dd9",
+      "uploadedAt": "2026-05-26T19:15:22Z",
+      "date": "2026-05-27",
+      "message": "Link homepage about cards to blog posts",
+      "items": [
+        "更新 Blog《先留一个位置》",
+        "更新 Blog《About 区域变成模块化卡片》",
+        "更新 Blog《电子蜗居继续装修》",
+        "更新 Blog《带图片的 Blog 示例》",
+        "更新主页布局或 About 内容",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/4a24689507bb038dc393619d6f8dad3b1c227dd9"
+    },
+    {
+      "id": "63f1e175265c2d8b9ce7eae438605c34d1793000:2026-05-26T18:52:39Z",
+      "sha": "63f1e175265c2d8b9ce7eae438605c34d1793000",
+      "uploadedAt": "2026-05-26T18:52:39Z",
+      "date": "2026-05-27",
+      "message": "Centralize daily board content",
+      "items": [
+        "更新今日黑板",
+        "调整主页导航",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/63f1e175265c2d8b9ce7eae438605c34d1793000"
+    },
+    {
+      "id": "d009e740197b04571a6b3cffb1ad629404159a4b:2026-05-26T18:43:41Z",
+      "sha": "d009e740197b04571a6b3cffb1ad629404159a4b",
+      "uploadedAt": "2026-05-26T18:43:41Z",
+      "date": "2026-05-27",
+      "message": "Keep side widgets fixed to viewport",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/d009e740197b04571a6b3cffb1ad629404159a4b"
+    },
+    {
+      "id": "910ee9fc7dbb4c93c4aa35f4d2c64c60248e52f1:2026-05-26T18:36:43Z",
+      "sha": "910ee9fc7dbb4c93c4aa35f4d2c64c60248e52f1",
+      "uploadedAt": "2026-05-26T18:36:43Z",
+      "date": "2026-05-27",
+      "message": "Add blog category filters",
+      "items": [
+        "调整 Blog 阅读页面",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/910ee9fc7dbb4c93c4aa35f4d2c64c60248e52f1"
+    },
+    {
+      "id": "c42f2f58b56e8e41469998052fe2cff43272dd54:2026-05-26T18:17:24Z",
+      "sha": "c42f2f58b56e8e41469998052fe2cff43272dd54",
+      "uploadedAt": "2026-05-26T18:17:24Z",
+      "date": "2026-05-27",
+      "message": "Pin dashboard widgets to the top",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Blog 阅读页面",
+        "调整主页导航"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/c42f2f58b56e8e41469998052fe2cff43272dd54"
+    },
+    {
+      "id": "9eabfc411c274fc0dda35306ecba8ede9090fe83:2026-05-26T18:08:45Z",
+      "sha": "9eabfc411c274fc0dda35306ecba8ede9090fe83",
+      "uploadedAt": "2026-05-26T18:08:45Z",
+      "date": "2026-05-27",
+      "message": "Add sample blog post with image",
+      "items": [
+        "发布 Blog《带图片的 Blog 示例》",
+        "上传或调整 Blog 配图"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/9eabfc411c274fc0dda35306ecba8ede9090fe83"
+    },
+    {
+      "id": "af5107aa582d5958b86711931efe426baa7e30f7:2026-05-26T18:04:02Z",
+      "sha": "af5107aa582d5958b86711931efe426baa7e30f7",
+      "uploadedAt": "2026-05-26T18:04:02Z",
+      "date": "2026-05-27",
+      "message": "Fix blog entry switching on GitHub Pages",
+      "items": [
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/af5107aa582d5958b86711931efe426baa7e30f7"
+    },
+    {
+      "id": "f34ea4aff1b251a30ae3136024f11ac6aea32d55:2026-05-26T17:58:28Z",
+      "sha": "f34ea4aff1b251a30ae3136024f11ac6aea32d55",
+      "uploadedAt": "2026-05-26T17:58:28Z",
+      "date": "2026-05-27",
+      "message": "Migrate blog entries from JSON to Markdown",
+      "items": [
+        "发布 Blog《先留一个位置》",
+        "发布 Blog《About 区域变成模块化卡片》",
+        "发布 Blog《电子蜗居继续装修》",
+        "上传或调整 Blog 配图",
+        "调整 Blog 阅读页面",
+        "调整网站配置",
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/f34ea4aff1b251a30ae3136024f11ac6aea32d55"
+    },
+    {
+      "id": "44afba53f5a594bb7a3084be04321cd8cbe8fe09:2026-05-26T17:40:21Z",
+      "sha": "44afba53f5a594bb7a3084be04321cd8cbe8fe09",
+      "uploadedAt": "2026-05-26T17:40:21Z",
+      "date": "2026-05-27",
+      "message": "Remove Netlify CMS integration",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/44afba53f5a594bb7a3084be04321cd8cbe8fe09"
+    },
+    {
+      "id": "35c2d40b07466b0634ec2aafdbda047c1f90b9c3:2026-05-26T16:55:56Z",
+      "sha": "35c2d40b07466b0634ec2aafdbda047c1f90b9c3",
+      "uploadedAt": "2026-05-26T16:55:56Z",
+      "date": "2026-05-27",
+      "message": "Expire diary unlocks when tab closes",
+      "items": [
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/35c2d40b07466b0634ec2aafdbda047c1f90b9c3"
+    },
+    {
+      "id": "919a4d298a9fc0fcd43eec0b46e225f27ead4c99:2026-05-25T18:29:05Z",
+      "sha": "919a4d298a9fc0fcd43eec0b46e225f27ead4c99",
+      "uploadedAt": "2026-05-25T18:29:05Z",
+      "date": "2026-05-26",
+      "message": "Add per-entry blog question gates",
+      "items": [
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/919a4d298a9fc0fcd43eec0b46e225f27ead4c99"
+    },
+    {
+      "id": "e9201519799bab525db6be9abd416dbe26c406ea:2026-05-24T22:26:37Z",
+      "sha": "e9201519799bab525db6be9abd416dbe26c406ea",
+      "uploadedAt": "2026-05-24T22:26:37Z",
+      "date": "2026-05-25",
+      "message": "Update Netlify CMS domain",
+      "items": [
+        "Update Netlify CMS domain"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/e9201519799bab525db6be9abd416dbe26c406ea"
+    },
+    {
+      "id": "eb089257d76ebae3f26865402f4b1572a385a315:2026-05-24T22:08:46Z",
+      "sha": "eb089257d76ebae3f26865402f4b1572a385a315",
+      "uploadedAt": "2026-05-24T22:08:46Z",
+      "date": "2026-05-25",
+      "message": "Update Blog Diary “blog_entries”",
+      "items": [
+        "Update Blog Diary “blog_entries”"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/eb089257d76ebae3f26865402f4b1572a385a315"
+    },
+    {
+      "id": "d65776162dcb723261bd071d7b0796bfbb98adb8:2026-05-24T21:59:16Z",
+      "sha": "d65776162dcb723261bd071d7b0796bfbb98adb8",
+      "uploadedAt": "2026-05-24T21:59:16Z",
+      "date": "2026-05-25",
+      "message": "Redirect identity tokens to admin",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/d65776162dcb723261bd071d7b0796bfbb98adb8"
+    },
+    {
+      "id": "e599fde9206426e40f03df3f5aaa767caf592731:2026-05-24T21:24:48Z",
+      "sha": "e599fde9206426e40f03df3f5aaa767caf592731",
+      "uploadedAt": "2026-05-24T21:24:48Z",
+      "date": "2026-05-25",
+      "message": "Set explicit Netlify CMS endpoints",
+      "items": [
+        "Set explicit Netlify CMS endpoints"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/e599fde9206426e40f03df3f5aaa767caf592731"
+    },
+    {
+      "id": "31217269a61bd45b728f3c645c0e43d93da7747c:2026-05-24T20:37:18Z",
+      "sha": "31217269a61bd45b728f3c645c0e43d93da7747c",
+      "uploadedAt": "2026-05-24T20:37:18Z",
+      "date": "2026-05-25",
+      "message": "Use Netlify Git Gateway for CMS",
+      "items": [
+        "Use Netlify Git Gateway for CMS"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/31217269a61bd45b728f3c645c0e43d93da7747c"
+    },
+    {
+      "id": "4632bb962aa969e2dbee2f2dafe0380413b188b2:2026-05-24T20:29:16Z",
+      "sha": "4632bb962aa969e2dbee2f2dafe0380413b188b2",
+      "uploadedAt": "2026-05-24T20:29:16Z",
+      "date": "2026-05-25",
+      "message": "Add Jekyll Gemfile for Netlify",
+      "items": [
+        "调整网站配置"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/4632bb962aa969e2dbee2f2dafe0380413b188b2"
+    },
+    {
+      "id": "2834a4d9fd084f3065cda2d9bb26fd6154b250fb:2026-05-24T19:49:46Z",
+      "sha": "2834a4d9fd084f3065cda2d9bb26fd6154b250fb",
+      "uploadedAt": "2026-05-24T19:49:46Z",
+      "date": "2026-05-25",
+      "message": "Add Decap CMS blog editor",
+      "items": [
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/2834a4d9fd084f3065cda2d9bb26fd6154b250fb"
+    },
+    {
+      "id": "dd352fc30fc1901fd467527fc60a09f6f3a31d92:2026-05-24T19:22:39Z",
+      "sha": "dd352fc30fc1901fd467527fc60a09f6f3a31d92",
+      "uploadedAt": "2026-05-24T19:22:39Z",
+      "date": "2026-05-25",
+      "message": "Tighten blog hero spacing",
+      "items": [
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/dd352fc30fc1901fd467527fc60a09f6f3a31d92"
+    },
+    {
+      "id": "5f377092f520a63a5812613c8004a3e5ebbbb40a:2026-05-24T18:16:01Z",
+      "sha": "5f377092f520a63a5812613c8004a3e5ebbbb40a",
+      "uploadedAt": "2026-05-24T18:16:01Z",
+      "date": "2026-05-25",
+      "message": "Add collapsible diary blog page",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/5f377092f520a63a5812613c8004a3e5ebbbb40a"
+    },
+    {
+      "id": "937dd217fd049fc0173214d56798d997738d82f5:2026-05-24T17:47:12Z",
+      "sha": "937dd217fd049fc0173214d56798d997738d82f5",
+      "uploadedAt": "2026-05-24T17:47:12Z",
+      "date": "2026-05-25",
+      "message": "继续修改个人页面",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/937dd217fd049fc0173214d56798d997738d82f5"
+    },
+    {
+      "id": "8d942463111fb29cd67517793cc9e0f5b0da975f:2026-05-24T17:36:33Z",
+      "sha": "8d942463111fb29cd67517793cc9e0f5b0da975f",
+      "uploadedAt": "2026-05-24T17:36:33Z",
+      "date": "2026-05-25",
+      "message": "修改了个人界面的模版",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/8d942463111fb29cd67517793cc9e0f5b0da975f"
+    },
+    {
+      "id": "4e7354b06b3861294a76307894a6b79216a085d6:2026-05-24T16:30:28Z",
+      "sha": "4e7354b06b3861294a76307894a6b79216a085d6",
+      "uploadedAt": "2026-05-24T16:30:28Z",
+      "date": "2026-05-25",
+      "message": "修改模版",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/4e7354b06b3861294a76307894a6b79216a085d6"
+    },
+    {
+      "id": "678e49ab31bdf546cf860c93538551c130b0b1d9:2026-05-24T14:44:07Z",
+      "sha": "678e49ab31bdf546cf860c93538551c130b0b1d9",
+      "uploadedAt": "2026-05-24T14:44:07Z",
+      "date": "2026-05-24",
+      "message": "Render about sections from JSON",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/678e49ab31bdf546cf860c93538551c130b0b1d9"
+    },
+    {
+      "id": "5e4c31d2752abe36b0a533a9c2df5fc7a2f41e08:2026-05-24T13:35:33Z",
+      "sha": "5e4c31d2752abe36b0a533a9c2df5fc7a2f41e08",
+      "uploadedAt": "2026-05-24T13:35:33Z",
+      "date": "2026-05-24",
+      "message": "Restyle navigation pages",
+      "items": [
+        "调整 Thinking 阅读页面",
+        "调整相册展示与交互",
+        "调整 Blog 阅读页面",
+        "调整主页导航"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/5e4c31d2752abe36b0a533a9c2df5fc7a2f41e08"
+    },
+    {
+      "id": "a152fb2512bc14b567c714d0799d1fa3fcdcb23a:2026-05-24T12:24:32Z",
+      "sha": "a152fb2512bc14b567c714d0799d1fa3fcdcb23a",
+      "uploadedAt": "2026-05-24T12:24:32Z",
+      "date": "2026-05-24",
+      "message": "Add visit calendar widget",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/a152fb2512bc14b567c714d0799d1fa3fcdcb23a"
+    },
+    {
+      "id": "88e968d04593a93045be3e26c93738671d88bc4f:2026-05-24T11:58:12Z",
+      "sha": "88e968d04593a93045be3e26c93738671d88bc4f",
+      "uploadedAt": "2026-05-24T11:58:12Z",
+      "date": "2026-05-24",
+      "message": "Make about details interactive",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/88e968d04593a93045be3e26c93738671d88bc4f"
+    },
+    {
+      "id": "f72e8600c6542551f11365b67645df0496a6dfa4:2026-05-24T11:39:43Z",
+      "sha": "f72e8600c6542551f11365b67645df0496a6dfa4",
+      "uploadedAt": "2026-05-24T11:39:43Z",
+      "date": "2026-05-24",
+      "message": "Center about content and enlarge details",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/f72e8600c6542551f11365b67645df0496a6dfa4"
+    },
+    {
+      "id": "c4cc84a7cc8098ad94cab08672e538734de8aca0:2026-05-24T11:30:03Z",
+      "sha": "c4cc84a7cc8098ad94cab08672e538734de8aca0",
+      "uploadedAt": "2026-05-24T11:30:03Z",
+      "date": "2026-05-24",
+      "message": "Rebalance about layout columns",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/c4cc84a7cc8098ad94cab08672e538734de8aca0"
+    },
+    {
+      "id": "9e819c263e39cdd53c53ea35e9ac4fb9b2ed79e1:2026-05-24T11:17:03Z",
+      "sha": "9e819c263e39cdd53c53ea35e9ac4fb9b2ed79e1",
+      "uploadedAt": "2026-05-24T11:17:03Z",
+      "date": "2026-05-24",
+      "message": "Add external card details and daily board",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/9e819c263e39cdd53c53ea35e9ac4fb9b2ed79e1"
+    },
+    {
+      "id": "a59e3183c1ca53a20ea62f4439036f7dfc5b39b2:2026-05-24T10:56:14Z",
+      "sha": "a59e3183c1ca53a20ea62f4439036f7dfc5b39b2",
+      "uploadedAt": "2026-05-24T10:56:14Z",
+      "date": "2026-05-24",
+      "message": "Expand about cards with hover details",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/a59e3183c1ca53a20ea62f4439036f7dfc5b39b2"
+    },
+    {
+      "id": "25bc806fb1abffaf7f34cbac058746716563ece4:2026-05-24T10:32:24Z",
+      "sha": "25bc806fb1abffaf7f34cbac058746716563ece4",
+      "uploadedAt": "2026-05-24T10:32:24Z",
+      "date": "2026-05-24",
+      "message": "Widen about content layout",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/25bc806fb1abffaf7f34cbac058746716563ece4"
+    },
+    {
+      "id": "f731f6771538ebf928dbd35327ed96ba8186aae0:2026-05-24T10:22:19Z",
+      "sha": "f731f6771538ebf928dbd35327ed96ba8186aae0",
+      "uploadedAt": "2026-05-24T10:22:19Z",
+      "date": "2026-05-24",
+      "message": "Add about cards and timeline",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/f731f6771538ebf928dbd35327ed96ba8186aae0"
+    },
+    {
+      "id": "d4ef88057cd8067682fbf61fe22aa2f0d462ae6d:2026-05-24T09:58:22Z",
+      "sha": "d4ef88057cd8067682fbf61fe22aa2f0d462ae6d",
+      "uploadedAt": "2026-05-24T09:58:22Z",
+      "date": "2026-05-24",
+      "message": "Move navigation sections to pages",
+      "items": [
+        "更新主页布局或 About 内容",
+        "调整 Thinking 阅读页面",
+        "调整相册展示与交互",
+        "调整 Blog 阅读页面"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/d4ef88057cd8067682fbf61fe22aa2f0d462ae6d"
+    },
+    {
+      "id": "5b13f3c694af4ceeb9210be06aac254838f78a05:2026-05-24T09:50:09Z",
+      "sha": "5b13f3c694af4ceeb9210be06aac254838f78a05",
+      "uploadedAt": "2026-05-24T09:50:09Z",
+      "date": "2026-05-24",
+      "message": "Clarify Beijing time display",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/5b13f3c694af4ceeb9210be06aac254838f78a05"
+    },
+    {
+      "id": "49d48c3baad39320000ae2a3a91fe08873f55c74:2026-05-24T09:44:43Z",
+      "sha": "49d48c3baad39320000ae2a3a91fe08873f55c74",
+      "uploadedAt": "2026-05-24T09:44:43Z",
+      "date": "2026-05-24",
+      "message": "Refine homepage title bar",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/49d48c3baad39320000ae2a3a91fe08873f55c74"
+    },
+    {
+      "id": "e0e3a277006cc5e4cd32f1e7f8ed98d293c22f84:2026-05-24T09:33:33Z",
+      "sha": "e0e3a277006cc5e4cd32f1e7f8ed98d293c22f84",
+      "uploadedAt": "2026-05-24T09:33:33Z",
+      "date": "2026-05-24",
+      "message": "Add bilingual navigation and time display",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/e0e3a277006cc5e4cd32f1e7f8ed98d293c22f84"
+    },
+    {
+      "id": "eab812f141476deac992f9faaf4467292f9ed163:2026-05-24T09:10:24Z",
+      "sha": "eab812f141476deac992f9faaf4467292f9ed163",
+      "uploadedAt": "2026-05-24T09:10:24Z",
+      "date": "2026-05-24",
+      "message": "Refine homepage hero layout",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/eab812f141476deac992f9faaf4467292f9ed163"
+    },
+    {
+      "id": "39b93a9b4bb359780054a759e5b05c08a96825a0:2026-05-24T07:28:44Z",
+      "sha": "39b93a9b4bb359780054a759e5b05c08a96825a0",
+      "uploadedAt": "2026-05-24T07:28:44Z",
+      "date": "2026-05-24",
+      "message": "Extend dark gradient homepage style",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/39b93a9b4bb359780054a759e5b05c08a96825a0"
+    },
+    {
+      "id": "67f1153e56df341669bd8fc4faac4e1c7fd36900:2026-05-24T07:09:40Z",
+      "sha": "67f1153e56df341669bd8fc4faac4e1c7fd36900",
+      "uploadedAt": "2026-05-24T07:09:40Z",
+      "date": "2026-05-24",
+      "message": "Add dark homepage hero",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/67f1153e56df341669bd8fc4faac4e1c7fd36900"
+    },
+    {
+      "id": "516035bfd9f31d17d498d48f4fd4d755ffeb3a59:2026-05-24T07:00:29Z",
+      "sha": "516035bfd9f31d17d498d48f4fd4d755ffeb3a59",
+      "uploadedAt": "2026-05-24T07:00:29Z",
+      "date": "2026-05-24",
+      "message": "Use inline homepage styles",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/516035bfd9f31d17d498d48f4fd4d755ffeb3a59"
+    },
+    {
+      "id": "7bc3539f1b1901a4707ddae28a5430e2b36eedef:2026-05-24T06:49:02Z",
+      "sha": "7bc3539f1b1901a4707ddae28a5430e2b36eedef",
+      "uploadedAt": "2026-05-24T06:49:02Z",
+      "date": "2026-05-24",
+      "message": "Fix GitHub preview header",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/7bc3539f1b1901a4707ddae28a5430e2b36eedef"
+    },
+    {
+      "id": "7bca32727b6f4b749a9418d7a8a392f59bd7b1e7:2026-05-24T06:45:09Z",
+      "sha": "7bca32727b6f4b749a9418d7a8a392f59bd7b1e7",
+      "uploadedAt": "2026-05-24T06:45:09Z",
+      "date": "2026-05-24",
+      "message": "Update homepage title",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/7bca32727b6f4b749a9418d7a8a392f59bd7b1e7"
+    },
+    {
+      "id": "6e51becf9f6e0dd662adebb7bd7da6accd78b84a:2026-05-24T05:28:02Z",
+      "sha": "6e51becf9f6e0dd662adebb7bd7da6accd78b84a",
+      "uploadedAt": "2026-05-24T05:28:02Z",
+      "date": "2026-05-24",
+      "message": "Document Markdown homepage structure",
+      "items": [
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/6e51becf9f6e0dd662adebb7bd7da6accd78b84a"
+    },
+    {
+      "id": "b6a2e97b07f7305d98ee6db4326a99de14c3847d:2026-05-24T05:26:23Z",
+      "sha": "b6a2e97b07f7305d98ee6db4326a99de14c3847d",
+      "uploadedAt": "2026-05-24T05:26:23Z",
+      "date": "2026-05-24",
+      "message": "Add Jekyll config for Markdown homepage",
+      "items": [
+        "调整网站配置"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/b6a2e97b07f7305d98ee6db4326a99de14c3847d"
+    },
+    {
+      "id": "a4d22eb3e8fd54b32eab065a04d6bf35d3ccb058:2026-05-24T05:26:08Z",
+      "sha": "a4d22eb3e8fd54b32eab065a04d6bf35d3ccb058",
+      "uploadedAt": "2026-05-24T05:26:08Z",
+      "date": "2026-05-24",
+      "message": "Add Markdown homepage scaffold",
+      "items": [
+        "更新主页布局或 About 内容"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/a4d22eb3e8fd54b32eab065a04d6bf35d3ccb058"
+    },
+    {
+      "id": "e8691f7a73948678d0a23fa6c9c9462b54ec496e:2026-05-24T05:22:04Z",
+      "sha": "e8691f7a73948678d0a23fa6c9c9462b54ec496e",
+      "uploadedAt": "2026-05-24T05:22:04Z",
+      "date": "2026-05-24",
+      "message": "Update README test",
+      "items": [
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/e8691f7a73948678d0a23fa6c9c9462b54ec496e"
+    },
+    {
+      "id": "c84f7e5b84f40f01257ea7c70f1f0d1a50b70044:2026-05-24T04:47:35Z",
+      "sha": "c84f7e5b84f40f01257ea7c70f1f0d1a50b70044",
+      "uploadedAt": "2026-05-24T04:47:35Z",
+      "date": "2026-05-24",
+      "message": "Initial commit",
+      "items": [
+        "更新项目维护说明"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/c84f7e5b84f40f01257ea7c70f1f0d1a50b70044"
+    }
+  ]
+}

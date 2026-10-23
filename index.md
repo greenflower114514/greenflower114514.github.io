@@ -770,6 +770,7 @@ body {
 
 .update-board__legend {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 14px;
   margin-top: 16px;
@@ -779,6 +780,7 @@ body {
 
 .update-board__legend-item {
   display: inline-flex;
+  white-space: nowrap;
   align-items: center;
   gap: 8px;
 }
@@ -786,6 +788,7 @@ body {
 .update-board__legend-swatch {
   width: 11px;
   height: 11px;
+  flex: 0 0 11px;
   border-radius: 3px;
   background: rgba(255, 255, 255, 0.10);
 }
@@ -952,6 +955,20 @@ body {
   color: #d8e2ff;
 }
 
+.update-board__note, .update-board__day-meta {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.78rem;
+}
+.update-board__summary, .update-board__uploads ol {
+  margin: 12px 0;
+  padding-left: 1.3rem;
+  line-height: 1.8;
+}
+.update-board__uploads summary { cursor: pointer; color: #d8e2ff; }
+.update-board__uploads a { color: #d8e2ff; overflow-wrap: anywhere; }
+.update-board__commit { margin-left: 8px; color: rgba(255, 255, 255, 0.45); font-size: 0.75rem; }
+
 .about-timeline {
   margin-top: 48px;
 }
@@ -1099,6 +1116,7 @@ body {
 
   .update-board__meta {
     margin-left: 0;
+    flex-basis: 100%;
   }
 
   .update-board__pagination {
@@ -1420,6 +1438,7 @@ body {
         <div class="update-board__head">
           <div>
             <h2 class="update-board__title">Recent Updates / 最近更新</h2>
+            <p class="update-board__note">按上传日期记录 · 香港时间（UTC+8）</p>
           </div>
           <span class="update-board__toggle" aria-hidden="true">+</span>
         </div>
@@ -1485,6 +1504,7 @@ body {
     <div class="detail-lightbox-panel" id="detail-lightbox-panel">IMAGE / NOTE</div>
   </div>
 
+<script src="assets/recent-updates.js"></script>
 <script>
 let activeAboutCard = null;
 let detailCloseTimer = null;
@@ -1513,15 +1533,7 @@ const aboutBlogEntries = [
   }{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ];
-const homepageUpdateNotes = [
-{% assign homepage_updates = site.updates | sort: "date" | reverse %}
-{% for update in homepage_updates %}
-  {
-    date: {{ update.date | date: "%Y-%m-%d" | jsonify }},
-    summary: {{ update.summary | default: "" | jsonify }}
-  }{% unless forloop.last %},{% endunless %}
-{% endfor %}
-];
+let homepageUploads = [];
 
 function openAboutDetail(card) {
   if (detailCloseTimer) window.clearTimeout(detailCloseTimer);
@@ -1628,18 +1640,6 @@ let normalizedStudyEntries = [];
 let normalizedReadEntries = [];
 let normalizedWatchEntries = [];
 let normalizedPlaylistEntries = [];
-const normalizedHomepageUpdateNotes = homepageUpdateNotes
-  .map((entry) => ({
-    date: normalizeAboutText(entry.date),
-    summary: normalizeAboutText(entry.summary)
-  }))
-  .filter((entry) => /^\d{4}-\d{2}-\d{2}$/.test(entry.date));
-
-function normalizeUpdateDate(value) {
-  const text = normalizeAboutText(value);
-  return /^\d{4}-\d{2}-\d{2}$/.test(text) ? text : "";
-}
-
 function formatUpdateDateLabel(value) {
   const date = new Date(`${value}T00:00:00`);
   if (Number.isNaN(date.getTime())) return value;
@@ -1650,67 +1650,22 @@ function formatUpdateDateLabel(value) {
   }).format(date);
 }
 
-function createHomepageUpdateMap(playlist) {
-  const updatesByDate = new Map();
-
-  function ensureEntry(date) {
-    if (!date) return null;
-    if (!updatesByDate.has(date)) {
-      updatesByDate.set(date, {
-        date,
-        hasUpdate: false,
-        summary: "",
-        sources: {
-          blog: false,
-          music: false,
-          manual: false
-        }
-      });
-    }
-    return updatesByDate.get(date);
-  }
-
-  aboutBlogEntries.forEach((entry) => {
-    const date = normalizeUpdateDate(entry.date);
-    if (!date) return;
-    const target = ensureEntry(date);
-    if (!target) return;
-    target.hasUpdate = true;
-    target.sources.blog = true;
-  });
-
-  if (Array.isArray(playlist)) {
-    playlist.forEach((track) => {
-      const date = normalizeUpdateDate(track?.addedDate);
-      if (!date) return;
-      const target = ensureEntry(date);
-      if (!target) return;
-      target.hasUpdate = true;
-      target.sources.music = true;
-    });
-  }
-
-  normalizedHomepageUpdateNotes.forEach((entry) => {
-    const date = normalizeUpdateDate(entry.date);
-    if (!date) return;
-    const target = ensureEntry(date);
-    if (!target) return;
-    target.sources.manual = true;
-    if (entry.summary) {
-      target.summary = entry.summary;
-    }
-  });
-
-  return [...updatesByDate.values()]
-    .filter((entry) => entry.hasUpdate || entry.sources.manual)
-    .map((entry) => ({
-      ...entry,
-      summary: entry.summary || "更新了内容"
-    }))
-    .sort((left, right) => String(right.date).localeCompare(String(left.date)));
+function createHomepageUpdateMap() {
+  return HomepageUpdates.groupUploads(homepageUploads);
 }
 
-function renderUpdateBoard(playlist) {
+function loadHomepageUpdates() {
+  HomepageUpdates.load({
+    snapshotUrl: "assets/recent-updates.json",
+    historyUrl: `https://raw.githubusercontent.com/greenflower114514/greenflower114514.github.io/update-history/recent-updates.json?v=${Date.now()}`,
+    onUpdate(uploads) {
+      homepageUploads = uploads;
+      renderUpdateBoard();
+    }
+  });
+}
+
+function renderUpdateBoard() {
   const board = document.getElementById("update-board");
   const grid = document.getElementById("update-board-grid");
   const list = document.getElementById("update-board-list");
@@ -1720,7 +1675,7 @@ function renderUpdateBoard(playlist) {
   const toggleIcon = board?.querySelector(".update-board__toggle");
   if (!board || !grid || !list || !pagination || !meta || !toggle || !toggleIcon) return;
 
-  const allUpdates = createHomepageUpdateMap(playlist);
+  const allUpdates = createHomepageUpdateMap();
   const pageSize = 5;
   let currentUpdatePage = 1;
   let highlightedUpdateDate = "";
@@ -1728,14 +1683,14 @@ function renderUpdateBoard(playlist) {
   const pageByDate = new Map(
     allUpdates.map((entry, index) => [entry.date, Math.floor(index / pageSize) + 1])
   );
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const todayKey = HomepageUpdates.dateKey(new Date());
+  const today = new Date(`${todayKey}T00:00:00`);
   const start = new Date(today);
   start.setDate(start.getDate() - 364);
   const heatmapStartKey = formatVisitDate(start);
   const updateDateSet = new Set(
     allUpdates
-      .filter((entry) => entry.date >= heatmapStartKey)
+      .filter((entry) => entry.date >= heatmapStartKey && entry.date <= todayKey)
       .map((entry) => entry.date)
   );
 
@@ -1755,7 +1710,12 @@ function renderUpdateBoard(playlist) {
       ? pageItems.map((entry) => `
           <article class="update-board__entry${entry.date === highlightedUpdateDate ? " is-highlighted" : ""}" data-update-date="${escapeHtml(entry.date)}">
             <time datetime="${escapeHtml(entry.date)}">${escapeHtml(formatUpdateDateLabel(entry.date))}</time>
-            <p>${escapeHtml(entry.summary)}</p>
+            <p class="update-board__day-meta">${entry.uploads.length} 次上传</p>
+            <ul class="update-board__summary">${entry.items.slice(0, 8).map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+            <details class="update-board__uploads">
+              <summary>查看当天全部上传与更新内容</summary>
+              <ol>${entry.uploads.map(upload => `<li><a href="${escapeHtml(upload.url)}" target="_blank" rel="noopener">${escapeHtml(upload.items.join("；") || upload.message || "更新网站内容")}</a><span class="update-board__commit">${escapeHtml(upload.sha.slice(0, 7))}</span></li>`).join("")}</ol>
+            </details>
           </article>
         `).join("")
       : '<article class="update-board__entry"><p>最近还没有可显示的更新记录。</p></article>';
@@ -1806,7 +1766,7 @@ function renderUpdateBoard(playlist) {
     grid.appendChild(cell);
   }
 
-  meta.textContent = `近 365 天高亮 ${updateDateSet.size} 天 / 历史共 ${allUpdates.length} 条`;
+  meta.textContent = `近 365 天更新 ${updateDateSet.size} 天 / 累计 ${homepageUploads.length} 次上传`;
   renderCurrentPage();
 
   if (!toggle.dataset.bound) {
@@ -2061,11 +2021,9 @@ function loadAboutSections() {
       normalizedPlaylistEntries = Array.isArray(playlist)
         ? sortEntriesByOrder(playlist.map(normalizePlaylistEntry).filter(Boolean))
         : [];
-      renderUpdateBoard(Array.isArray(playlist) ? playlist : []);
       renderBlogLinkedAboutSections(sections);
     })
     .catch(() => {
-      renderUpdateBoard([]);
       showAboutLoadError();
     });
 }
@@ -2111,6 +2069,7 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeLightbox();
 });
 
+loadHomepageUpdates();
 loadAboutSections();
 
 function formatVisitDate(date) {

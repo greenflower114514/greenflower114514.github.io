@@ -85,7 +85,17 @@ gateVersion: 1
 - `assets/thinking/`：思考卡片背景图和正文图片。
 - `assets/daily-board.json`：所有页面共用的“今日黑板”数据。
 
-## 更新今日黑板
+## 主页 Recent Updates / 最近更新
+
+- 按真正上传到 `main` 的时间记录，统一使用香港时间（UTC+8），与文章或照片的内容日期分开。
+- 同一天的上传合并显示，日期格子会点亮；展开当天记录可以查看每次上传的内容和 GitHub 提交链接。
+- `assets/recent-updates.json` 保存历史快照。最初的历史记录根据 GitHub Pages 构建触发时间回填，不使用文章日期推算。
+- `.github/workflows/recent-updates.yml` 在每次上传后运行，将新记录自动追加到 `update-history` 数据分支。主页读取该分支中的 `recent-updates.json`，无需再手写 `_updates` 条目。
+- 自动生成的记录只写入数据分支，不在 `main` 生成机器人提交。重复运行同一次工作流不会重复计数，同时上传时会重试合并，保留所有记录。
+- 数据分支暂时无法读取时，主页仍可显示仓库内的历史快照。更新记录单独加载，不受 About 或歌单加载失败影响。
+- 验证：`node --test scripts/recent-updates.test.mjs`。
+
+## 更新今日黑板内容
 
 编辑 `assets/daily-board.json` 即可更新各页面共用的“今日黑板”。`label` 是标题下方的小字，`items` 是事项列表。
 

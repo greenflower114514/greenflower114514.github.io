@@ -1,0 +1,26 @@
+name: Record homepage uploads
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Record this upload
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { pathToFileURL } = require('node:url');
+            const { publishUpload } = await import(pathToFileURL(`${process.env.GITHUB_WORKSPACE}/scripts/recent-updates.mjs`));
+            await publishUpload({ github, context });

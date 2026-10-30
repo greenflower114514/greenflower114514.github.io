@@ -2,13 +2,21 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { createRequire } from "node:module";
-import { buildUpload, mergeUploads, publishUpload, uploadDate } from "./recent-updates.mjs";
+import { buildUpload, describeChanges, mergeUploads, publishUpload, uploadDate } from "./recent-updates.mjs";
 
 const require = createRequire(import.meta.url);
 const client = require("../assets/recent-updates.js");
 const seed = JSON.parse(fs.readFileSync("assets/recent-updates.json", "utf8"));
 const latest = seed.uploads.find(entry => entry.sha.startsWith("69d2ce6"));
 const previous = "10a84574d3b6d53f69249d0732db2f08022dc6b5";
+
+test("study uploads describe learning content even when the homepage changes too", () => {
+  for (const file of ["study.html", "study/2026-10-30-vat-ssrp.html", "assets/study.css", "assets/study-explainer.js", "assets/study/vat-position-texture.svg"]) {
+    const items = describeChanges(null, latest.sha, ["index.md", file]);
+    assert(items.includes("更新学习手记、文章与原理图解"));
+    assert.equal(items.filter(item => item.includes("学习手记")).length, 1);
+  }
+});
 
 test("Hong Kong midnight decides the upload date, independently of the reader timezone", () => {
   for (const date of [uploadDate, client.dateKey]) {

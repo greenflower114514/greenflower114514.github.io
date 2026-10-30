@@ -70,6 +70,7 @@ export function describeChanges(before, after, files) {
     [/^assets\/listen-list\.json$/, "更新歌单与歌曲信息"],
     [/^assets\/read-list\.json$/, "更新阅读书单"],
     [/^assets\/study-list\.json$/, "更新学习记录"],
+    [/^(study\.html|study\/.*\.html|assets\/study(?:[./-]))/, "更新学习手记、文章与原理图解"],
     [/^assets\/watch-list\.json$/, "更新观影记录"],
     [/^assets\/daily-board\.json$/, "更新今日黑板"],
     [/^(money-plan\.html|assets\/money-plan)/, "更新小狗钱钱计划页面"],

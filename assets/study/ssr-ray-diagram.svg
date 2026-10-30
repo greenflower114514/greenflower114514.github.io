@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="390" viewBox="0 0 760 390" fill="none">
+  <title>屏幕空间反射：从地板出发，寻找红色物体</title>
+  <desc>相机视线到地板P点，依照法线反射后朝Q点步进。采样点投影回屏幕并比较深度；命中后读取Q的颜色，用于P点反射。示意图不代表真实比例。</desc>
+  <defs>
+    <marker id="green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="m0 0 8 4-8 4" fill="#b7d9c4"/></marker>
+    <marker id="coral" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="m0 0 8 4-8 4" fill="#ec9c8a"/></marker>
+    <marker id="gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="m0 0 8 4-8 4" fill="#8b9e94"/></marker>
+  </defs>
+  <g font-family="Segoe UI,Microsoft YaHei,sans-serif" font-size="13" fill="#a4adaa">
+    <text x="18" y="22" fill="#edf0eb">① 场景侧视：确定方向，沿射线取样</text>
+    <text x="536" y="22" fill="#edf0eb">② 当前屏幕里的数据</text>
+    <rect x="18" y="267" width="487" height="25" rx="3" fill="#b7d9c416"/>
+    <path d="M18 267H505" stroke="#b7d9c4" stroke-width="2"/>
+    <text x="33" y="316">反光地板</text>
+    <rect x="24" y="58" width="35" height="27" rx="4" fill="#25332d" stroke="#a4adaa"/>
+    <path d="m59 65 15-6v25l-15-6" fill="#25332d" stroke="#a4adaa"/>
+    <text x="23" y="111">相机</text>
+    <path d="M74 80 261 267" stroke="#8b9e94" stroke-width="2" marker-end="url(#gray)"/>
+    <text x="104" y="173">视线</text>
+    <path d="M261 267V146" stroke="#8b9e94" stroke-dasharray="4 5" marker-end="url(#gray)"/>
+    <text x="215" y="135">法线 ↑</text>
+    <path d="m261 267 187-187" stroke="#b7d9c4" stroke-width="2" marker-end="url(#green)"/>
+    <g fill="#b7d9c4"><circle cx="261" cy="267" r="5"/><circle cx="291" cy="237" r="4"/><circle cx="321" cy="207" r="4"/><circle cx="351" cy="177" r="4"/><circle cx="381" cy="147" r="4"/><circle cx="411" cy="117" r="4"/></g>
+    <text x="315" y="251" fill="#b7d9c4">逐步查找 ↗</text>
+    <text x="240" y="317" fill="#edf0eb">P · 地板像素</text>
+    <rect x="438" y="54" width="56" height="65" rx="5" fill="#ec9c8a22" stroke="#ec9c8a"/>
+    <circle cx="448" cy="80" r="5" fill="#ec9c8a"/>
+    <text x="396" y="146" fill="#ec9c8a">Q · 命中表面</text>
+    <path d="M453 80H551" stroke="#ec9c8a" stroke-dasharray="3 4" marker-end="url(#coral)"/>
+    <rect x="543" y="54" width="201" height="238" rx="5" fill="#101618" stroke="#ffffff22"/>
+    <rect x="556" y="69" width="78" height="83" rx="4" fill="#b7d9c410" stroke="#b7d9c440"/>
+    <rect x="650" y="69" width="78" height="83" rx="4" fill="#ffffff06" stroke="#ffffff22"/>
+    <text x="574" y="95" fill="#b7d9c4">颜色图</text>
+    <text x="668" y="95">深度图</text>
+    <rect x="576" y="109" width="24" height="24" fill="#ec9c8a"/>
+    <rect x="670" y="109" width="24" height="24" fill="#afb8b2"/>
+    <text x="557" y="182">投影到屏幕，比较深度</text>
+    <text x="557" y="208" fill="#ec9c8a">命中 Q → 取 Q 的颜色</text>
+    <path d="M575 226v31" stroke="#ec9c8a" marker-end="url(#coral)"/>
+    <text x="589" y="253" fill="#ec9c8a">用于 P 的倒影</text>
+    <path d="M540 324H300" stroke="#ec9c8a" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#coral)"/>
+    <text x="420" y="366" text-anchor="middle" font-size="12">颜色和深度来自当前画面；屏幕外或被遮挡的表面可能没有记录。</text>
+  </g>
+</svg>

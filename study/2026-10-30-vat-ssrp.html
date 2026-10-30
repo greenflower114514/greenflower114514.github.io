@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="用位置贴图和射线示意图理解 VAT 顶点动画与 SSR 屏幕空间反射的实现原理。">
+  <title>VAT 与 SSRP · 学习手记 · 电子蜗居</title>
+  <link rel="stylesheet" href="../assets/study.css">
+  <link rel="stylesheet" href="../assets/study-explainer.css">
+  <script src="../assets/study-explainer.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="study-page">
+    <header class="site-bar">
+      <a class="home-link" href="../"><span class="home-mark" aria-hidden="true">⌂</span>电子蜗居<span class="slash">/</span><span class="current">学习</span></a>
+      <nav aria-label="个人主页导航">
+        <a href="../blog.html">博客</a>
+        <a href="../thinking.html">思考</a>
+        <a href="../gallery.html">相册</a>
+        <a class="active" href="../study.html">学习手记</a>
+      </nav>
+    </header>
+    <main class="note-detail">
+      <nav class="note-breadcrumb" aria-label="面包屑导航"><a href="../study.html#notes">学习手记</a><span aria-hidden="true">/</span><span aria-current="page">VAT 与 SSRP</span></nav>
+      <article aria-labelledby="article-title">
+        <header class="note-detail-header">
+          <p class="eyebrow">THE LEARNING NOTEBOOK</p>
+          <h1 id="article-title">VAT 与 SSRP<span class="title-dot">.</span></h1>
+          <div class="note-meta"><time datetime="2026-10-30">2026 年 10 月 30 日</time><span>技术美术</span><span class="note-author">干煸双鲜</span></div>
+          <ul class="note-tags" aria-label="文章标签"><li>VAT</li><li>SSRP</li></ul>
+        </header>
+        <div class="note-prose" id="article">
+          <p>今天学习了 VAT 与 SSRP。</p>
+          <p class="term-note">术语说明：原记录中的“SSRP”，这里按屏幕空间反射来讲，常用缩写是 <strong>SSR</strong>。它与屏幕空间平面反射（SSPR）的实现不同。</p>
+          <nav class="article-toc" aria-label="文章目录"><a href="#vat">01 · VAT 顶点动画</a><a href="#ssr">02 · SSR 屏幕空间反射</a><a href="#remember">03 · 一句话记住</a></nav>
+
+          <section id="vat" class="explain-section">
+            <p class="eyebrow">01 / VERTEX ANIMATION TEXTURES</p>
+            <h2>VAT：把动作存进贴图，再读出来</h2>
+            <p>模型由许多点组成，这些点叫<strong>顶点</strong>。只要知道每个点在每一帧的位置，就能把动作重新播放出来。</p>
+            <p>VAT 像一本“顶点位置表”：<strong>贴图里的颜色，其实是在保存数字。</strong>以最容易理解的固定顶点变形为例，R、G、B 三个通道可以分别保存经过编码的 X、Y、Z 位置或位移。</p>
+            <ol class="plain-steps">
+              <li><strong>先录好动作。</strong>在制作软件里算好动画，把每一帧各顶点的位置写进贴图，这一步叫“烘焙”。</li>
+              <li><strong>播放时查表。</strong>顶点编号决定读哪里，播放时间决定读哪一帧。</li>
+              <li><strong>让顶点搬家。</strong>GPU 上的顶点着色器把读到的数字还原成位置，移动顶点；连续播放，模型就动了。相邻帧之间还可以插值，让动作更顺滑。</li>
+            </ol>
+            <p class="source-line">原理参考：<a href="https://gist.github.com/mikelyndon/e8431f9cbb7e2f7d88e9a56d11867a47">Mike Lyndon 的 VAT 编码说明</a>、<a href="https://github.com/keijiro/HdrpVatExample">Keijiro 的播放示例</a>。</p>
+
+            <figure class="teaching-figure">
+              <div class="figure-heading"><strong>一张位置贴图，怎样变成动作？</strong><span>可拖动演示</span></div>
+              <div class="vat-demo-grid">
+                <div><p class="diagram-label">位置贴图 · 8 个顶点 × 8 帧</p><div class="texture-preview"><img src="../assets/study/vat-position-texture.svg" alt="教学位置贴图，横向是8个顶点，纵向是8帧；每个色块的RGB编码一个顶点的位置。" width="320" height="320"><div id="vat-row" class="texture-row" aria-hidden="true"></div></div><p class="diagram-hint">横向找顶点 →　纵向找帧 ↓</p></div>
+                <div><p class="diagram-label">读取这一行 → 顶点组成的新形状</p><svg id="vat-mesh" viewBox="0 0 320 240" role="img" aria-labelledby="vat-mesh-title"><title id="vat-mesh-title">第1帧，8个顶点组成的波浪线</title><path d="M20 175H300" stroke="#ffffff20"/><path id="vat-line" d="M30 120 67 73 104 73 141 120 179 167 216 167 253 120 290 73" stroke="#b7d9c4" stroke-width="3" fill="none"/><g id="vat-points" fill="#b7d9c4"></g></svg><p id="vat-sample" class="diagram-hint">选择帧数，观察同一批顶点怎样移动。</p></div>
+              </div>
+              <div class="demo-controls"><label for="vat-frame">播放到 <output id="vat-frame-label">第 1 帧</output></label><input id="vat-frame" type="range" min="0" max="7" value="0" step="1" aria-label="VAT 动画帧数"></div>
+              <figcaption>原创教学图，颜色来自实际示例坐标的编码，已放大像素方便观察；不是某个工程的导出文件。这里用“一行一帧”讲解，真实工具可能把一帧分到多行，或另外保存旋转、法线等数据。</figcaption>
+            </figure>
+            <p class="small-takeaway"><strong>为什么有用？</strong>复杂动作可以预先算好，运行时由 GPU 读取播放，减轻 CPU 负担。代价是占用贴图内存，而且它更像播放录像：不擅长临时改变成全新的物理动作。<a href="https://www.sidefx.com/docs/houdini/nodes/out/labs--vertex_animation_textures-3.1.html">SideFX 官方说明 ↗</a></p>
+
+            <details class="gif-example"><summary>看一个真实 VAT 动画 · 原作者 GIF</summary><figure><div class="gif-slot"><button type="button" class="load-gif" data-gif="https://i.imgur.com/Ctsa3av.gif" data-alt="Keijiro 展示的 Soft VAT 软体变形动画">加载 VAT 动图</button></div><figcaption>看点：模型持续变形，动作由预先存好的数据驱动。来源：<a href="https://github.com/keijiro/HdrpVatExample">Keijiro / HdrpVatExample</a>（Soft 示例，项目采用 Unlicense）。<a href="https://i.imgur.com/Ctsa3av.gif">单独打开 GIF ↗</a></figcaption></figure></details>
+          </section>
+
+          <section id="ssr" class="explain-section">
+            <p class="eyebrow">02 / SCREEN SPACE REFLECTIONS</p>
+            <h2>SSR：在已经画好的画面里找倒影</h2>
+            <p>想让地板映出一个红色物体，SSR 会先利用<strong>当前相机已经画出来的东西</strong>：颜色图告诉它“这里是什么颜色”，深度图告诉它“这里的表面离相机多远”，法线告诉它“表面朝哪里”。<a class="inline-source" href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@17.0/manual/Override-Screen-Space-Reflection.html">Unity 文档 ↗</a></p>
+            <ol class="plain-steps">
+              <li><strong>确定反射方向。</strong>从地板上的一个像素出发，用视线方向和表面法线，算出向哪里寻找倒影。</li>
+              <li><strong>沿途检查深度。</strong>沿反射射线取样，把采样点投影回屏幕，并与深度图比较，判断有没有碰到画面中记录的表面。这叫“射线步进”。</li>
+              <li><strong>找到后取颜色。</strong>若判断命中红色物体，就读取命中位置的画面颜色，再按材质反射强度、粗糙程度等混合到地板上。</li>
+            </ol>
+            <p class="source-line">射线与深度比较的原理：<a href="https://casual-effects.blogspot.com/2014/08/screen-space-ray-tracing.html">Morgan McGuire / Screen Space Ray Tracing</a>。</p>
+
+            <figure class="teaching-figure">
+              <div class="figure-heading"><strong>一个地板像素，怎样找到红色倒影？</strong><span>概念示意</span></div>
+              <div class="diagram-scroll" tabindex="0" role="region" aria-label="SSR 原理示意图，可左右滚动"><img class="ssr-diagram" src="../assets/study/ssr-ray-diagram.svg" width="760" height="390" alt="左侧：相机视线到达地板P点，按法线反射后逐步向红色物体Q点寻找。右侧：将采样点投影到屏幕，与深度图比较；命中Q后，把屏幕上Q的颜色用于P的反射。"></div>
+              <figcaption>绿色点表示沿射线的采样。实际实现会把采样点投影到屏幕，做深度比较；图中只展示关系，不代表真实比例。<strong>它不是把画面直接上下翻转。</strong>手机上可左右滑动查看完整示意图。</figcaption>
+            </figure>
+            <div class="knowledge-callout"><h3>为什么倒影会突然消失？</h3><p>因为它只拿到了相机当前记录的那部分场景。物体移出屏幕、被挡住，或需要反射它的背面时，单靠这些数据就不够了；于是可能出现缺口、闪烁或边缘淡出。游戏常用反射探针等其他方案补上。</p><p class="source-line">案例与限制：<a href="https://bartwronski.com/2014/01/25/the-future-of-screenspace-reflections/">Bart Wronski / The future of screenspace reflections</a>。</p></div>
+            <details class="gif-example"><summary>看一个水面 SSR 效果 · 原作者 GIF</summary><figure><div class="gif-slot"><button type="button" class="load-gif" data-gif="https://raw.githubusercontent.com/P3ntest/rug-graphics-competition/main/screenshots/recording.gif" data-alt="Julius van Voorden 的 OpenGL 屏幕空间反射示例，水面映出场景并随波纹变化">加载 SSR 动图</button></div><figcaption>看点：水面上的倒影会随视角、波纹变化。来源：<a href="https://github.com/P3ntest/rug-graphics-competition">Julius van Voorden / Screen Space Reflections and Water Shader</a>。动图从作者地址加载，未复制到本站。<a href="https://raw.githubusercontent.com/P3ntest/rug-graphics-competition/main/screenshots/recording.gif">单独打开 GIF ↗</a></figcaption></figure></details>
+          </section>
+
+          <section id="remember" class="knowledge-callout remember"><h2>一句话记住</h2><p><strong>VAT：</strong>提前把动作存成贴图，GPU 查表，让顶点动起来。</p><p><strong>SSR：</strong>沿反射方向查当前画面的深度，命中后取颜色，拼出倒影。</p></section>
+        </div>
+        <footer class="note-detail-footer"><a href="../study.html#2026-10-30-vat-ssrp">← 返回学习手记</a><span>保持好奇，持续生长。</span></footer>
+      </article>
+    </main>
+    <footer class="study-footer"><a href="../">← 回到电子蜗居</a><span>学习手记<span class="footer-dot">●</span></span></footer>
+  </div>
+</body>
+</html>

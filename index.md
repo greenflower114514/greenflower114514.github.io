@@ -163,7 +163,7 @@ body {
 
 .profile-nav {
   display: grid;
-  grid-template-columns: repeat(6, minmax(72px, 1fr));
+  grid-template-columns: repeat(7, minmax(72px, 1fr));
   width: min(620px, 94vw);
   margin: 0 auto;
   border-top: 1px solid rgba(255, 255, 255, 0.18);
@@ -1074,7 +1074,7 @@ body {
   }
 
   .profile-nav {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     width: min(560px, 96vw);
   }
 
@@ -1316,6 +1316,11 @@ body {
           <span class="profile-nav-icon">☼</span>
           <span class="profile-nav-en">Thinking</span>
           <span class="profile-nav-cn">思考</span>
+        </a>
+        <a href="study.html">
+          <span class="profile-nav-icon">⌘</span>
+          <span class="profile-nav-en">Study</span>
+          <span class="profile-nav-cn">学习</span>
         </a>
         <a href="money-plan.html">
           <span class="profile-nav-icon">◉</span>

@@ -3,6 +3,19 @@
   "timeZone": "Asia/Hong_Kong",
   "uploads": [
     {
+      "id": "push-41087999243",
+      "sha": "a4082c8d0eaa961717c7dc627b790aec38b08310",
+      "uploadedAt": "2026-10-30T16:14:04.000Z",
+      "date": "2026-10-31",
+      "message": "Publish learning notebook with VAT and SSR illustrated guide",
+      "items": [
+        "更新主页布局或 About 内容",
+        "更新学习手记、文章与原理图解",
+        "更新上传记录与自动统计"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/a4082c8d0eaa961717c7dc627b790aec38b08310"
+    },
+    {
       "id": "push-39985069493",
       "sha": "bee77aa3c84a9eecf03f6aea9bbbd1fb31ad76ba",
       "uploadedAt": "2026-10-23T16:14:01.000Z",

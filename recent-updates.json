@@ -3,6 +3,17 @@
   "timeZone": "Asia/Hong_Kong",
   "uploads": [
     {
+      "id": "push-43870959660",
+      "sha": "afdf72138cad6c79e18c4eb9bb11231f04b624d6",
+      "uploadedAt": "2026-11-16T12:55:27.000Z",
+      "date": "2026-11-16",
+      "message": "Publish Unity gamma correction guide with diagrams and video",
+      "items": [
+        "更新学习手记、文章与原理图解"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/afdf72138cad6c79e18c4eb9bb11231f04b624d6"
+    },
+    {
       "id": "push-41087999243",
       "sha": "a4082c8d0eaa961717c7dc627b790aec38b08310",
       "uploadedAt": "2026-10-30T16:14:04.000Z",

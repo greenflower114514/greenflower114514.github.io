@@ -804,6 +804,7 @@ h1 {
 
 [hidden] { display:none !important; }
 .study-note { padding:30px 0 34px; overflow-wrap:anywhere; }
+.study-note+.study-note { border-top:1px solid var(--line); }
 .note-meta { display:flex; flex-wrap:wrap; align-items:center; gap:15px; font-size:11px; color:var(--muted); }
 .note-meta>span { color:var(--accent); }
 .study-note h3 { margin:15px 0 13px; font-size:23px; font-weight:500; letter-spacing:.5px; }

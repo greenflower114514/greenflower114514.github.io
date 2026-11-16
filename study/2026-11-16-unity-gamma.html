@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="通过亮度对比、sRGB 曲线、Unity 渲染流程图和一分钟中文动画，理解 Gamma 校正、Linear 工作流与贴图 sRGB 设置。">
+  <title>Unity 中的 Gamma 校正 · 学习手记 · 电子蜗居</title>
+  <link rel="stylesheet" href="../assets/study.css">
+  <link rel="stylesheet" href="../assets/study-explainer.css">
+  <link rel="stylesheet" href="../assets/study-gamma.css">
+  <script src="../assets/study-gamma.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="study-page">
+    <header class="site-bar">
+      <a class="home-link" href="../"><span class="home-mark" aria-hidden="true">⌂</span>电子蜗居<span class="slash">/</span><span class="current">学习</span></a>
+      <nav aria-label="个人主页导航"><a href="../blog.html">博客</a><a href="../thinking.html">思考</a><a href="../gallery.html">相册</a><a class="active" href="../study.html">学习手记</a></nav>
+    </header>
+    <main class="note-detail">
+      <nav class="note-breadcrumb" aria-label="面包屑导航"><a href="../study.html#notes">学习手记</a><span aria-hidden="true">/</span><span aria-current="page">Unity 中的 Gamma 校正</span></nav>
+      <article aria-labelledby="article-title">
+        <header class="note-detail-header">
+          <p class="eyebrow">THE LEARNING NOTEBOOK</p>
+          <h1 id="article-title">Unity 中的 Gamma 校正<span class="title-dot">.</span></h1>
+          <p class="gamma-deck">从一块 0.5 灰，理解颜色是怎样被算出来、再显示出来的。</p>
+          <div class="note-meta"><time datetime="2026-11-16">2026 年 11 月 16 日</time><span>技术美术</span><span class="note-author">干煸双鲜</span><span>约 8 分钟 · 含 1 分钟视频</span></div>
+          <ul class="note-tags" aria-label="文章标签"><li>Unity</li><li>Gamma</li><li>Linear</li><li>sRGB</li></ul>
+        </header>
+        <div class="note-prose" id="article">
+          <p class="gamma-intro">在 Unity 里，把 Color Space 从 Gamma 切到 Linear，为什么灯光和材质会变样？要理解它，先分清两件事：<strong>图片里存的颜色数字</strong>，和<strong>计算光照时用的线性数值</strong>。</p>
+          <div class="gamma-summary"><div><strong>Linear · 用来算</strong><span>数值与光强成比例，适合光照运算。</span></div><div><strong>sRGB · 用来存与显示</strong><span>常见颜色图片使用的非线性编码。</span></div><div><strong>校正 · 负责转换</strong><span>读入时解码，算完后按输出要求编码。</span></div></div>
+          <p class="term-note">阅读范围：以 Unity 6.0 文档与常见 SDR / sRGB 输出为例。HDR 显示输出另有传递函数；这里的数值不直接套用到 HDR 屏幕。图例是教学计算，不是 Unity 场景截图。</p>
+          <nav class="article-toc" aria-label="文章目录"><a href="#video">01 · 一分钟动画</a><a href="#brightness">02 · 0.5 的陷阱</a><a href="#pipeline">03 · Unity 怎么处理</a><a href="#settings">04 · 实际设置</a><a href="#pitfalls">05 · 排查与复习</a></nav>
+
+          <section id="video" class="explain-section">
+            <p class="eyebrow">01 / WATCH THE IDEA</p>
+            <h2>先看一遍：颜色的往返旅程</h2>
+            <p>先看“相同数字、不同光强”，再跟着一个灰色像素走过 Unity 的读入、光照和输出。视频可以暂停或跳到指定章节。</p>
+            <figure class="teaching-figure">
+              <div class="figure-heading"><strong>60 秒理解 Gamma 校正</strong><span>原创动画 · 中文画面说明 · 无旁白</span></div>
+              <video id="gamma-video" class="gamma-video" controls playsinline preload="none" poster="../assets/study/gamma/gamma-video-poster.jpg" width="1280" height="720" aria-label="一分钟 Gamma 校正教学动画" aria-describedby="gamma-video-caption">
+                <source src="../assets/study/gamma/gamma-explained.mp4" type="video/mp4">
+                你的浏览器不支持内嵌视频，请直接打开下方 MP4 或阅读文字版。
+              </video>
+              <div class="video-chapters" role="group" aria-label="跳转视频章节"><button type="button" data-video-time="0">00:00 数字与光强</button><button type="button" data-video-time="10">00:10 亮度对比</button><button type="button" data-video-time="20">00:20 解码</button><button type="button" data-video-time="30">00:30 计算与编码</button><button type="button" data-video-time="40">00:40 Unity 设置</button><button type="button" data-video-time="50">00:50 记住三步</button></div>
+              <p id="gamma-video-status" class="diagram-hint" role="status"></p>
+              <figcaption id="gamma-video-caption">依据下文引用的 Unity 文档和 sRGB 公式制作，演示简化的 SDR 流程。数值按精确 sRGB 公式计算，画面颜色仅作示意；视频压缩与显示设备可能影响观感。<a href="../assets/study/gamma/gamma-explained.mp4">直接打开 MP4 ↗</a></figcaption>
+            </figure>
+            <details class="video-transcript"><summary>展开视频文字版</summary><ol><li><strong>00:00—00:10：</strong>sRGB 的 0.5 灰，对应约 21.4% 的相对白色光强；线性的 0.5 才表示 50%。</li><li><strong>00:10—00:20：</strong>同一个目标光强，直接当 sRGB 显示会偏暗。目标为 50% 时，先编码成约 0.735，显示后才对应 50%。</li><li><strong>00:20—00:30：</strong>颜色贴图中的 0.5，经过 sRGB 解码变成约 0.214，交给 Shader 计算。</li><li><strong>00:30—00:40：</strong>假设光照系数为 0.5，线性运算得到 0.107，输出编码约为 0.361。这是一个简化乘法例子。</li><li><strong>00:40—00:50：</strong>项目使用 Linear；sRGB 颜色贴图勾选 sRGB；遮罩等数据贴图关闭 sRGB；法线贴图设置为 Normal map。</li><li><strong>00:50—01:00：</strong>颜色读入先解码，光照在线性空间计算，最后输出时编码。Unity 已经处理的转换，不要再手动重复。</li></ol></details>
+          </section>
+
+          <section id="brightness" class="explain-section">
+            <p class="eyebrow">02 / A NUMBER IS NOT LIGHT</p>
+            <h2>0.5 灰，为什么不是一半光强？</h2>
+            <p>把白色的光强定为 1，黑色定为 0。在<strong>线性空间</strong>里，0.5 就是白色一半的光强；两份 0.25 的光可以相加成 0.5。光照公式需要的就是这种关系。</p>
+            <p>而常见的 sRGB 图片像一把<strong>刻度间距不均匀的尺子</strong>：文件里的数字不是光强本身。这样的编码能让有限的存储精度更多地照顾暗部。sRGB 灰色数值为 0.5 时，解码后约为 0.214；要表达线性 0.5，则应编码为约 0.735。<a class="inline-source" href="#source-color">[1]</a> <a class="inline-source" href="#source-srgb">[2]</a></p>
+            <figure class="teaching-figure">
+              <div class="figure-heading"><strong>拖一拖：把目标光强变成屏幕上的灰</strong><span>交互图例 · 黑白之间</span></div>
+              <div class="gamma-comparison"><div><div id="gamma-direct" class="gamma-swatch" style="background:#808080" aria-hidden="true"></div><h3>直接当作 sRGB 显示</h3><p class="gamma-value" id="gamma-direct-value">sRGB 0.500 → 光强 21.4%</p></div><div><div id="gamma-correct" class="gamma-swatch" style="background:#bcbcbc" aria-hidden="true"></div><h3>先编码，再显示</h3><p class="gamma-value" id="gamma-correct-value">sRGB 0.735 → 光强 50.0%</p></div></div>
+              <div class="demo-controls"><label for="gamma-light">目标线性光强 <output id="gamma-light-label" for="gamma-light">50%</output></label><input class="gamma-slider" id="gamma-light" type="range" min="0" max="100" value="50" step="1" aria-describedby="gamma-demo-status"><button id="gamma-reset" class="gamma-reset" type="button">回到 50%</button></div>
+              <p class="gamma-demo-status" id="gamma-demo-status">目标是 50% 的相对白色光强。直接把线性数值当 sRGB 显示，得到约 21.4%；先编码再显示，得到 50%。</p>
+              <figcaption>这里比较的是“线性结果是否正确编码输出”，不等同于切换整个 Unity 项目。光强百分比是 sRGB 模型中的理论值，不是对你的屏幕进行实测，也不等于主观感觉亮了多少。</figcaption>
+              <noscript><p class="diagram-hint">启用 JavaScript 后可拖动；当前展示 50% 光强的对比。</p></noscript>
+            </figure>
+            <figure class="teaching-figure"><div class="figure-heading"><strong>读懂弯曲的刻度</strong><span>sRGB 解码曲线</span></div><a href="../assets/study/gamma/srgb-curve.svg" aria-label="打开 sRGB 解码曲线原图"><img class="gamma-curve" src="../assets/study/gamma/srgb-curve.svg" width="760" height="470" loading="lazy" alt="横轴是存储的 sRGB 数值，纵轴是线性光强。sRGB 解码曲线在 y=x 参考直线下方，sRGB 0.5 对应线性 0.214，sRGB 0.735 对应线性 0.5。"></a><figcaption>沿横轴读入颜色数字，再向上找到曲线，得到真正用于光照运算的线性值。手机上可点开原图放大。</figcaption></figure>
+            <details class="video-transcript"><summary>想看公式？先记近似，再看准确版本</summary><p>便于记忆的近似：解码 <code>L ≈ C^2.2</code>，编码 <code>C ≈ L^(1/2.2)</code>。但 <strong>sRGB 不是一条纯粹的 2.2 幂曲线</strong>，它在接近黑色处有线性段。本文图例用下面的准确公式。<a href="#source-srgb">[2]</a></p><pre class="gamma-formula">C = sRGB 编码值，L = 线性值（这里均在 0～1）
+
+解码：C ≤ 0.04045 时，L = C / 12.92
+      否则 L = ((C + 0.055) / 1.055)^2.4
+
+编码：L ≤ 0.0031308 时，C = 12.92 × L
+      否则 C = 1.055 × L^(1/2.4) − 0.055</pre></details>
+          </section>
+
+          <section id="pipeline" class="explain-section">
+            <p class="eyebrow">03 / THE LINEAR WORKFLOW</p>
+            <h2>Unity：读进来，算清楚，再送出去</h2>
+            <p>在 Linear 工作流中，常见的 sRGB 颜色贴图会在采样时被解码。Shader 拿到线性颜色，进行光照、相加或混合；到 SDR 显示输出时，再按需要编码。中间的 HDR 渲染缓冲可以保留线性值，转换不一定紧跟在每个 Shader 后面。<a class="inline-source" href="#source-workflow">[3]</a></p>
+            <figure class="teaching-figure"><div class="figure-heading"><strong>跟着一个灰色像素走一遍</strong><span>假设光照系数为 0.5</span></div><ol class="gamma-pipeline"><li><small>01 / 颜色贴图</small><strong>存着 sRGB</strong><span class="pipeline-math">0.500</span><span>表示颜色的编码值</span></li><li><small>02 / 采样解码</small><strong>还原成线性</strong><span class="pipeline-math">≈ 0.214</span><span>交给 Shader 的输入</span></li><li><small>03 / 光照运算</small><strong>在线性域相乘</strong><span class="pipeline-math">× 0.5 ≈ 0.107</span><span>光强减半</span></li><li><small>04 / 输出编码</small><strong>转回 sRGB</strong><span class="pipeline-math">≈ 0.361</span><span>显示后对应 0.107</span></li></ol><figcaption>原创流程图。只保留“灰色 × 光照系数”的核心步骤，忽略曝光、色调映射和其他光源；真实材质还会计算法线、BRDF 等。</figcaption></figure>
+            <p>如果直接对编码值相乘，就会得到 <code>0.5 × 0.5 = 0.25</code>；把它当 sRGB 显示，仅对应约 <code>0.051</code> 的线性光强。这不是原来 <code>0.214</code> 的一半。</p>
+            <div class="knowledge-callout"><h3>切换 Linear，不代表整个画面必定更亮</h3><p>输入、光照叠加、混合与输出的关系都可能改变。某个简单示例变亮，并不能推出所有场景都变亮。Gamma 模式下调好的灯光和材质，切换后需要重新检查；判断依据应是正确的工作流和预期美术效果。<a href="#source-differences">[4]</a></p></div>
+          </section>
+
+          <section id="settings" class="explain-section">
+            <p class="eyebrow">04 / SET IT UP IN UNITY</p>
+            <h2>实际操作：认准两个设置</h2>
+            <ol class="plain-steps"><li><strong>项目选择计算方式。</strong>打开 <code>Edit → Project Settings → Player → Other Settings → Rendering → Color Space</code>，使用 <code>Linear</code> 建立这篇笔记演示的工作流。具体支持情况取决于渲染管线、平台和图形 API。<a href="#source-setting">[5]</a></li><li><strong>每张贴图说明数据含义。</strong>在 Project 中选中贴图，查看 Inspector 的 <code>sRGB (Color Texture)</code>，按下表设置后点击 Apply。它表示 RGB 通道是否作为 sRGB 颜色读取，并不是“让图片好看一点”的开关。<a href="#source-textures">[6]</a></li></ol>
+            <div class="gamma-table-wrap"><table class="gamma-table"><caption class="sr-only">Unity 贴图类型与 sRGB 设置对照</caption><thead><tr><th scope="col">贴图内容</th><th scope="col">通常怎么设置</th><th scope="col">为什么</th></tr></thead><tbody><tr><td>Base Color / Albedo 等 sRGB 颜色图</td><td>勾选 sRGB</td><td>颜色经过编码，采样时应先解码。</td></tr><tr><td>Metallic、Roughness / Smoothness、AO、Mask、Height</td><td>关闭 sRGB</td><td>通道表示参数。0.5 应仍是 0.5，不能变成 0.214。</td></tr><tr><td>Normal 法线图</td><td>Texture Type 设为 Normal map</td><td>让 Unity 按法线数据处理，不作为普通颜色图读取。</td></tr><tr><td>VAT 位置等数值贴图</td><td>关闭 sRGB</td><td>RGB 保存坐标或其他数据，转换会改变原始含义。</td></tr></tbody></table></div>
+            <p class="term-note">按内容判断，不按“看起来是不是灰图”判断。灰色的 Albedo 仍然是颜色图；已经在线性空间制作的颜色资源需要按其实际编码导入。sRGB 转换针对 RGB，Alpha 不做同样的 Gamma 转换；打包贴图还要遵循对应 Shader 的通道约定。法线与其他非颜色贴图的默认处理见 <a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/TextureImporterSettings-sRGBTexture.html">Unity API 说明</a>。</p>
+            <h3>两分钟验证：一半白，应该是什么灰？</h3>
+            <ol class="plain-steps"><li>在 Linear 项目的测试场景里，用 Unlit Shader Graph 将两个 Float 常量 <code>0</code> 和 <code>1</code> 接到 Lerp 的 A、B，T 设为 <code>0.5</code>，结果连接到颜色输出。</li><li>把材质放到一个平面上，关闭会改变颜色的后处理，使用普通 SDR 输出。这时输出的是线性 <code>0.5</code>，正常输出链路编码后约为 sRGB <code>0.735</code>（8 位约 <code>188</code>）。</li><li>对照上面的右侧色块理解结果。如果不同，先检查曝光、色调映射、输出目标和是否多做了转换。这里用 Float 常量，是为了让输入数值含义明确。</li></ol>
+          </section>
+
+          <section id="pitfalls" class="explain-section">
+            <p class="eyebrow">05 / REMEMBER &amp; DEBUG</p>
+            <h2>遇到颜色不对，先检查数据走了哪条路</h2>
+            <ul class="plain-steps"><li><strong>贴图发白或参数不对：</strong>先确认它是颜色还是数据，再查导入设置。数据贴图误勾 sRGB，会让中间值改变。</li><li><strong>写 Shader 时想补一个 pow：</strong>先确认采样是否已解码、输出是否会自动编码。Linear 项目的常规颜色路径通常已经处理；重复解码可能压暗，重复编码可能发灰。不要把 <code>pow(color, 1/2.2)</code> 当万能修复。</li><li><strong>自定义 Blit、RenderTexture 或截图异常：</strong>检查缓冲格式、sRGB 标记和读写路径，明确哪一步负责转换。不能仅凭函数名或文件扩展名猜测。<a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/RenderTexture-sRGB.html">RenderTexture.sRGB ↗</a></li><li><strong>旧项目切换后不好看：</strong>重新检查灯光、材质、后处理；使用烘焙光照时重新烘焙。Gamma 校正解决数值转换，曝光调整整体光量，Tone Mapping 映射动态范围，三者作用不同。<a href="#source-gamma-textures">[7]</a></li></ul>
+            <div class="knowledge-callout remember"><h3>记住这一条就够了</h3><p><strong>颜色先解码 → 在线性空间算光 → 输出时再编码。</strong></p><p>颜色贴图认 sRGB，数据贴图保留数值；Unity 已经做过的转换，不要再重复做。</p></div>
+            <details class="video-transcript"><summary>小自测：一张遮罩贴图里的 0.5，勾选 sRGB 后会怎样？</summary><p>在 Linear 工作流的 sRGB 采样中，RGB 通道的 0.5 会被解码成约 0.214。如果 Shader 本来希望它表示“50% 权重”，这个参数就错了。应把它当数据贴图导入，关闭 sRGB。</p></details>
+          </section>
+
+          <section id="sources" class="explain-section"><p class="eyebrow">READ FURTHER</p><h2>资料与延伸阅读</h2><p class="source-line">依据 Unity 6.0 文档整理。图例、数值示例与视频为本站原创教学演示；sRGB 数值使用标准分段公式计算。</p><ol class="gamma-sources"><li id="source-color"><a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/graphics-color/color-spaces/color-spaces">Unity · Color spaces in Unity</a> — 线性光强、显示编码与颜色空间。</li><li id="source-srgb"><a href="https://www.w3.org/TR/css-color-4/#color-conversion-code">W3C · CSS Color 4 / Color conversion code</a> — sRGB 编码、解码公式。</li><li id="source-workflow"><a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/graphics-color/color-spaces/linear-color-space/space">Unity · Introduction to linear color space</a> — 采样与输出转换的时机。</li><li id="source-differences"><a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/graphics-color/color-spaces/differences-linear-gamma-color-space">Unity · Differences between linear and gamma color space</a> — 灯光和混合的不同表现。</li><li id="source-setting"><a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/graphics-color/color-spaces/set-project-color-space">Unity · Set a project's color space</a> — 项目设置位置。</li><li id="source-textures"><a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/graphics-color/color-spaces/linear-color-space/linear-textures">Unity · Linear textures</a>；<a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/graphics-color/color-spaces/disable-srgb-sampling-textures">Disable sRGB sampling</a> — 贴图数据的导入方式。</li><li id="source-gamma-textures"><a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/graphics-color/color-spaces/linear-color-space/gamma-textures-linear-color-space">Unity · Gamma textures in linear color space</a> — 烘焙光照、HDR 和非 HDR 缓冲的处理。</li></ol></section>
+        </div>
+        <footer class="note-detail-footer"><a href="../study.html#2026-11-16-unity-gamma">← 返回学习手记</a><span>保持好奇，持续生长。</span></footer>
+      </article>
+    </main>
+    <footer class="study-footer"><a href="../">← 回到电子蜗居</a><span>学习手记<span class="footer-dot">●</span></span></footer>
+  </div>
+</body>
+</html>

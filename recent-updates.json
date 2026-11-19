@@ -3,6 +3,17 @@
   "timeZone": "Asia/Hong_Kong",
   "uploads": [
     {
+      "id": "push-44590156932",
+      "sha": "1ad6c835771906c0bb12693233619dc82d106c3d",
+      "uploadedAt": "2026-11-19T18:39:37.000Z",
+      "date": "2026-11-20",
+      "message": "Add illustrated texture atlas and overlapping UV learning guide",
+      "items": [
+        "更新学习手记、文章与原理图解"
+      ],
+      "url": "https://github.com/greenflower114514/greenflower114514.github.io/commit/1ad6c835771906c0bb12693233619dc82d106c3d"
+    },
+    {
       "id": "push-43870959660",
       "sha": "afdf72138cad6c79e18c4eb9bb11231f04b624d6",
       "uploadedAt": "2026-11-16T12:55:27.000Z",

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="480" viewBox="0 0 900 480" role="img" aria-labelledby="title desc">
+<title id="title">使用多次，纹理只存一份</title><desc id="desc">A、B、C 三件家具读取同一张图集。A 读取 a 三次、b 两次、c 一次；B 读取 a 两次、b 四次；C 读取 a 一次、c 五次。图集只存 a、b、c 各一份。</desc>
+<defs><pattern id="wood" width="68" height="100" patternUnits="userSpaceOnUse"><rect width="68" height="100" fill="#b9844e"/><path d="M6-10C35 25-15 65 10 110M22-10C53 30 4 64 31 110M43-10C20 27 72 70 47 110M59-10C37 20 84 63 68 110" fill="none" stroke="#79502f" stroke-width="3"/></pattern><pattern id="fabric" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#6c8c83"/><path d="M0 3H12M3 0V12" stroke="#abc8ba" opacity=".5"/></pattern><linearGradient id="metal"><stop stop-color="#728f9e"/><stop offset=".45" stop-color="#c3d3d7"/><stop offset="1" stop-color="#647e8e"/></linearGradient><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="m0 0 10 5-10 5" fill="#b7d9c4"/></marker></defs>
+<rect width="900" height="480" rx="8" fill="#11191c"/>
+<g font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<text x="32" y="42" fill="#edf0eb" font-size="25" font-weight="600">三件家具，读取同一张材料样本卡</text>
+<text x="32" y="77" fill="#a4adaa" font-size="19">左边数的是使用次数；右边数的是保存的内容。</text>
+<g fill="#1b2529" stroke="#35413f"><rect x="32" y="111" width="342" height="87" rx="7"/><rect x="32" y="216" width="342" height="87" rx="7"/><rect x="32" y="321" width="342" height="87" rx="7"/></g>
+<g fill="#edf0eb" font-size="23"><text x="53" y="146">家具 A</text><text x="53" y="251">家具 B</text><text x="53" y="356">家具 C</text></g>
+<g fill="#b7d9c4" font-size="21"><text x="53" y="178">a × 3　b × 2　c × 1</text><text x="53" y="283">a × 2　b × 4</text><text x="53" y="388">a × 1　c × 5</text></g>
+<g stroke="#b7d9c4" stroke-width="2" fill="none"><path d="M386 154H423V260H489" marker-end="url(#arrow)"/><path d="M386 260H489" marker-end="url(#arrow)"/><path d="M386 365H423V260"/></g>
+<text x="412" y="230" fill="#b7d9c4" font-size="18">读取</text>
+<rect x="510" y="111" width="358" height="297" rx="8" fill="#1b2529" stroke="#b7d9c4"/>
+<text x="535" y="148" fill="#edf0eb" font-size="23">共享图集</text>
+<rect x="535" y="174" width="96" height="130" rx="4" fill="url(#wood)"/><rect x="641" y="174" width="96" height="130" rx="4" fill="url(#fabric)"/><rect x="747" y="174" width="96" height="130" rx="4" fill="url(#metal)"/>
+<g fill="#edf0eb" font-size="22" text-anchor="middle"><text x="583" y="339">a · 1 份</text><text x="689" y="339">b · 1 份</text><text x="795" y="339">c · 1 份</text></g>
+<text x="535" y="381" fill="#b7d9c4" font-size="20">同一块内容，可以被反复读取。</text>
+<text x="32" y="452" fill="#a4adaa" font-size="20">条件：a、b、c 各自的内容相同；独有划痕等差异需要另外保存。</text>
+</g></svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+<title id="title">共享木纹与独立划痕</title><desc id="desc">第一套 UV 重叠以共享基础木纹。第二套 UV 不重叠，把桌面、桌腿和抽屉分别映射到独立遮罩区域。只在桌面遮罩写入划痕，组合后只有桌面出现划痕。</desc>
+<defs><pattern id="wood" width="52" height="90" patternUnits="userSpaceOnUse"><rect width="52" height="90" fill="#b9844e"/><path d="M5-10C27 20-13 59 8 100M22-10C1 30 46 62 25 100M43-10C21 25 67 61 48 100" fill="none" stroke="#79502f" stroke-width="2.5"/></pattern></defs>
+<rect width="900" height="520" rx="8" fill="#11191c"/>
+<g font-family="Microsoft YaHei, Noto Sans SC, sans-serif">
+<text x="28" y="42" fill="#edf0eb" font-size="25" font-weight="600">把“共用的材料”和“独有的痕迹”分开</text>
+<text x="28" y="83" fill="#b7d9c4" font-size="22">UV0：重叠，共用基础木纹</text>
+<rect x="28" y="103" width="180" height="138" rx="6" fill="url(#wood)"/>
+<g fill="none" stroke-width="2"><rect x="46" y="118" width="143" height="108" stroke="#fff"/><path d="M46 118L189 226" stroke="#fff"/><rect x="49" y="121" width="137" height="102" stroke="#b7d9c4" stroke-dasharray="6 4"/></g>
+<g fill="#d5ddd7" font-size="21"><text x="240" y="142">桌面、桌腿、抽屉</text><text x="240" y="179">都可以读取这一块木纹。</text><text x="240" y="216">基础颜色只保存一份。</text></g>
+<path d="M28 270H872" stroke="#35413f"/>
+<text x="28" y="310" fill="#edc89f" font-size="22">另一套 UV：不重叠，各有划痕区域</text>
+<g fill="#202b30" stroke="#87968f"><rect x="28" y="333" width="163" height="106" rx="4"/><rect x="204" y="333" width="163" height="106" rx="4"/><rect x="380" y="333" width="163" height="106" rx="4"/></g>
+<path d="m67 404 78-42" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+<g fill="#d5ddd7" font-size="20" text-anchor="middle"><text x="110" y="470">桌面 · 有划痕</text><text x="286" y="470">桌腿 · 空白</text><text x="462" y="470">抽屉 · 空白</text></g>
+<rect x="593" y="104" width="279" height="370" rx="8" fill="#1b2529" stroke="#52685b"/>
+<text x="617" y="142" fill="#edf0eb" font-size="23">Shader 组合后的结果</text>
+<g fill="url(#wood)"><rect x="616" y="166" width="232" height="67" rx="4"/><rect x="616" y="257" width="232" height="67" rx="4"/><rect x="616" y="348" width="232" height="67" rx="4"/></g>
+<path d="m690 212 70-27" stroke="#f6d99a" stroke-width="5" stroke-linecap="round"/>
+<g fill="#182021" font-size="19" font-weight="600"><text x="627" y="196">桌面</text><text x="627" y="287">桌腿</text><text x="627" y="378">抽屉</text></g>
+<text x="617" y="450" fill="#b7d9c4" font-size="20">只有桌面显示独有划痕。</text>
+</g></svg>

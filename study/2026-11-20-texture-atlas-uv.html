@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="从家具共用木纹的例子，图解纹理图集、UV 重叠、采样与局部扰动。通过可交互演示，分清复用纹理、修改采样坐标和写入独立划痕。">
+  <title>图集与重叠 UV：共用木纹，怎样只改一个部位？ · 学习手记 · 电子蜗居</title>
+  <link rel="stylesheet" href="../assets/study.css">
+  <link rel="stylesheet" href="../assets/study-explainer.css">
+  <link rel="stylesheet" href="../assets/study-atlas.css">
+  <script src="../assets/study-atlas.js" defer></script>
+</head>
+<body class="atlas-article">
+  <a class="skip-link" href="#article">跳到文章正文</a>
+  <div class="study-page">
+    <header class="site-bar">
+      <a class="home-link" href="../"><span class="home-mark" aria-hidden="true">⌂</span>电子蜗居<span class="slash">/</span><span class="current">学习</span></a>
+      <nav aria-label="个人主页导航"><a href="../blog.html">博客</a><a href="../thinking.html">思考</a><a href="../gallery.html">相册</a><a class="active" href="../study.html">学习手记</a></nav>
+    </header>
+    <main class="note-detail">
+      <nav class="note-breadcrumb" aria-label="面包屑导航"><a href="../study.html#notes">学习手记</a><span aria-hidden="true">/</span><span aria-current="page">图集与重叠 UV</span></nav>
+      <article aria-labelledby="article-title">
+        <header class="note-detail-header">
+          <p class="eyebrow">THE LEARNING NOTEBOOK</p>
+          <h1 id="article-title">图集与重叠 UV<span class="title-dot">.</span></h1>
+          <p class="atlas-deck">共用一块木纹，怎样只改一个部位？</p>
+          <div class="note-meta"><time datetime="2026-11-20">2026 年 11 月 20 日</time><span>技术美术</span><span class="note-author">干煸双鲜</span><span>约 10 分钟 · 交互图解</span></div>
+          <ul class="note-tags" aria-label="文章标签"><li>Unity</li><li>纹理图集</li><li>UV</li><li>Shader</li></ul>
+        </header>
+        <div class="note-prose" id="article">
+          <p class="atlas-lead">把许多家具的贴图合成一张图集，能减少资源切换。但当三个部位共用同一块木纹时，一个 UV 到底指向谁？如果只想让其中一块扭曲、变脏或出现划痕，又该怎么办？</p>
+          <div class="atlas-summary"><div><strong>图集</strong><span>把多个纹理区域放进一张图。</span></div><div><strong>UV</strong><span>告诉 Shader 去贴图哪里读取。</span></div><div><strong>部位信息</strong><span>告诉效果应该作用在谁身上。</span></div></div>
+          <p class="term-note">由一次家具贴图讨论整理。本文的 a、b、c 表示三种可复用的纹理内容；“使用 3 次”表示有 3 个部位读取它。配图与交互为原创二维教学示意，不是 Unity 实时渲染截图。</p>
+          <nav class="article-toc" aria-label="文章目录"><a href="#atlas">图集有什么用</a><a href="#reuse">木纹存几份</a><a href="#sampling">UV 在查什么</a><a href="#effects">只扰动一个部位</a><a href="#storage">划痕存在哪里</a><a href="#practice">Unity 中怎么选</a></nav>
+
+          <section id="atlas" class="explain-section">
+            <h2>图集减少了数量，不一定减少显存</h2>
+            <p>家具改为引用同一张图集后，可以共享这一份纹理资源。法线、金属度等贴图通常还要分别整理，实际共用的可能是<strong>一套图集</strong>。共用材质还要求 Shader 和渲染状态兼容，透明玻璃与不透明木头通常需要分开处理。</p>
+            <p>主要收益是减少贴图、材质切换，并为合批创造条件；<strong>一个材质不等于一次 Draw Call</strong>。普通 GPU Instancing 还要求相同网格等条件，不同家具不能仅凭共用图集就自动实例化到一起。URP / HDRP 的 SRP Batcher 也能优化使用相同 Shader 变体的多个材质，收益应以实际测量为准。<a href="#source-batching">[1]</a><a href="#source-srp">[2]</a><a href="#source-instancing">[3]</a></p>
+            <div class="atlas-table-wrap"><table><caption>假设：RGBA32、无压缩、不含 Mipmap 与对象开销</caption><thead><tr><th scope="col">存储方式</th><th scope="col">全部加载</th><th scope="col">只需要其中 1 件家具</th></tr></thead><tbody><tr><td>16 张 512 × 512</td><td>16 MiB</td><td>按需只加载 1 张：1 MiB</td></tr><tr><td>1 张 2048 × 2048</td><td>16 MiB</td><td>普通整图加载：16 MiB</td></tr></tbody></table></div>
+            <p>两者的总像素数相同，所以数据量相同。图集的空白、间隔甚至可能增加占用。只有减少总像素、提高有效利用率、改用合适压缩或复用相同内容，才可能进一步省显存。磁盘里的 PNG 大小不等于运行时纹理占用。<a href="#source-format">[4]</a></p>
+            <p class="term-note">上表是理想化比较，独立纹理需要资源系统支持按需加载。常规 Mipmap Streaming 按整张纹理的分辨率层级加载，不能只加载图集里某件家具的矩形区域；虚拟纹理等分块方案另论。<a href="#source-streaming">[5]</a></p>
+          </section>
+
+          <section id="reuse" class="explain-section">
+            <h2>同一块木纹用十次，也可以只存一份</h2>
+            <p>图集可以看成一张“材料样本卡”。桌面、桌腿、抽屉都可以读取卡上的同一块木纹。读取不会占用这块区域，也不会把它消耗掉。</p>
+            <figure class="teaching-figure"><div class="figure-heading"><strong>使用次数，与存储份数是两回事</strong><span>窄屏可横滑，点击查看原图</span></div><a href="../assets/study/atlas/atlas-reuse.svg"><img src="../assets/study/atlas/atlas-reuse.svg" width="900" height="480" alt="家具 A 使用 a 三次、b 两次、c 一次；B 使用 a 两次、b 四次；C 使用 a 一次、c 五次。它们都读取同一张图集，图集只保存 a、b、c 各一份。"></a><figcaption>按讨论中的写法相加：B 的 b 为 3 + 1 = 4 次；C 的 c 为 3 + 2 = 5 次。即使次数不同，也不需要按次数复制纹理。图中省略了实际打包需要的边距。</figcaption></figure>
+            <p><strong>前提是内容确实相同。</strong>如果三块木头分别带有不同的划痕、污渍或烘焙细节，它们就不能直接共用同一批像素，同时保留这些差异。单纯把三件家具的整张贴图拼起来，也不会自动消除重复木纹；需要重新安排相应的 UV。</p>
+          </section>
+
+          <section id="sampling" class="explain-section">
+            <h2>UV 是贴图地址，不是部位身份证</h2>
+            <p>每个部位的顶点仍然有自己的 UV。所谓“重叠”，是这些坐标覆盖了相同的贴图区域。<strong>采样时，查的是贴图中的颜色，不是在几个部位中选一个。</strong></p>
+            <ol class="atlas-flow"><li><strong>确定表面</strong><span>正在绘制桌腿的三角形。</span></li><li><strong>得到 UV</strong><span>由顶点 UV 插值得到当前坐标。</span></li><li><strong>读取纹理</strong><span>去这个地址读取颜色。</span></li><li><strong>画到屏幕</strong><span>结合光照等，输出到对应位置。</span></li></ol>
+            <figure class="teaching-figure interactive-figure" id="sample-demo">
+              <div class="figure-heading"><strong>试一试：换一个部位，贴图地址会变吗？</strong><span>先选择部位，再拖动 U、V</span></div>
+              <fieldset class="atlas-options"><legend>当前正在绘制的部位</legend><label><input type="radio" name="sample-part" value="0" checked>桌面</label><label><input type="radio" name="sample-part" value="1">桌腿</label><label><input type="radio" name="sample-part" value="2">抽屉</label></fieldset>
+              <div class="sample-layout"><div><p class="diagram-label">共享的木纹区域 a</p><canvas id="sample-texture" width="320" height="320" role="img" aria-label="木纹区域中的采样坐标，白色十字表示当前 U、V 位置"></canvas></div><div class="sample-results"><div data-sample-part="0"><strong>桌面</strong><span class="sample-chip"></span><span class="sample-coordinate">UV (0.20, 0.40)</span></div><div data-sample-part="1"><strong>桌腿</strong><span class="sample-chip"></span><span class="sample-coordinate">UV (0.20, 0.40)</span></div><div data-sample-part="2"><strong>抽屉</strong><span class="sample-chip"></span><span class="sample-coordinate">UV (0.20, 0.40)</span></div></div></div>
+              <div class="atlas-sliders"><label for="sample-u">U <output id="sample-u-value">0.20</output></label><input id="sample-u" type="range" min="0" max="1" step="0.01" value="0.2"><label for="sample-v">V <output id="sample-v-value">0.40</output></label><input id="sample-v" type="range" min="0" max="1" step="0.01" value="0.4"></div>
+              <p class="demo-status" id="sample-status" role="status" aria-live="polite">三个部位使用相同坐标时，读取相同的纹理颜色；选中的部位决定把结果用在哪里。</p>
+              <figcaption>这里展示三个表面上“对应的一个采样点”，不是把整个表面涂成纯色。坐标为木纹小块内部的局部 UV；真正的图集还需映射到该小块的范围。为便于比较，省略光照、过滤与 Mipmap 差异。</figcaption>
+            </figure>
+            <p>所以，<code>(0.2, 0.4)</code> 可以同时被三个部分使用；在相同采样条件下，读到的是同样的颜色。可如果<strong>只拿到这个 UV，反过来问它属于哪一部分</strong>，答案就不唯一。模型位置和光照仍可不同，但 UV 本身无法标识部位。</p>
+          </section>
+
+          <section id="effects" class="explain-section">
+            <h2>只扰动一个部位：先补上区分它的信息</h2>
+            <blockquote class="atlas-question">“我的 UV 对应了三个部分，那不就不能只扰动其中一个了吗？”</blockquote>
+            <p><strong>如果判断依据只有 UV，你的判断是对的。</strong>同一个依赖 UV 的规则，会同样作用于三个完全重叠的区域。要只影响桌面，需要额外提供“这是桌面”的信息，例如顶点颜色中的遮罩，或额外 UV 通道里的部位标记。<a href="#source-vertex">[6]</a><a href="#source-uv">[7]</a></p>
+            <figure class="teaching-figure interactive-figure" id="effect-demo">
+              <div class="figure-heading"><strong>对照实验：相同木纹，四种操作</strong><span>切换方式，观察哪些部分变化</span></div>
+              <fieldset class="atlas-options mode-options"><legend>操作方式</legend><label><input type="radio" name="effect-mode" value="shared" checked>修改共享纹理</label><label><input type="radio" name="effect-mode" value="uv">仅按 UV 扰动</label><label><input type="radio" name="effect-mode" value="part">按部位扰动</label><label><input type="radio" name="effect-mode" value="mask">独立划痕遮罩</label></fieldset>
+              <fieldset class="atlas-options"><legend>希望只影响谁</legend><label><input type="radio" name="effect-part" value="0" checked>桌面</label><label><input type="radio" name="effect-part" value="1">桌腿</label><label><input type="radio" name="effect-part" value="2">抽屉</label></fieldset>
+              <div class="atlas-sliders"><label for="effect-strength">效果强度 <output id="effect-strength-value">70%</output></label><input id="effect-strength" type="range" min="0" max="100" step="1" value="70"></div>
+              <div class="effect-source"><canvas id="effect-source" width="160" height="160" role="img" aria-label="实际共享的基础木纹"></canvas><p><strong>共享木纹 a</strong><span id="source-status">这份纹理被改了，三个部分都会读到划痕。</span></p></div>
+              <div class="effect-panels"><div data-effect-part="0"><canvas width="240" height="180" role="img" aria-label="桌面表面的效果示意"></canvas><strong>桌面</strong><span></span></div><div data-effect-part="1"><canvas width="240" height="180" role="img" aria-label="桌腿表面的效果示意"></canvas><strong>桌腿</strong><span></span></div><div data-effect-part="2"><canvas width="240" height="180" role="img" aria-label="抽屉表面的效果示意"></canvas><strong>抽屉</strong><span></span></div></div>
+              <p class="demo-status" id="effect-status" role="status" aria-live="polite">共享贴图被写入划痕后，三个部位都会变化；目标选择本身不能让共享像素分开。</p>
+              <button class="atlas-button" id="effect-reset" type="button">恢复初始演示</button>
+              <figcaption>三张矩形代表家具 A 的三个表面，均映射同一块完整木纹。目标边框只标记“想影响谁”。“按部位扰动”模拟带部位遮罩的 UV 扭曲；“独立划痕遮罩”模拟在独立数据中记录差异。演示只保留当前目标的一处效果，不累计画笔历史。</figcaption>
+            </figure>
+            <h3>改采样坐标：原图没有被改</h3>
+            <p>给桌面顶点的遮罩值设为 1，另外两个部位设为 0。Shader 就能仅对桌面改变采样位置：</p>
+            <pre class="atlas-code"><code>// 概念伪代码：部位遮罩来自额外的顶点数据
+采样UV = 原UV + 扰动偏移 × 部位遮罩
+颜色 = 读取纹理(共享图集, 采样UV)</code></pre>
+            <p>这里仍然共享图集和材质，只多了选择效果作用范围的数据。如果要用硬边部位标记，相邻部位的边界不能因顶点插值混成中间值，需要正确拆分或编码。图集内的 UV 扰动也要限制在对应区域，避免读到旁边的纹理；普通 Repeat 会重复整张图集，不能自动只重复其中一格。</p>
+          </section>
+
+          <section id="storage" class="explain-section">
+            <h2>修改像素：不同划痕，需要不同的存储位置</h2>
+            <p>假如鼠标点中桌面，得到一个 UV，然后直接向共享木纹的这个位置写入划痕，桌腿和抽屉也会读到修改后的像素。<strong>知道点中了谁，只解决了“选择目标”，没有解决“差异存在哪里”。</strong></p>
+            <figure class="teaching-figure"><div class="figure-heading"><strong>共享基础颜色，单独保存差异</strong><span>两套 UV · 窄屏可横滑</span></div><a href="../assets/study/atlas/independent-mask.svg"><img src="../assets/study/atlas/independent-mask.svg" width="900" height="520" loading="lazy" alt="三块表面的 UV0 重叠，读取同一份木纹；另一套 UV 中，桌面、桌腿、抽屉分别映射独立遮罩区域，只有桌面的遮罩包含划痕。木纹与遮罩在 Shader 中组合。"></a><figcaption>基础颜色继续复用。第二套 UV 把三个部位分开，额外遮罩只存“哪里有划痕”。这是概念布局，留白与分辨率需按实际效果设计。</figcaption></figure>
+            <p>如果不仅要区分同一家具的三个部位，还要让<strong>场景中的每一件家具实例</strong>有独立损伤，就还需要按实例分配遮罩区域、纹理层或其他独立状态。不能让十把椅子继续引用同一个损伤位置。</p>
+            <p class="term-note">“第二套 UV”在 Shader Graph 中通常叫 UV1，Unity 的 Mesh API 对应 <code>uv2</code>。它常用于烘焙光照，已有用途时应选择其他可用通道或重新规划，不能直接覆盖。<a href="#source-uv">[7]</a><a href="#source-mesh">[8]</a></p>
+          </section>
+
+          <section id="practice" class="explain-section">
+            <h2>回到家具项目：按想做的效果选择</h2>
+            <div class="atlas-table-wrap"><table><caption>共享哪些数据，取决于哪些差异需要保留</caption><thead><tr><th scope="col">需求</th><th scope="col">需要准备什么</th></tr></thead><tbody><tr><td>多个部位显示同样的木纹</td><td>共享纹理区域，允许 UV 重叠。</td></tr><tr><td>某个部位的木纹旋转或缩放</td><td>独立调整该部位的 UV；保持在图集分配范围内。</td></tr><tr><td>只让某个部位扭曲、变色</td><td>部位遮罩或标记，让 Shader 仅对目标应用效果。</td></tr><tr><td>给某个部位画独有且可保留的污渍</td><td>独立纹理区域、独立遮罩，或适合的贴花方案。</td></tr><tr><td>每件家具实例都有不同损伤</td><td>额外的实例标识与独立效果数据；同一部位标记还不够。</td></tr></tbody></table></div>
+            <p>Unity 中点击模型时，可以结合碰撞对象与命中三角形识别目标，再按规划写入效果数据。<code>RaycastHit.textureCoord</code> 返回的是命中点的纹理坐标，需要 MeshCollider 支持；只保留这个坐标，会丢掉原本用于区分表面的上下文。<a href="#source-raycast">[9]</a></p>
+            <div class="knowledge-callout"><h3>这次讨论最值得记住的三句话</h3><p><strong>同一份纹理可以被反复读取。</strong><br>重叠 UV 能复用内容，但不能仅凭 UV 认出部位。<br>独立控制需要额外信息，独立保存差异需要独立空间。</p></div>
+            <details class="atlas-review"><summary>自测：我有部位 ID，直接修改共享木纹就能只改变桌面吗？</summary><p>不能。ID 能告诉你点中了桌面，但若修改的还是三个部位共用的像素，三个部位都会读到变化。要么用 ID 只改变桌面的采样或着色，要么把划痕写到桌面独有的效果数据中。</p></details>
+            <details class="atlas-review"><summary>自测：把 16 张 512 贴图合成一张 2048 图集，会省 15 倍显存吗？</summary><p>不会。在相同格式、相同加载层级、忽略间隔和对象开销时，总像素数没变，数据量基本不变。图集主要改善资源切换与合批条件；是否省显存要另算。</p></details>
+            <p>对于自由建造场景，可以按经常共同出现的家具、相近的纹理精度与兼容的渲染方式分组制作图集。规划时同时考虑加载范围和后续局部效果，再用 Frame Debugger 与 Profiler 比较渲染开销、Draw Call 和纹理占用。</p>
+          </section>
+
+          <section id="sources" class="explain-section"><h2>资料与延伸阅读</h2><p class="source-line">依据 Unity 6.0 与 Shader Graph 17 文档核对。家具数量、内存算例、图示与交互均为本文的教学示例。</p><ol class="atlas-sources"><li id="source-batching"><a href="https://docs.unity3d.com/6000.0/Documentation/Manual/DrawCallBatching.html">Unity · Draw call batching</a> — 合批条件与限制。</li><li id="source-srp"><a href="https://docs.unity3d.com/6000.0/Documentation/Manual/SRPBatcher.html">Unity · SRP Batcher</a> — 优化提交开销，不等于合成一次绘制。</li><li id="source-instancing"><a href="https://docs.unity3d.com/6000.0/Documentation/Manual/GPUInstancing.html">Unity · GPU instancing</a> — 相同网格与材质的实例化。</li><li id="source-format"><a href="https://docs.unity3d.com/6000.0/Documentation/Manual/class-TextureImporterOverride.html">Unity · Texture formats in memory</a> — 运行时纹理格式。</li><li id="source-streaming"><a href="https://docs.unity.com/en-us/engine/6000.0/manual/materials-and-shaders/textures/texture-loading/texture-streaming/introduction">Unity · Mipmap streaming</a> — 按纹理层级加载。</li><li id="source-vertex"><a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@17.0/manual/Vertex-Color-Node.html">Shader Graph · Vertex Color Node</a> — 读取额外顶点数据。</li><li id="source-uv"><a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@17.0/manual/UV-Node.html">Shader Graph · UV Node</a> — 选择不同 UV 通道。</li><li id="source-mesh"><a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Mesh-uv2.html">Unity · Mesh.uv2</a> — 第二套 UV 与光照贴图。</li><li id="source-raycast"><a href="https://docs.unity3d.com/6000.0/Documentation/ScriptReference/RaycastHit-textureCoord.html">Unity · RaycastHit.textureCoord</a> — 命中位置的纹理坐标。</li></ol></section>
+          <noscript><p class="knowledge-callout">交互演示需要 JavaScript。正文、两张完整示意图与对照表仍可阅读：修改共享纹理会影响所有复用者；带部位标记的采样扰动和独立遮罩可以只影响目标。</p></noscript>
+        </div>
+        <footer class="note-detail-footer"><a href="../study.html#2026-11-20-texture-atlas-uv">返回学习手记</a><span>保持好奇，持续生长。</span></footer>
+      </article>
+    </main>
+    <footer class="study-footer"><a href="../">回到电子蜗居</a><span>学习手记<span class="footer-dot">●</span></span></footer>
+  </div>
+</body>
+</html>
